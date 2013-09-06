@@ -16,12 +16,12 @@ class CreatePiecePages < ActiveRecord::Migration
       t.string        :organization
       t.string        :focus_position
       t.string        :focus_keywords
-      t.boolean       :option_glass,              :default => false
-      t.boolean       :option_clickable,          :default => true
-      t.boolean       :active,                    :default => true
+      t.boolean       :option_glass,              default: false
+      t.boolean       :option_clickable,          default: true
+      t.boolean       :active,                    default: true
       t.timestamps
     end
 
-    add_index :piece_pages, [:slug], :unique => true
+    add_index :piece_pages, [:slug], unique: true
   end
 end

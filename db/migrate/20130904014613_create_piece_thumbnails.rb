@@ -6,7 +6,7 @@ class CreatePieceThumbnails < ActiveRecord::Migration
       t.string      :image_file_name
       t.integer     :image_file_size
       t.datetime    :image_updated_at
-      t.boolean     :active,          :default => true
+      t.boolean     :active,          default: true
       t.timestamps
     end
   end

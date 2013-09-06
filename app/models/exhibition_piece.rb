@@ -11,7 +11,7 @@ class ExhibitionPiece < ActiveRecord::Base
 
   # ---------------------------------------------------------------------------
 
-  default_scope where(active: true).order('sort_index ASC')
+  default_scope { where(active: true).order('sort_index ASC') }
 
 
   # ---------------------------------------------------------------------------

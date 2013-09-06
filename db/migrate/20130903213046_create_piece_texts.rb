@@ -6,10 +6,10 @@ class CreatePieceTexts < ActiveRecord::Migration
       t.text          :content
       t.integer       :position
       t.string        :theme
-      t.boolean       :active,        :default => true
+      t.boolean       :active,        default: true
       t.timestamps
     end
 
-    add_index :piece_texts, [:slug], :unique => true
+    add_index :piece_texts, [:slug], unique: true
   end
 end

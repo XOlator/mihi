@@ -12,7 +12,7 @@ class PieceText < ActiveRecord::Base
 
   # ---------------------------------------------------------------------------
 
-  default_scope where(active: true)
+  default_scope { where(active: true) }
 
 
   # ---------------------------------------------------------------------------

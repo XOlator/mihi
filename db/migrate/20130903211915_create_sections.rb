@@ -8,12 +8,12 @@ class CreateSections < ActiveRecord::Migration
       t.string      :subtitle
       t.string      :excerpt
       t.text        :description
-      t.integer     :sort_index,            :default => 9999
+      t.integer     :sort_index,            default: 9999
       t.timestamps
     end
 
     add_index :sections, [:exhibition_id]
-    add_index :sections, [:slug], :unique => true
+    add_index :sections, [:slug], unique: true
   end
 
 end

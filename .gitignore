@@ -7,3 +7,5 @@
 /tmp
 
 database.yml
+coverage/
+.keep
