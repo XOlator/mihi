@@ -1,0 +1,2 @@
+module Browse::ExhibitionsHelper
+end

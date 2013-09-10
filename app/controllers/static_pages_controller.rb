@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
 
-  before_filter :get_page, :only => [:show]
+  before_filter :get_page, only: [:show]
 
 
   def show
@@ -11,10 +11,16 @@ class StaticPagesController < ApplicationController
         # @body_classes << 'static_page'
         # @body_classes << "page_#{@page.page.gsub(/\/|\-/m, '_').gsub(/("|')/m, '')}"
 
-        render @page.file#, :layout => (current_user? ? 'master' : 'intro')
+        render @page.file#, layout: (current_user? ? 'master' : 'intro')
       }
       format.any { render_not_found }
     end
+  end
+
+  # --- Page-specific Methods ---
+
+  def home
+    @exhibitions = Exhibition.limit(3).order('created_at desc')
   end
 
 

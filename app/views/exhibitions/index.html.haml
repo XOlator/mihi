@@ -3,5 +3,5 @@
 %ul
   - @exhibitions.each do |e|
     %li
-      %a{:href => exhibition_url(e)} #{e.title} (##{e.id})
+      %a{href: exhibition_url(e)} #{e.title} (##{e.id})
         

@@ -20,7 +20,7 @@
     description: "This is the description for a section."
   )
 
-  exhibition_piece = ExhibitionPiece.create
+  exhibition_piece = ExhibitionPiece.create(exhibition: @exhibition)
   piece = PieceText.create(
     title: "Piece Text",
     content: "This would be really long content",
@@ -32,7 +32,7 @@
   @exhibition_pieces << piece
 
   2.times do |j|
-    exhibition_piece = ExhibitionPiece.create
+    exhibition_piece = ExhibitionPiece.create(exhibition: @exhibition)
     piece = PiecePage.create(
       title: "Piece Text #{j}",
       url: "http://gleu.ch/project/#{i}-#{j}",

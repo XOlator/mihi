@@ -1,0 +1,9 @@
+- unless @exhibition_piece.piece.blank?
+  %article.exhibition_piece{id: "exhibition_piece_#{@exhibition_piece.id}", class: @exhibition_piece.piece.class.name.underscore}
+    - case @exhibition_piece.piece.class.name
+      - when 'PieceText'
+        = render 'browse/exhibition_pieces/show/piece_text'
+      - when 'PiecePage'
+        = render 'browse/exhibition_pieces/show/piece_page'
+      - else
+        %p Nothing to see.

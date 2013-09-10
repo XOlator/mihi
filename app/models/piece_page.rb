@@ -67,6 +67,22 @@ class PiecePage < ActiveRecord::Base
     end
   end
 
+  def read_cache_page
+    return false if self.cache_page_file_size.to_i < 1
+
+    begin
+      status = Timeout::timeout(TIMEOUT_LENGTH) do
+        open(self.url, read_timeout: TIMEOUT_LENGTH, "User-Agent" => MIHI_USER_AGENT, allow_redirections: :all).read
+      end
+    rescue OpenURI::HTTPError => err
+      false
+    rescue Timeout::Error => err
+      false
+    rescue => err
+      false
+    end
+  end
+
 
 private
 

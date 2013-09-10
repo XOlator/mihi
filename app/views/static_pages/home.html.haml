@@ -1,1 +1,13 @@
-%h1 Home
+%h1 The Museum of Internet History International
+
+%p More information coming soon.
+
+
+- if @exhibitions.present?
+  %h2 Check out these latest exhibitions:
+  %ul
+    - @exhibitions.each do |e|
+      %li
+        %h4
+          %a{href: browse_exhibition_url(e)}= e.title
+        = simple_format(truncate(e.description, length: 250))

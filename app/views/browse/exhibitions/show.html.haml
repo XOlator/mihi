@@ -1,0 +1,8 @@
+%h1= @exhibition.title
+%h3= @exhibition.subtitle
+
+= simple_format(@exhibition.description)
+
+- if @next_piece.present?
+  %p
+    %a{:href => browse_exhibition_piece_url(@exhibition, @next_piece)} Begin

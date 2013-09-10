@@ -1,23 +1,14 @@
-class ExhibitionsController < ApplicationController
+class Browse::ExhibitionsController < ApplicationController
 
   before_filter :get_exhibition, only: [:show]
 
+  layout 'browse'
 
-  def index
-    results = Proc.new {
-      @exhibitions = Exhibition.all
-    }
-
-    respond_to do |format|
-      format.html {
-        results.call
-        render :index
-      }
-    end
-  end
 
   def show
     results = Proc.new {
+      @prev_piece = nil
+      @next_piece = @exhibition.exhibition_pieces.first
     }
 
     respond_to do |format|

@@ -1,0 +1,26 @@
+!!!
+%html
+  %head
+    %title MIHI
+    = stylesheet_link_tag    "application", media: "all"#, "data-turbolinks-track" => true
+    = javascript_include_tag "application"#, "data-turbolinks-track" => true
+    = csrf_meta_tags
+  %body
+    - unless @exhibition.blank?
+      .buttons.c
+        %a{href: browse_exhibition_url(@exhibition)} Home
+        - if @prev_piece.present?
+          %a{href: browse_exhibition_piece_url(@exhibition, @prev_piece)} Prev
+        - else
+          %span Prev
+        - if @next_piece.present?
+          %a{href: browse_exhibition_piece_url(@exhibition, @next_piece)} Next
+        - else
+          %span Next
+      %hr
+
+    = yield
+
+    %footer
+      %p
+        %small &copy; #{Date.today.year} X&O Accelerator Company LLC. Support by Eyebeam.

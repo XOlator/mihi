@@ -9,9 +9,17 @@ Mihi::Application.routes.draw do
   #   root to: 'static_pages#show', page: 'home'
   # end
 
+  namespace :browse do
+    resources :exhibitions, only: [:show] do
+      resources :exhibition_pieces, path: '/piece', as: :piece, only: [:show] do
+        get '/cache', action: :cache, on: :member
+      end
+    end
+  end
+
   # Newsletters
   resources :exhibitions, only: [:index,:show] do
-    resources :exhibition_pieces, path: '/piece', only: [:show]
+    resources :exhibition_pieces, path: '/piece', as: :piece, only: [:show]
   end
 
   # Static pages routing, use StaticPage to check if exists as constraint
