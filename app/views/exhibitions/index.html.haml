@@ -1,0 +1,7 @@
+%h1 Exhibitions
+
+%ul
+  - @exhibitions.each do |e|
+    %li
+      %a{:href => exhibition_url(e)} #{e.title} (##{e.id})
+        

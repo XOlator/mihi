@@ -49,7 +49,6 @@
     @exhibition_pieces << piece
   end
 
-  section.save
   @sections << section
 end
 
