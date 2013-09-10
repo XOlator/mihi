@@ -2,9 +2,13 @@ class PieceThumbnail < ActiveRecord::Base
 
   include Activatable
 
+
   # ---------------------------------------------------------------------------
 
-  # PAPERCLIP :image
+  has_attached_file :image, 
+    # S3 HERE
+    styles: {thumbnail: ""},
+    convert_options: {thumbnail: "-gravity north -thumbnail 300x300^ -extent 300x300"}
 
 
   # ---------------------------------------------------------------------------

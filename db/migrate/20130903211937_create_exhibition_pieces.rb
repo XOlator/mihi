@@ -1,6 +1,7 @@
 class CreateExhibitionPieces < ActiveRecord::Migration
   def change
     create_table :exhibition_pieces do |t|
+      t.string      :slug
       t.integer     :exhibition_id
       t.string      :piece_type
       t.integer     :piece_id

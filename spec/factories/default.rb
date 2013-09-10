@@ -19,7 +19,7 @@ end
 # Default params
 INVALID_EMAILS = [nil, '', 'mihi', 'mihi@', '@themihi', 'gregleuch@themihi']
 
-VALID_USER_OPTS = {:password => "mihi", :password_confirmation => "mihirocks", :email => "gregleuch@themihi.net", :first_name => 'Greg', :last_name => 'Leuch', :zip_code => '10001', :agree_tos => true}
+VALID_USER_OPTS = {password: "mihi", password_confirmation: "mihirocks", email: "gregleuch@themihi.net", first_name: 'Greg', last_name: 'Leuch', zip_code: '10001', agree_tos: true}
 INVALID_USER_OPTS = {}
 
 VALID_SECTION_NAMES = ['tag', 'a tag', 'a longer tag name']

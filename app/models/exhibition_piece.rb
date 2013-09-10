@@ -2,6 +2,7 @@ class ExhibitionPiece < ActiveRecord::Base
 
   include Activatable
 
+
   # ---------------------------------------------------------------------------
 
   belongs_to :exhibition
@@ -11,10 +12,11 @@ class ExhibitionPiece < ActiveRecord::Base
 
   # ---------------------------------------------------------------------------
 
-  default_scope { where(active: true).order('sort_index ASC') }
+  default_scope { where(active: true).order('section_sort_index ASC, sort_index ASC') }
 
 
   # ---------------------------------------------------------------------------
+
 
 
 private

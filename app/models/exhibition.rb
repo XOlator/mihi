@@ -2,6 +2,7 @@ class Exhibition < ActiveRecord::Base
 
   include Activatable
 
+
   # ---------------------------------------------------------------------------
 
   THEMES = [:default]
@@ -20,6 +21,20 @@ class Exhibition < ActiveRecord::Base
 
   # ---------------------------------------------------------------------------
 
+  before_validation :ensure_theme
+
+
+  # ---------------------------------------------------------------------------
+
+  validates :title,         presence: true,  length: 2..255
+  validates :subtitle,      presence: true,  length: 2..255
+  validates :description,   presence: true,  length: 2..2000
+  validates :excerpt,       presence: true,  length: 2..255
+  validates :theme,         inclusion: {in: THEMES}
+
+
+  # ---------------------------------------------------------------------------
+
   default_scope { where(active: true) }
 
 
@@ -27,6 +42,11 @@ class Exhibition < ActiveRecord::Base
 
 
 private
+
+  def ensure_theme
+    self.theme ||= THEMES.first
+  end
+
 
 
 end

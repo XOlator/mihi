@@ -9,6 +9,7 @@ class CreateSections < ActiveRecord::Migration
       t.string      :excerpt
       t.text        :description
       t.integer     :sort_index,            default: 9999
+      t.boolean     :active,                default: true
       t.timestamps
     end
 

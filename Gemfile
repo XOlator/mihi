@@ -24,6 +24,7 @@ group :development, :staging, :test, :production do
   # Core compontents
   gem 'mysql2',                     '0.3.13'    # MySQL adapter
   gem 'authlogic',                  '3.3.0'     # Userauth
+  gem 'addressable',                '2.3.5'     # Better URI parsing
   gem 'haml',                       '4.0.3'     # Templating
   gem 'will_paginate',              '3.0.4'     # Pagination
   gem 'jquery-rails',               '3.0.4'     # Rails jQuery integration
@@ -77,13 +78,13 @@ group :development, :test do
   gem 'rspec-rails',                '2.14.0'
   gem 'factory_girl_rails',         '4.2.1'
   gem 'newrelic_rpm',               '3.6.6.147'
+  gem 'sqlite3',                    '1.3.8'
 end
 
 
 # TESTING
 group :test do
   gem 'rspec',                      '2.14.1'
-  gem 'sqlite3',                    '1.3.8'
   gem 'spork',                      '0.9.2'
   gem 'turn',                       '0.9.6',    require: false
   # gem 'coveralls',                  '', require: false
