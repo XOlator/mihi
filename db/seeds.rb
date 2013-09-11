@@ -4,6 +4,16 @@
 
 @sections, @exhibition_pieces = [], []
 
+urls = [
+  'http://gleu.ch/',
+  'http://fffff.at',
+  'http://xolator.com',
+  'http://fromjia.com',
+  'http://eyebeam.org',
+  'http://jamiedubs.com',
+  'http://evanroth.com'
+].shuffle
+
 
 @exhibition = Exhibition.create(
   title: "Exhibition Name", 
@@ -35,7 +45,7 @@
     exhibition_piece = ExhibitionPiece.create(exhibition: @exhibition)
     piece = PiecePage.create(
       title: "Piece Text #{j}",
-      url: "http://gleu.ch/project/#{i}-#{j}",
+      url: urls.pop,
       description: "This would be really long content",
       timeline_date: Date.today,
       timeline_year: Date.today.year,

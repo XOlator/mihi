@@ -9,3 +9,6 @@
 database.yml
 coverage/
 .keep
+
+public/storage
+public/system

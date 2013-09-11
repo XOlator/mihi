@@ -49,21 +49,20 @@ class PiecePage < ActiveRecord::Base
 
   def cache_page_content
     begin
+      uri = Addressable::URI.parse(self.url)
       status = Timeout::timeout(TIMEOUT_LENGTH) do
         io = open(self.url, read_timeout: TIMEOUT_LENGTH, "User-Agent" => MIHI_USER_AGENT, allow_redirections: :all)
-        io.class_eval { attr_accessor :original_filename }
-        io.original_filename = [File.basename(self.filename), "html"].join('.')
-        self.cache_page = io
         raise "Invalid content-type" unless io.content_type.match(/text\/html/i)
+        io.class_eval { attr_accessor :original_filename }
+        io.original_filename = [uri.host, File.basename(uri.path), "html"].reject{|v| v.blank? || v == '/'}.join('.').gsub(/\//, '')
+        self.cache_page = io
       end
     rescue OpenURI::HTTPError => err
-      self.cache_page = nil
+      puts "Fetch Page Error (OpenURI): #{err}"
     rescue Timeout::Error => err
       puts "Fetch Page Error (Timeout): #{err}"
     rescue => err
       puts "Fetch Page Error (Error): #{err}"
-    ensure
-      # self.save
     end
   end
 

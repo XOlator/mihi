@@ -1,5 +1,6 @@
 - if @content.present?
-  = @content
+  = @content.html_safe
+
 - else
   !!!
   %html
