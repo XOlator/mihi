@@ -11,7 +11,7 @@ class Section < ActiveRecord::Base
   # ---------------------------------------------------------------------------
 
   has_many :exhibition_pieces
-  has_many :pieces, through: :exhibition_pieces
+  has_many :pieces, through: :exhibition_pieces, source: :piece
 
 
   # ---------------------------------------------------------------------------

@@ -2,12 +2,12 @@
 %html
   %head
     %title MIHI
-    = stylesheet_link_tag    "application", media: "all"#, "data-turbolinks-track" => true
+    = stylesheet_link_tag    "application", "exhibitions", media: "all"#, "data-turbolinks-track" => true
     = javascript_include_tag "application"#, "data-turbolinks-track" => true
     = csrf_meta_tags
-  %body
+  %body.browse_exhibition
     - unless @exhibition.blank?
-      .buttons.c
+      #pagination.c
         %a{href: browse_exhibition_url(@exhibition)} Home
         - if @prev_piece.present?
           %a{href: browse_exhibition_piece_url(@exhibition, @prev_piece)} Prev
@@ -17,10 +17,10 @@
           %a{href: browse_exhibition_piece_url(@exhibition, @next_piece)} Next
         - else
           %span Next
-      %hr
 
-    = yield
+    #content
+      = yield
 
-    %footer
+    %footer#footer
       %p
         %small &copy; #{Date.today.year} X&O Accelerator Company LLC. Support by Eyebeam.
