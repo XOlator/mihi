@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130904014613) do
+ActiveRecord::Schema.define(version: 20130924230146) do
 
   create_table "exhibition_pieces", force: true do |t|
     t.string   "slug"
@@ -54,6 +54,20 @@ ActiveRecord::Schema.define(version: 20130904014613) do
   end
 
   add_index "exhibitions", ["slug"], name: "index_exhibitions_on_slug", unique: true
+
+  create_table "piece_page_events", force: true do |t|
+    t.integer  "piece_page_id"
+    t.integer  "action_type",    default: 0
+    t.integer  "action_timeout", default: 0
+    t.string   "action_array"
+    t.text     "action_text"
+    t.integer  "sort_index",     default: 9999
+    t.boolean  "active",         default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "piece_page_events", ["piece_page_id"], name: "index_piece_page_events_on_piece_page_id"
 
   create_table "piece_pages", force: true do |t|
     t.string   "slug"

@@ -19,7 +19,7 @@ class PiecePage < ActiveRecord::Base
   belongs_to :exhibition_piece
   has_one :exhibition, through: :exhibition_piece
   has_one :piece_thumbnail
-
+  has_many :page_events, class_name: 'PiecePageEvent'
   has_many :piece_assets
 
 

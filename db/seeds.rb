@@ -8,7 +8,7 @@ words = %w(Neutra chillwave literally photo booth High Life mixtape you probably
 end
 
 
-@sections, @exhibition_pieces = [], []
+@sections, @exhibition_pieces, @page_events = [], [], []
 
 urls = [
   'http://gleu.ch/',
@@ -59,6 +59,9 @@ urls = [
       author: words.sample(2).map(&:capitalize).join(' '),
       organization: words.sample(1).map(&:capitalize).join(' ')
     )
+    page_event = PiecePageEvent.create(action_type: PiecePageEvent::TYPES.index(:scroll), action_array: [200])
+    @page_events << page_event
+    piece.page_events << page_event
     exhibition_piece.piece = piece
     section.exhibition_pieces << exhibition_piece
     @exhibition_pieces << piece
@@ -68,4 +71,4 @@ urls = [
 end
 
 
-puts @exhibition.inspect, @sections.inspect, @exhibition_pieces.inspect
+puts @exhibition.inspect, @sections.inspect, @exhibition_pieces.inspect, @page_events.inspect
