@@ -1,13 +1,14 @@
 class Exhibition < ActiveRecord::Base
 
   include Activatable
+  extend FriendlyId
 
 
   # ---------------------------------------------------------------------------
 
   THEMES = [:default]
 
-  # friendly_id
+  friendly_id :title, use: [:slugged]
 
 
   # ---------------------------------------------------------------------------

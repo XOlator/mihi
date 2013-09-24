@@ -39,12 +39,12 @@ class Browse::ExhibitionPiecesController < ApplicationController
 protected
 
   def get_exhibition
-    @exhibition = Exhibition.find(params[:exhibition_id])
+    @exhibition = Exhibition.friendly.find(params[:exhibition_id])
     raise ActiveRecord::RecordNotFound if @exhibition.blank?
   end
 
   def get_exhibition_piece
-    @exhibition_piece = @exhibition.exhibition_pieces.find(params[:id])
+    @exhibition_piece = @exhibition.exhibition_pieces.friendly.find(params[:id])
     raise ActiveRecord::RecordNotFound if @exhibition_piece.blank?
   end
 

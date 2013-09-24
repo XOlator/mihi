@@ -32,7 +32,7 @@ class ExhibitionsController < ApplicationController
 protected
 
   def get_exhibition
-    @exhibition = Exhibition.find(params[:id])
+    @exhibition = Exhibition.friendly.find(params[:id])
     raise ActiveRecord::RecordNotFound if @exhibition.blank?
   end
 

@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/norman/friendly_id.git
+  revision: 2d1dbe62eb92e4da129f813bf37e0f4ff3fba6d2
+  branch: 5.0-stable
+  specs:
+    friendly_id (5.0.0.rc2)
+      activerecord (~> 4.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -192,6 +200,7 @@ DEPENDENCIES
   countries (= 0.9.2)
   date_validator (= 0.7.0)
   factory_girl_rails (= 4.2.1)
+  friendly_id (= 5.0.0.rc2)!
   haml (= 4.0.3)
   jquery-rails (= 3.0.4)
   multi_json (= 1.7.9)

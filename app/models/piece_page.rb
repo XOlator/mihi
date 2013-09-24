@@ -1,6 +1,8 @@
 class PiecePage < ActiveRecord::Base
 
+  include Pieceable
   include Activatable
+  extend FriendlyId
 
 
   # ---------------------------------------------------------------------------
@@ -9,10 +11,12 @@ class PiecePage < ActiveRecord::Base
 
   has_attached_file :cache_page
 
+  friendly_id :title, use: [:slugged]
+
 
   # ---------------------------------------------------------------------------
 
-  has_one :exhibition_piece
+  belongs_to :exhibition_piece
   has_one :exhibition, through: :exhibition_piece
   has_one :piece_thumbnail
 
@@ -50,7 +54,7 @@ class PiecePage < ActiveRecord::Base
   def cache_page_content
     begin
       uri = Addressable::URI.parse(self.url)
-      status = Timeout::timeout(TIMEOUT_LENGTH) do
+      Timeout::timeout(TIMEOUT_LENGTH) do
         io = open(self.url, read_timeout: TIMEOUT_LENGTH, "User-Agent" => MIHI_USER_AGENT, allow_redirections: :all)
         raise "Invalid content-type" unless io.content_type.match(/text\/html/i)
         io.class_eval { attr_accessor :original_filename }
@@ -65,12 +69,21 @@ class PiecePage < ActiveRecord::Base
       puts "Fetch Page Error (Error): #{err}"
     end
   end
+  # TODO : MAKE delayed_queue
+
+
+  # TODO : Make more robust
+  # ---------------------------------------------------------------------------
+  # Page should store a cached HTML file. It should store the HTML file and set a <base> tag if one is not set
+  # There should then be a cache system that fetches files not found and displays them. Full asset cache eventually
+  # Should also do some stripping of google analytics, etc.
+  # Should track its own page views.
 
   def read_cache_page
     return false if self.cache_page_file_size.to_i < 1
 
     begin
-      status = Timeout::timeout(TIMEOUT_LENGTH) do
+      Timeout::timeout(TIMEOUT_LENGTH) do
         open(self.url, read_timeout: TIMEOUT_LENGTH, "User-Agent" => MIHI_USER_AGENT, allow_redirections: :all).read
       end
     rescue OpenURI::HTTPError => err

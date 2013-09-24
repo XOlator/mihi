@@ -1,16 +1,20 @@
 class PieceText < ActiveRecord::Base
 
+  include Pieceable
   include Activatable
+  extend FriendlyId
 
 
   # ---------------------------------------------------------------------------
 
   THEMES = [:default]
 
+  friendly_id :title, use: [:slugged]
+
 
   # ---------------------------------------------------------------------------
 
-  has_one :exhibition_piece
+  belongs_to :exhibition_piece
   has_one :exhibition, through: :exhibition_piece
   has_one :piece_thumbnail
 

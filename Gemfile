@@ -29,7 +29,8 @@ group :development, :staging, :test, :production do
   gem 'will_paginate',              '3.0.4'     # Pagination
   gem 'jquery-rails',               '3.0.4'     # Rails jQuery integration
   # gem 'jquery-ui-rails',            '4.0.4'     # jQuery UI
-  # gem 'friendly_id',                '4.0.10.1'  # Nice URL slugs
+  gem 'friendly_id',                '5.0.0.rc2',# Nice URL slugs
+    :git => 'https://github.com/norman/friendly_id.git', :branch => '5.0-stable'
   gem 'paperclip',                  '3.5.1'     # File/Photo handling
   gem 'countries',                  '0.9.2'     # Countries list
   gem 'date_validator',             '0.7.0'     # Nicer date validation

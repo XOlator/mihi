@@ -1,11 +1,12 @@
 class Section < ActiveRecord::Base
 
   include Activatable
+  extend FriendlyId
 
 
   # ---------------------------------------------------------------------------
 
-  # friendly_id
+  friendly_id :title, use: [:slugged]
 
 
   # ---------------------------------------------------------------------------
