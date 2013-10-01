@@ -30,6 +30,14 @@ class ExhibitionPiece < ActiveRecord::Base
 
   # ---------------------------------------------------------------------------
 
+  def to_api(*opts)
+    opts = opts.extract_options!
+
+    o = {id: id, slug: slug}
+    o.merge!({piece: piece.to_api}) if piece.present? && piece.respond_to?(:to_api)
+    o
+  end
+
   def title; self.piece.slug || self.piece.title rescue "".random(10); end
 
   # "Paginate"

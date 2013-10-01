@@ -1,9 +1,0 @@
-%h1 #{@exhibition.title} (##{@exhibition.id})
-
-- @exhibition.sections.each do |s|
-  %h3= s.title
-  %ul
-    - s.exhibition_pieces.each do |ep|
-      - p = ep.piece
-      %li
-        %a{href: exhibition_exhibition_piece_url(@exhibition,ep)} #{p.title} (#{p.class.to_s} - ##{p.id})

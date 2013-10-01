@@ -18,9 +18,8 @@ Mihi::Application.routes.draw do
   end
 
   # Newsletters
-  resources :exhibitions, only: [:index,:show] do
-    resources :exhibition_pieces, path: '/piece', as: :piece, only: [:show]
-  end
+  resources :exhibitions, only: [:index]
+
 
   # Static pages routing, use StaticPage to check if exists as constraint
   match "/*page" => "static_pages#show", as: :static_page, constraints: StaticPage.new, via: [:get]

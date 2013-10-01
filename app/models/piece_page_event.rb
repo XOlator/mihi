@@ -26,6 +26,13 @@ class PiecePageEvent < ActiveRecord::Base
 
   # ---------------------------------------------------------------------------
 
+  def name; TYPES[action_type]; end
+
+  def to_api(*opts)
+    opts = opts.extract_options!
+
+    {id: id, action: name, timeout: action_timeout, array: action_array, text: action_text}
+  end
 
 
 private

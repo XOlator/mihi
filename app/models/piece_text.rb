@@ -33,6 +33,12 @@ class PieceText < ActiveRecord::Base
 
   # ---------------------------------------------------------------------------
 
+  def to_api(*opts)
+    opts = opts.extract_options!
+
+    {id: id, slug: slug, title: title, content: content}
+  end
+
 
 private
 

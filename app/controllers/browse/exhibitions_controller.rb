@@ -16,6 +16,16 @@ class Browse::ExhibitionsController < ApplicationController
         results.call
         render :show
       }
+      format.json {
+        results.call
+        obj = {
+          exhibition:     @exhibition.to_api(pieces: true),
+          previous_piece: (!@prev_piece.blank? ? @prev_piece.id : nil),
+          next_piece:     (!@next_piece.blank? ? @next_piece.id : nil)
+        }
+
+        render json: obj.to_json, callback: params[:callback]
+      }
     end
   end
 

@@ -50,6 +50,18 @@ class PiecePage < ActiveRecord::Base
 
   # ---------------------------------------------------------------------------
 
+  def to_api(*opts)
+    opts = opts.extract_options!
+
+    {
+      id: id, 
+      urls: {original: url, cached: cache_page.url}, 
+      title: title, excerpt: excerpt, description: description, author: author, organization: organization, 
+      options: {
+        glass: option_glass, clickable: option_clickable
+      }
+    }
+  end
 
   def cache_page_content
     begin

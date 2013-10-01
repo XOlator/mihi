@@ -41,6 +41,15 @@ class Exhibition < ActiveRecord::Base
 
   # ---------------------------------------------------------------------------
 
+  def to_api(*opts)
+    opts = opts.extract_options!
+
+    o = {id: id, slug: slug, title: title}
+    o[:pieces] = self.exhibition_pieces.map{|e| e.to_api} if opts[:pieces]
+    o
+  end
+
+
 
 private
 

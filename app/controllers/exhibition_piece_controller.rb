@@ -1,2 +1,0 @@
-class ExhibitionPieceController < ApplicationController
-end

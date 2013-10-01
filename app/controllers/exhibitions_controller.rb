@@ -16,18 +16,6 @@ class ExhibitionsController < ApplicationController
     end
   end
 
-  def show
-    results = Proc.new {
-    }
-
-    respond_to do |format|
-      format.html {
-        results.call
-        render :show
-      }
-    end
-  end
-
 
 protected
 

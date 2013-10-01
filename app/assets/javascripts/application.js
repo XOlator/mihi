@@ -13,3 +13,46 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+var _root = {extend : function() {var src, copyIsArray, copy, name, options, clone, target = arguments[0] || {}, i = 1, length = arguments.length, deep = false;if ( typeof target === "boolean" ) {deep = target;target = arguments[1] || {};i = 2;}if ( typeof target !== "object" && !typeof target !== "function" ) target = {};if ( length === i ) {target = this; --i;}for ( ; i < length; i++ ) {if ( (options = arguments[ i ]) != null ) {for ( name in options ) {src = target[ name ];copy = options[ name ];if ( target === copy ) continue;if ( deep && copy && ( typeof copy === "object" || (copyIsArray = (typeof copy === "array")) ) ) {if ( copyIsArray ) {copyIsArray = false;clone = src && jQuery.isArray(src) ? src : [];} else {clone = src && typeof src === "object" ? src : {};}target[ name ] = MIHI.extend( deep, clone, copy );} else if ( copy !== undefined ) {target[ name ] = copy;}}}}return target;}};
+
+
+
+var MIHI = function() {};
+MIHI.fn = MIHI.prototype = {init : function() {}};
+
+
+MIHI.Browse = function(piece,events) {
+  if (piece) this._piece = piece;
+  if (events) this._events = events;
+};
+MIHI.Browse.Current = MIHI.Browse.prototype = _root;
+MIHI.Browse.Current.extend({
+  _exhibition : null,
+  _piece : null,
+  _events : [],
+  _target : null,
+  _position : 0,
+  _timeout : null,
+
+  target : function(t) {if (t) this._target = t; return this._target;},
+  exhibition : function(e) {if (e) this._exhibition = e; return this._exhibition;},
+  piece : function(p) {if (p) this._piece = p; return this._piece;},
+  events : function(e) {if (e) this._events = e; return this._events;},
+
+  init : function() {
+  
+  },
+
+  start : function() {
+    
+  },
+
+  pause : function() {
+    
+  },
+
+  stop : function() {
+  
+  }
+});

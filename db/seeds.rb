@@ -17,7 +17,7 @@ urls = [
   'http://fromjia.com',
   'http://eyebeam.org',
   'http://jamiedubs.com',
-  'http://evanroth.com'
+  'http://evan-roth.com'
 ].shuffle
 
 
