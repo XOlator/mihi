@@ -1,22 +1,52 @@
 body.browse_exhibition {
-  #pagination {
-    position: fixed; bottom: 0; right: 0; z-index: 3000;
-    a, span {
-      display: inline-block; background: #000; color: #fff; font-weight: bold; padding: 4px;
-    }
-    span {background: #999;}
-    a {
-      &:hover {background: #666;}
-    }
-  }
-
   #content {
     position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 1000; width: 100%; height: 100%;
-    .exhibition_piece {
+    article.exhibition_piece, article.exhibition {
+      position: fixed; top: 0; left: 0; right: 300px; bottom: 0; z-index: 1010;
       &.piece_page {
-        width: 100%; height: 100%;
         iframe {width: 100%; height: 100%;}
       }
+    }
+    #exhibition_navigation {
+      z-index: 3000;
+      * {z-index: 3000;}
+      a, span {display: inline-block; width: 25px; height: 25px; overflow: hidden; background: rgb(0,0,0); color: rgb(255,255,255);}
+      a:hover {background-color: rgb(50,50,50);}
+      #exhibition_navigate_home {position: fixed; bottom: 50%; left: 0; margin: 0 0 52px 0;}
+      #exhibition_navigate_exhibition {position: fixed; bottom: 50%; left: 0; margin: 0 0 26px 0;}
+      #exhibition_navigate_previous {position: fixed; bottom: 50%; left: 0;}
+      #exhibition_navigate_next {position: fixed; bottom: 50%; right: 300px;}
+    }
+    #exhibition_piece_pagination {
+      position: fixed; top: 0; right: 250px; bottom: 0; width: 50px; z-index: 3010;
+      background: #eee;
+      ul.pagination {
+        position: absolute; top: 100px; left: 0; right: 0; margin: 0; padding: 0; list-style: none;
+        li {
+          padding: 3px 5px;
+          a {
+            display: block; width: 100%; height: 24px; text-indent: -9999px; font-size: 0;
+            background: #f0f;
+            &:hover {}
+          }
+          &.section {display: none; /*tmp*/}
+          &.current {
+            a {background: #ff0;}
+          }
+        }
+      }
+      #exhibition_pagination_tooltip {
+        position: absolute; top: 0; left: -250px; z-index: 9000; background: #ccc; padding: 10px; width: 200px; overflow: hidden;
+        a {
+          text-decoration: none;
+          img {width: 200px; height: 200px; margin: 0 0 10px 0; border: 1px solid #ccc;}
+          h6 {font-size: 1.6em; font-weight: bold; text-align: center; padding: 0; margin: 0; color: #666;}
+          &:hover { }
+        }
+      }
+    }
+    #exhibition_piece_sidebar {
+      position: fixed; top: 0; right: 0; bottom: 0; width: 250px;
     }
   }
 

@@ -1,0 +1,16 @@
+%aside#exhibition_piece_pagination
+  %ul.pagination
+    - @exhibition.sections.each do |s|
+      %li.section= s.title
+      - s.exhibition_pieces.each do |ep|
+        - p = ep.piece
+        - next if p.blank?
+        %li{class: (@exhibition_piece === ep ? 'current' : '')}
+          %a{href: browse_exhibition_piece_url(@exhibition, ep), 'data-thumbnail' => nil, 'data-exhibition_piece_id' => ep.id}= p.title
+
+  #exhibition_pagination_tooltip{style: 'display: none;'}
+    %a{:href => '#'}
+      %img
+      %h6
+
+  

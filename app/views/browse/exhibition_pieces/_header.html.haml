@@ -1,0 +1,20 @@
+- skip_prev ||= false
+- skip_next ||= false
+
+%nav#exhibition_navigation.c
+  %a#exhibition_navigate_home{href: root_url} Home
+  %a#exhibition_navigate_exhibition{href: browse_exhibition_url(@exhibition)} Exhibition
+
+  - unless skip_prev
+    #exhibition_navigate_previous.exhibiton_navigation_button
+      - if @prev_piece.present?
+        %a{href: browse_exhibition_piece_url(@exhibition, @prev_piece), rel: 'previous'} Prev
+      - else
+        %span Prev
+
+  - unless skip_next
+    #exhibition_navigate_next
+      - if @next_piece.present?
+        %a{href: browse_exhibition_piece_url(@exhibition, @next_piece), rel: 'next'} Next
+      - else
+        %span Next

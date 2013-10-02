@@ -6,18 +6,6 @@
     = javascript_include_tag "application"#, "data-turbolinks-track" => true
     = csrf_meta_tags
   %body.browse_exhibition
-    - unless @exhibition.blank?
-      #pagination.c
-        %a{href: browse_exhibition_url(@exhibition)} Home
-        - if @prev_piece.present?
-          %a{href: browse_exhibition_piece_url(@exhibition, @prev_piece)} Prev
-        - else
-          %span Prev
-        - if @next_piece.present?
-          %a{href: browse_exhibition_piece_url(@exhibition, @next_piece)} Next
-        - else
-          %span Next
-
     #content
       = yield
 

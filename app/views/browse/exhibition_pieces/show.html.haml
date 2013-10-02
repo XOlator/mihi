@@ -4,6 +4,9 @@
 - unless @exhibition_piece.piece.blank?
   - piece_api = @exhibition_piece.to_api
 
+  = render 'header'
+  = render 'pagination'
+
   %article.exhibition_piece{id: "exhibition_piece_#{@exhibition_piece.id}", class: @exhibition_piece.piece.class.name.underscore}
     - case @exhibition_piece.piece.class.name
       - when 'PieceText'
@@ -14,7 +17,9 @@
       - else
         %p Nothing to see.
 
-%script{:type => 'text/javascript'}
+  = render 'sidebar'
+
+%script{type: 'text/javascript'}
   MIHI.Browse.Current.exhibition(#{@exhibition.to_api.to_json.html_safe});
   MIHI.Browse.Current.piece(#{piece_api.to_json.html_safe});
   MIHI.Browse.Current.events(#{events_api.to_json.html_safe});

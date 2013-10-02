@@ -1,8 +1,14 @@
-%h1= @exhibition.title
-%h3= @exhibition.subtitle
+- unless @exhibition.blank?
 
-= simple_format(@exhibition.description)
+  = render 'browse/exhibition_pieces/header', skip_prev: true
+  = render 'browse/exhibition_pieces/pagination'
 
-- if @next_piece.present?
-  %p
-    %a{href: browse_exhibition_piece_url(@exhibition, @next_piece)} Begin
+  %article.exhibition{id: "exhibition_#{@exhibition.id}"}
+    %h1= @exhibition.title
+    %h3= @exhibition.subtitle
+
+    = simple_format(@exhibition.description)
+
+    - if @next_piece.present?
+      %p
+        %a{href: browse_exhibition_piece_url(@exhibition, @next_piece)} Begin
