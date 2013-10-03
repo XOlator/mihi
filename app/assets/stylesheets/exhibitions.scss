@@ -11,6 +11,7 @@ body.browse_exhibition {
       z-index: 3000;
       * {z-index: 3000;}
       a, span {display: inline-block; width: 25px; height: 25px; overflow: hidden; background: rgb(0,0,0); color: rgb(255,255,255);}
+      span {opacity: .5;}
       a:hover {background-color: rgb(50,50,50);}
       #exhibition_navigate_home {position: fixed; bottom: 50%; left: 0; margin: 0 0 52px 0;}
       #exhibition_navigate_exhibition {position: fixed; bottom: 50%; left: 0; margin: 0 0 26px 0;}
@@ -46,12 +47,12 @@ body.browse_exhibition {
       }
     }
     #exhibition_piece_sidebar {
-      position: fixed; top: 0; right: 0; bottom: 0; width: 250px;
+      position: fixed; top: 0; right: 0; bottom: 0; width: 250px; z-index: 3000;
     }
   }
 
   #footer {
-    position: fixed; bottom: 0; left: 0; opacity: .2; z-index: 2000;
+    position: fixed; bottom: 0; right: 0; opacity: .2; z-index: 2000; width: 250px;
     &:hover {opacity: 1;}
   }
 }

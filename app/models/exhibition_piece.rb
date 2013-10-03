@@ -32,26 +32,25 @@ class ExhibitionPiece < ActiveRecord::Base
 
   def to_api(*opts)
     opts = opts.extract_options!
-
-    o = {id: id, slug: slug}
+    o = {id: id, slug: slug, type: type}
     o.merge!({piece: piece.to_api}) if piece.present? && piece.respond_to?(:to_api)
     o
   end
 
-  def title; self.piece.slug || self.piece.title rescue "".random(10); end
+  def title; piece.slug || piece.title rescue "".random(10); end
+  def type; piece_type.gsub(/^piece/i, '') rescue nil; end
 
   # "Paginate"
-  def next; self.class.where('exhibition_id = ? AND section_sort_index >= ? AND sort_index >= ? AND id > ?', self.exhibition_id, self.section_sort_index, self.sort_index, self.id).first; end
-  def prev; self.class.where('exhibition_id = ? AND section_sort_index <= ? AND sort_index <= ? AND id < ?', self.exhibition_id, self.section_sort_index, self.sort_index, self.id).last; end
+  def next; self.class.where('exhibition_id = ? AND section_sort_index >= ? AND sort_index >= ? AND id > ?', exhibition_id, section_sort_index, sort_index, id).first; end
+  def prev; self.class.where('exhibition_id = ? AND section_sort_index <= ? AND sort_index <= ? AND id < ?', exhibition_id, section_sort_index, sort_index, id).last; end
 
 
 private
 
   def update_slug
-    return if self.piece_id.blank?
-    return if self.piece.slug == self.slug
-    puts self.piece.slug rescue "no slug"
-    self.update_attribute(:slug, self.piece.slug)
+    return if piece_id.blank?
+    return if piece.slug == slug
+    update_attribute(:slug, piece.slug)
   end
 
 end

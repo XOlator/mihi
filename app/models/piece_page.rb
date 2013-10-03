@@ -53,14 +53,17 @@ class PiecePage < ActiveRecord::Base
   def to_api(*opts)
     opts = opts.extract_options!
 
-    {
+    o = {
       id: id, 
       urls: {original: url, cached: cache_page.url}, 
       title: title, excerpt: excerpt, description: description, author: author, organization: organization, 
       options: {
         glass: option_glass, clickable: option_clickable
-      }
+      },
+      events: page_events.map{|e| e.to_api}
     }
+
+    o
   end
 
   def cache_page_content
@@ -96,7 +99,8 @@ class PiecePage < ActiveRecord::Base
 
     begin
       Timeout::timeout(TIMEOUT_LENGTH) do
-        open(self.url, read_timeout: TIMEOUT_LENGTH, "User-Agent" => MIHI_USER_AGENT, allow_redirections: :all).read
+        html = open(self.url, read_timeout: TIMEOUT_LENGTH, "User-Agent" => MIHI_USER_AGENT, allow_redirections: :all).read
+        html.gsub!(/(\<\/head\>)/im, "<base href=\"#{self.url}\" />\\1")
       end
     rescue OpenURI::HTTPError => err
       false

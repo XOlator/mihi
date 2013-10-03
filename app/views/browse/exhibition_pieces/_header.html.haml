@@ -10,11 +10,11 @@
       - if @prev_piece.present?
         %a{href: browse_exhibition_piece_url(@exhibition, @prev_piece), rel: 'previous'} Prev
       - else
-        %span Prev
+        %a.disabled{rel: 'previous'} Prev
 
   - unless skip_next
     #exhibition_navigate_next
       - if @next_piece.present?
         %a{href: browse_exhibition_piece_url(@exhibition, @next_piece), rel: 'next'} Next
       - else
-        %span Next
+        %a.disabled{rel: 'next'} Next

@@ -18,8 +18,14 @@
         %p Nothing to see.
 
   = render 'sidebar'
+  = #render 'footer'
 
-%script{type: 'text/javascript'}
-  MIHI.Browse.Current.exhibition(#{@exhibition.to_api.to_json.html_safe});
-  MIHI.Browse.Current.piece(#{piece_api.to_json.html_safe});
-  MIHI.Browse.Current.events(#{events_api.to_json.html_safe});
+:javascript
+  MIHI.Browse.Current.exhibition(#{@exhibition.to_api(pieces: true).to_json.html_safe});
+  MIHI.Browse.Current.piece(#{@exhibition_piece.id});
+
+  (function($) {
+    $(document).ready(function() {
+      MIHI.Browse.Current.init();
+    });
+  })(jQuery);

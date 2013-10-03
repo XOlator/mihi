@@ -45,7 +45,10 @@ class Exhibition < ActiveRecord::Base
     opts = opts.extract_options!
 
     o = {id: id, slug: slug, title: title}
-    o[:pieces] = self.exhibition_pieces.map{|e| e.to_api} if opts[:pieces]
+    if opts[:pieces]
+      o[:pieces] = {}
+      self.exhibition_pieces.each{|e| o[:pieces][e.id] = e.to_api}
+    end
     o
   end
 

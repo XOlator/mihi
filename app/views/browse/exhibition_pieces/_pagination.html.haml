@@ -1,4 +1,6 @@
 %aside#exhibition_piece_pagination
+  %a#exhibition_piece_play_button{href: 'javascript:;', rel: 'nofollow'} Play
+
   %ul.pagination
     - @exhibition.sections.each do |s|
       %li.section= s.title
@@ -6,11 +8,9 @@
         - p = ep.piece
         - next if p.blank?
         %li{class: (@exhibition_piece === ep ? 'current' : '')}
-          %a{href: browse_exhibition_piece_url(@exhibition, ep), 'data-thumbnail' => nil, 'data-exhibition_piece_id' => ep.id}= p.title
+          %a{href: browse_exhibition_piece_url(@exhibition, ep), 'data-thumbnail' => nil, 'data-exhibition_piece_id' => ep.id, rel: 'follow'}= p.title
 
   #exhibition_pagination_tooltip{style: 'display: none;'}
-    %a{:href => '#'}
+    %a{:href => 'javascript:;', rel: 'nofollow'}
       %img
       %h6
-
-  
