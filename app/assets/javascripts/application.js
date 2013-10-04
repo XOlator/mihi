@@ -49,14 +49,13 @@ MIHI.Frame.Current.extend({
           return this.scrollToElement(evt.array[0]);
           break;
       }
-    } catch(e) {
-      console.log(e)
-    }
+    } catch(e) {}
     return false;
   },
 
   scroll : function(i) {
-    this.frame('body').scrollTop(this.frame('body').scrollTop()+i);
+    this.frame('body').animate({scrollTop : i}, 500);
+    // this.frame('body').animate({scrollTop : (this.frame('body').scrollTop()+i)}, 500);
     return true;
   },
 
@@ -81,9 +80,11 @@ MIHI.Browse.Current.extend({
   _exhibition : null,
   _piece : null,
   _events : [],
+  _event : null,
   _target : null,
   _position : 0,
   _timeout : null,
+  _event_timeout : null,
 
   target : function(t) {if (t) this._target = t; return this._target;},
   exhibition : function(e) {if (e) this._exhibition = e; return this._exhibition;},
@@ -99,11 +100,10 @@ MIHI.Browse.Current.extend({
   events : function(e) {if (e) this._events = e; return this._events;},
 
   init : function() {
+    // PAGINATION TOOLTIP DISPLAY
     var pagination_hover_timeout;
-
     $('#exhibition_piece_pagination .pagination a').hover(function() {
       clearTimeout(pagination_hover_timeout);
-
       var tt = $('#exhibition_pagination_tooltip');
       tt.find('h6').html( $(this).text() );
       tt.find('a').attr('href', $(this).attr('href')).attr('data-exhibition_piece_id', $(this).attr('data-exhibition_piece_id'));
@@ -123,15 +123,31 @@ MIHI.Browse.Current.extend({
       pagination_hover_timeout = setTimeout(function() {$('#exhibition_pagination_tooltip').hide();}, 250);
     });
 
+
+    // PAGINATION ONCLICK
     $('#exhibition_piece_pagination .pagination a, #exhibition_pagination_tooltip a').on('click', function() {
       var pid = $(this).attr('data-exhibition_piece_id');
       $('#exhibition_pagination_tooltip').hide();
       $('#exhibition_piece_pagination .pagination li').removeClass('current');
       $('#exhibition_piece_pagination .pagination li a[data-exhibition_piece_id="'+ pid +'"]').parent().addClass('current loading');
+
       // TODO : LOAD NEXT PAGE
       // return false;
     });
 
+
+    // PLAY BUTTON
+    $('#exhibition_piece_play_button').on('click', function() {
+      if ($(this).attr('data-status') == 'stopped') {
+        MIHI.Browse.Current.play();
+      } else {
+        MIHI.Browse.Current.pause();
+      }
+      return false;
+    });
+
+
+    // START THE SHOW! :D
     this.start();
   },
 
@@ -148,27 +164,61 @@ MIHI.Browse.Current.extend({
   },
 
   start : function() {
-    var p;
+    this._event = 0;
+    var p, t = this;
     if ((p = this.piece()) && p) {
-      if (p.piece && p.piece.events && p.piece.events.length > 0) {
+      if (p.piece && p.piece.events && p.piece.events.length > this._event) {
         MIHI.Frame.Current.container().load(function() {
           setTimeout(function() {
-            MIHI.Frame.Current.process(p.piece.events[0]);
+            MIHI.Frame.Current.process(p.piece.events[t._event]);
+            t._event++;
           }, 10);
         });
+        return true;
       }
     }
+
+    this.stop();
+    return false;
   },
 
   play : function() {
-    
+    var p, t = this;
+    if ((p = this.piece()) && p) {
+      if (p.piece && p.piece.events && p.piece.events.length > this._event) {
+        MIHI.Frame.Current.container().ready(function() {
+          setTimeout(function() {
+            MIHI.Frame.Current.process(p.piece.events[t._event]);
+            if (p.piece.events.length > (t._event+1)) {
+              t._event_timeout = setTimeout(function() {t.play();}, (p.piece.events[t._event].timeout || 1)+1);
+              t._event++;
+
+            } else {
+              setTimeout(function() {t.stop();}, 500);
+              return false;
+            }
+          }, 10);
+        });
+
+        $('#exhibition_piece_play_button').attr('data-status', 'playing');
+        return true;
+      }
+    }
+
+    this.stop();
+    return false;
   },
 
   pause : function() {
-    
+    clearTimeout(this._event_timeout);
+    $('#exhibition_piece_play_button').attr('data-status', 'stopped');
+    return true;
   },
 
   stop : function() {
-  
+    clearTimeout(this._event_timeout);
+    $('#exhibition_piece_play_button').attr('data-status', 'stopped');
+    this._event = 0;
+    return true;
   }
 });

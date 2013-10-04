@@ -1,5 +1,8 @@
 %aside#exhibition_piece_pagination
-  %a#exhibition_piece_play_button{href: 'javascript:;', rel: 'nofollow'} Play
+  - if @exhibition_piece && @exhibition_piece.piece_type == 'PiecePage'
+    %a#exhibition_piece_play_button{'data-status' => 'stopped', href: 'javascript:;', rel: 'nofollow'}
+      %span.stopped Play
+      %span.playing Pause
 
   %ul.pagination
     - @exhibition.sections.each do |s|
@@ -7,7 +10,7 @@
       - s.exhibition_pieces.each do |ep|
         - p = ep.piece
         - next if p.blank?
-        %li{class: (@exhibition_piece === ep ? 'current' : '')}
+        %li{class: (@exhibition_piece && @exhibition_piece === ep ? 'current' : '')}
           %a{href: browse_exhibition_piece_url(@exhibition, ep), 'data-thumbnail' => nil, 'data-exhibition_piece_id' => ep.id, rel: 'follow'}= p.title
 
   #exhibition_pagination_tooltip{style: 'display: none;'}

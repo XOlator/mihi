@@ -18,6 +18,10 @@ body.browse_exhibition {
       #exhibition_navigate_previous {position: fixed; bottom: 50%; left: 0;}
       #exhibition_navigate_next {position: fixed; bottom: 50%; right: 300px;}
     }
+    #exhibition_piece_play_button {
+      &[data-status='stopped'] .playing {display: none;}
+      &[data-status='playing'] .stopped {display: none;}
+    }
     #exhibition_piece_pagination {
       position: fixed; top: 0; right: 250px; bottom: 0; width: 50px; z-index: 3010;
       background: #eee;

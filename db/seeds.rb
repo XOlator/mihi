@@ -59,9 +59,11 @@ urls = [
       author: words.sample(2).map(&:capitalize).join(' '),
       organization: words.sample(1).map(&:capitalize).join(' ')
     )
-    page_event = PiecePageEvent.create(action_type: PiecePageEvent::TYPES.index(:scroll), action_array: [200])
-    @page_events << page_event
-    piece.page_events << page_event
+    (1..6).each do |l|
+      page_event = PiecePageEvent.create(action_type: PiecePageEvent::TYPES.index(:scroll), action_array: [200*l], action_timeout: (1000*2*l))
+      @page_events << page_event
+      piece.page_events << page_event
+    end
     exhibition_piece.piece = piece
     section.exhibition_pieces << exhibition_piece
     @exhibition_pieces << piece

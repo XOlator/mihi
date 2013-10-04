@@ -40,6 +40,7 @@ class Browse::ExhibitionPiecesController < ApplicationController
     case @exhibition_piece.piece.class.name
       when 'PiecePage'
         @content = @exhibition_piece.piece.read_cache_page
+        @content ||= "<html>\n<head>\n<title>test</title>\n</head>\n<body>\n\n<h1>Offline: #{@exhibition_piece.piece.url}</h1>\n" << (0..100).map{|i| "<p>#{i}</p>"}.join("\n") << "\n\n</body>\n</html>\n"
         redirect_to @exhibition_piece.piece.url and return if @content.blank?
     end
 
