@@ -12,14 +12,14 @@
     - unless skip_prev
       #exhibition_navigate_previous.exhibiton_navigation_button
         - if @prev_piece.present?
-          %a{href: browse_exhibition_piece_url(@exhibition, @prev_piece), rel: 'previous'}= fa_icon 'angle-left', title: 'Previous'
+          %a{href: browse_exhibition_piece_url(@exhibition, @prev_piece), rel: 'previous', 'data-exhibition_piece_id' => @prev_piece.id}= fa_icon 'angle-left', title: 'Previous'
         - else
           %a.disabled{rel: 'previous'}= fa_icon 'angle-left', title: 'Previous'
 
     - unless skip_next
       #exhibition_navigate_next
         - if @next_piece.present?
-          %a{href: browse_exhibition_piece_url(@exhibition, @next_piece), rel: 'next'}= fa_icon 'angle-right', title: 'Next'
+          %a{href: browse_exhibition_piece_url(@exhibition, @next_piece), rel: 'next', 'data-exhibition_piece_id' => @next_piece.id}= fa_icon 'angle-right', title: 'Next'
         - else
           %a.disabled{rel: 'next'}= fa_icon 'angle-right', title: 'Next'
 

@@ -126,14 +126,12 @@ MIHI.Browse.Current.extend({
     // PAGINATION ONCLICK
     $('#exhibition_piece_pagination .pagination a, #exhibition_pagination_tooltip a').on('click', function() {
       var pid = $(this).attr('data-exhibition_piece_id');
-      $('#exhibition_pagination_tooltip').hide();
-      $('#exhibition_piece_pagination .pagination li').removeClass('current');
-      $('#exhibition_piece_pagination .pagination li a[data-exhibition_piece_id="'+ pid +'"]').parent().addClass('current loading');
-
-      // TODO : LOAD NEXT PAGE
-      // return false;
+      return MIHI.Browse.Current.page(pid);
     });
-
+    $('#exhibition_navigate_previous a, exhibition_navigate_next a').on('click', function() {
+      var pid = $(this).attr('data-exhibition_piece_id');
+      return (pid != '' ? MIHI.Browse.Current.page(pid) : false);
+    });
 
     // PLAY BUTTON
     $('#exhibition_piece_play_button').on('click', function() {
@@ -156,6 +154,14 @@ MIHI.Browse.Current.extend({
 
   previous : function() {
     
+  },
+
+  page : function(pid) {
+    $('#exhibition_pagination_tooltip').hide();
+    $('#exhibition_piece_pagination .pagination li').removeClass('current loading').find('i').addClass('icon-circle-blank').removeClass('icon-circle');
+    $('#exhibition_piece_pagination .pagination li a[data-exhibition_piece_id="'+ pid +'"]').parent().addClass('current loading');
+    $('#exhibition_piece_pagination .pagination li a[data-exhibition_piece_id="'+ pid +'"]').find('i').addClass('icon-circle').removeClass('icon-circle-blank');
+    return true;
   },
 
   load : function() {
