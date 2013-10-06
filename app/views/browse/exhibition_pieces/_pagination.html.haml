@@ -1,8 +1,12 @@
 %aside#exhibition_piece_pagination
   - if @exhibition_piece && @exhibition_piece.piece_type == 'PiecePage'
     %a#exhibition_piece_play_button{'data-status' => 'stopped', href: 'javascript:;', rel: 'nofollow'}
-      %span.stopped Play
-      %span.playing Pause
+      %span.stopped= fa_icon('play', title: 'Play')
+      %span.playing= fa_icon('pause', title: 'Pause')
+  - else
+    %span#exhibition_piece_play_button.disabled
+      = fa_stacked_icon('play', base: 'ban-circle', title: 'Play')
+      
 
   %ul.pagination
     - @exhibition.sections.each do |s|
@@ -10,8 +14,10 @@
       - s.exhibition_pieces.each do |ep|
         - p = ep.piece
         - next if p.blank?
-        %li{class: (@exhibition_piece && @exhibition_piece === ep ? 'current' : '')}
-          %a{href: browse_exhibition_piece_url(@exhibition, ep), 'data-thumbnail' => nil, 'data-exhibition_piece_id' => ep.id, rel: 'follow'}= p.title
+        - is_page = (@exhibition_piece && @exhibition_piece === ep)
+        %li{class: (is_page ? 'current' : '')}
+          %a{href: browse_exhibition_piece_url(@exhibition, ep), 'data-thumbnail' => nil, 'data-exhibition_piece_id' => ep.id, rel: 'follow', 'data-title' => p.title}
+            = fa_icon(is_page ? 'circle' : 'circle-blank')
 
   #exhibition_pagination_tooltip{style: 'display: none;'}
     %a{:href => 'javascript:;', rel: 'nofollow'}

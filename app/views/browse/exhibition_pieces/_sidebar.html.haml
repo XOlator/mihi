@@ -1,4 +1,20 @@
-%aside#exhibition_piece_sidebar
-  %h1 Share
+- unless @exhibition.blank?
+  %aside#exhibition_piece_sidebar
+    %h1 Share
 
-  
+    - unless @exhibition_piece.blank?
+      - unless @exhibition_piece.piece.blank?
+        - case @exhibition_piece.piece.class.name
+          - when 'PiecePage'
+            - str = [] << @exhibition_piece.piece.timeline_year << @exhibition_piece.piece.url
+            - str.compact!
+            %h2= @exhibition_piece.piece.title
+            - unless str.blank?
+              %h6= str.compact.join(', ')
+            .description
+              = simple_format(@exhibition_piece.piece.description)
+
+      #exhibition_piece_notes
+
+    - else
+      %p something to go here on the first title slide

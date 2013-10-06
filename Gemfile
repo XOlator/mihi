@@ -44,6 +44,8 @@ group :development, :staging, :test, :production do
   # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
   # gem 'jbuilder', '~> 1.2'
 
+  # DISPLAY
+  gem 'font-awesome-rails',           '3.2.1.3'
 
   # JOBS QUEUE
   # gem 'daemons',                    '1.1.9'     # Ruby script wrapper for delayed_job

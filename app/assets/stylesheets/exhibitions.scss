@@ -1,3 +1,11 @@
+@mixin transition($str) {
+  -webkit-transition: #{$str};
+  -moz-transition: #{$str};
+  -ms-transition: #{$str};
+  -o-transition: #{$str};
+  transition: #{$str};
+}
+
 body.browse_exhibition {
   #content {
     position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 1000; width: 100%; height: 100%;
@@ -10,17 +18,46 @@ body.browse_exhibition {
     #exhibition_navigation {
       z-index: 3000;
       * {z-index: 3000;}
-      a, span {display: inline-block; width: 25px; height: 25px; overflow: hidden; background: rgb(0,0,0); color: rgb(255,255,255);}
-      span {opacity: .5;}
-      a:hover {background-color: rgb(50,50,50);}
-      #exhibition_navigate_home {position: fixed; bottom: 50%; left: 0; margin: 0 0 52px 0;}
-      #exhibition_navigate_exhibition {position: fixed; bottom: 50%; left: 0; margin: 0 0 26px 0;}
-      #exhibition_navigate_previous {position: fixed; bottom: 50%; left: 0;}
-      #exhibition_navigate_next {position: fixed; bottom: 50%; right: 300px;}
+      a, span {
+        display: inline-block; font-size: 25px; width: 35px; height: 35px; overflow: hidden; background: rgb(0,0,0); color: rgb(255,255,255); text-decoration: none; text-align: center; line-height: 35px;
+        i {
+          @include transition('margin .2s ease-in-out')
+        }
+        @include transition('background-color .2s ease-in-out')
+      }
+      #exhibition_navigate_home {position: fixed; bottom: 50%; left: 0; margin: 0 0 74px 0;}
+      #exhibition_navigate_exhibition {
+        position: fixed; bottom: 50%; left: 0; margin: 0 0 37px 0;
+        &:hover {
+          i {margin-right: 6px;}
+        }
+      }
+      #exhibition_navigate_previous {
+        position: fixed; bottom: 50%; left: 0;
+        &:hover {
+          i {margin-right: 6px;}
+        }
+      }
+      #exhibition_navigate_next {
+        position: fixed; bottom: 50%; right: 300px;
+        &:hover {
+          i {margin-left: 6px;}
+        }
+      }
+      span, a.disabled, a:hover {background-color: rgb(100,100,100);}
+      span, a.disabled {
+        opacity: .3;
+        i {margin: 0 !important;}
+      }
     }
     #exhibition_piece_play_button {
+      position: absolute; top: 10px; left: 0; right: 0; text-align: center; color: #000;
+      &:hover, &.disabled {color: #666;}
+      &.disabled {opacity: .3;}
+
       &[data-status='stopped'] .playing {display: none;}
       &[data-status='playing'] .stopped {display: none;}
+      @include transition('color .2s ease-in-out')
     }
     #exhibition_piece_pagination {
       position: fixed; top: 0; right: 250px; bottom: 0; width: 50px; z-index: 3010;
@@ -30,13 +67,14 @@ body.browse_exhibition {
         li {
           padding: 3px 5px;
           a {
-            display: block; width: 100%; height: 24px; text-indent: -9999px; font-size: 0;
-            background: #f0f;
-            &:hover {}
+            display: block; width: 100%; height: 24px; font-size: 16px; line-height: 1.0em; text-align: center; color: rgb(0,0,0); text-decoration: none;
+            &:hover {color: rgb(100,100,100);}
+
+            @include transition('color .2s ease-in-out')
           }
           &.section {display: none; /*tmp*/}
           &.current {
-            a {background: #ff0;}
+            a {color: rgb(255,0,255);}
           }
         }
       }
@@ -51,7 +89,10 @@ body.browse_exhibition {
       }
     }
     #exhibition_piece_sidebar {
-      position: fixed; top: 0; right: 0; bottom: 0; width: 250px; z-index: 3000;
+      position: fixed; top: 0; right: 0; bottom: 250px; width: 250px; z-index: 3000;
+    }
+    #exhibition_piece_comments {
+      position: fixed; right: 0; bottom: 0; width: 250px; height: 250px; z-index: 3010;
     }
   }
 

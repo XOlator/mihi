@@ -1,6 +1,6 @@
 - unless @exhibition.blank?
 
-  = render 'browse/exhibition_pieces/header', skip_prev: true
+  = render 'browse/exhibition_pieces/header', disable_exhibition: true
   = render 'browse/exhibition_pieces/pagination'
 
   %article.exhibition{id: "exhibition_#{@exhibition.id}"}
@@ -12,3 +12,8 @@
     - if @next_piece.present?
       %p
         %a{href: browse_exhibition_piece_url(@exhibition, @next_piece)} Begin
+
+
+  = render 'browse/exhibition_pieces/sidebar'
+  = render 'browse/exhibition_pieces/comments'
+  = #render 'browse/exhibition_pieces/footer'

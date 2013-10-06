@@ -101,27 +101,26 @@ MIHI.Browse.Current.extend({
 
   init : function() {
     // PAGINATION TOOLTIP DISPLAY
-    var pagination_hover_timeout;
-    $('#exhibition_piece_pagination .pagination a').hover(function() {
-      clearTimeout(pagination_hover_timeout);
-      var tt = $('#exhibition_pagination_tooltip');
-      tt.find('h6').html( $(this).text() );
-      tt.find('a').attr('href', $(this).attr('href')).attr('data-exhibition_piece_id', $(this).attr('data-exhibition_piece_id'));
-      tt.addClass('invis').show();
-      var tth = tt.height(), pgt = $(this).offset().top, pgh = $(this).height(), ttt = Math.round(pgt-(tth/2)-(pgh/2));
-      if (ttt < 0) ttt = 0;
-      if (ttt+tth > $(window).height()) ttt = $(window).height()-tth
-      // nipple position
-      tt.css({'top' : ttt+'px'}).removeClass('invis');
-    }, function() {
-      pagination_hover_timeout = setTimeout(function() {$('#exhibition_pagination_tooltip').hide();}, 250);
-    });
-
-    $('#exhibition_pagination_tooltip').hover(function() {
-      clearTimeout(pagination_hover_timeout);
-    }, function() {
-      pagination_hover_timeout = setTimeout(function() {$('#exhibition_pagination_tooltip').hide();}, 250);
-    });
+    // var pagination_hover_timeout;
+    // $('#exhibition_piece_pagination .pagination a').hover(function() {
+    //   clearTimeout(pagination_hover_timeout);
+    //   var tt = $('#exhibition_pagination_tooltip');
+    //   tt.find('h6').html( $(this).text() );
+    //   tt.find('a').attr('href', $(this).attr('href')).attr('data-exhibition_piece_id', $(this).attr('data-exhibition_piece_id'));
+    //   tt.addClass('invis').show();
+    //   var tth = tt.height(), pgt = $(this).offset().top, pgh = $(this).height(), ttt = Math.round(pgt-(tth/2)-(pgh/2));
+    //   if (ttt < 0) ttt = 0;
+    //   if (ttt+tth > $(window).height()) ttt = $(window).height()-tth
+    //   // nipple position
+    //   tt.css({'top' : ttt+'px'}).removeClass('invis');
+    // }, function() {
+    //   pagination_hover_timeout = setTimeout(function() {$('#exhibition_pagination_tooltip').hide();}, 250);
+    // });
+    // $('#exhibition_pagination_tooltip').hover(function() {
+    //   clearTimeout(pagination_hover_timeout);
+    // }, function() {
+    //   pagination_hover_timeout = setTimeout(function() {$('#exhibition_pagination_tooltip').hide();}, 250);
+    // });
 
 
     // PAGINATION ONCLICK

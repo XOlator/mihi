@@ -1,20 +1,21 @@
 - skip_prev ||= false
 - skip_next ||= false
+- disable_exhibition ||= false
 
 %nav#exhibition_navigation.c
-  %a#exhibition_navigate_home{href: root_url} Home
-  %a#exhibition_navigate_exhibition{href: browse_exhibition_url(@exhibition)} Exhibition
+  %a#exhibition_navigate_home{href: root_url}= fa_icon('home', title: 'Home')
+  %a#exhibition_navigate_exhibition{href: browse_exhibition_url(@exhibition), class: (disable_exhibition ? 'disabled' : '')}= fa_icon('double-angle-left')
 
   - unless skip_prev
     #exhibition_navigate_previous.exhibiton_navigation_button
       - if @prev_piece.present?
-        %a{href: browse_exhibition_piece_url(@exhibition, @prev_piece), rel: 'previous'} Prev
+        %a{href: browse_exhibition_piece_url(@exhibition, @prev_piece), rel: 'previous'}= fa_icon 'angle-left', title: 'Previous'
       - else
-        %a.disabled{rel: 'previous'} Prev
+        %a.disabled{rel: 'previous'}= fa_icon 'angle-left', title: 'Previous'
 
   - unless skip_next
     #exhibition_navigate_next
       - if @next_piece.present?
-        %a{href: browse_exhibition_piece_url(@exhibition, @next_piece), rel: 'next'} Next
+        %a{href: browse_exhibition_piece_url(@exhibition, @next_piece), rel: 'next'}= fa_icon 'angle-right', title: 'Next'
       - else
-        %a.disabled{rel: 'next'} Next
+        %a.disabled{rel: 'next'}= fa_icon 'angle-right', title: 'Next'
