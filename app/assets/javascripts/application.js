@@ -162,19 +162,31 @@ MIHI.Browse.Current.extend({
     
   },
 
+  loaded : function() {
+    $('#exhibition_piece_pagination .loading').removeClass('loading');
+    $('.piece_page .loading_page').addClass('hide');
+    setTimeout(function() {$('.piece_page .loading_page').hide();}, 1000)
+  },
+
   start : function() {
     this._event = 0;
     var p, t = this;
     if ((p = this.piece()) && p) {
-      if (p.piece && p.piece.events && p.piece.events.length > this._event) {
+      if (MIHI.Frame.Current.container().size() > 0) {
         MIHI.Frame.Current.container().load(function() {
-          setTimeout(function() {
-            MIHI.Frame.Current.process(p.piece.events[t._event]);
-            t._event++;
-          }, 10);
+          t.loaded();
+          if (p.piece && p.piece.events && p.piece.events.length > t._event) {
+            setTimeout(function() {
+              MIHI.Frame.Current.process(p.piece.events[t._event]);
+              t._event++;
+            }, 510);
+          }
         });
-        return true;
+
+      } else {
+        t.loaded();
       }
+      return true;
     }
 
     this.stop();

@@ -1,19 +1,16 @@
 - unless @exhibition.blank?
 
-  = render 'browse/exhibition_pieces/header', disable_exhibition: true
-  = render 'browse/exhibition_pieces/pagination'
+  #browse_container.c
+    #navigation_container
+      = render 'browse/exhibition_pieces/navigation', disable_exhibition: true
 
-  %article.exhibition{id: "exhibition_#{@exhibition.id}"}
-    %h1= @exhibition.title
-    %h3= @exhibition.subtitle
+    #content_container
+      %article.exhibition{id: "exhibition_#{@exhibition.id}"}
+        %h1= @exhibition.title
+        %h3= @exhibition.subtitle
 
-    = simple_format(@exhibition.description)
+        = simple_format(@exhibition.description)
 
-    - if @next_piece.present?
-      %p
-        %a{href: browse_exhibition_piece_url(@exhibition, @next_piece)} Begin
-
-
-  = render 'browse/exhibition_pieces/sidebar'
-  = render 'browse/exhibition_pieces/comments'
-  = #render 'browse/exhibition_pieces/footer'
+        - if @next_piece.present?
+          %p
+            %a{href: browse_exhibition_piece_url(@exhibition, @next_piece)} Begin

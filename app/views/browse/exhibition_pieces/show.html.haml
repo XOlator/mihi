@@ -4,21 +4,20 @@
 - unless @exhibition_piece.piece.blank?
   - piece_api = @exhibition_piece.to_api
 
-  = render 'header'
-  = render 'pagination'
+  #browse_container.c
+    #navigation_container
+      = render 'navigation'
 
-  %article.exhibition_piece{id: "exhibition_piece_#{@exhibition_piece.id}", class: @exhibition_piece.piece.class.name.underscore}
-    - case @exhibition_piece.piece.class.name
-      - when 'PieceText'
-        = render 'browse/exhibition_pieces/show/piece_text'
-      - when 'PiecePage'
-        = render 'browse/exhibition_pieces/show/piece_page'
-        - events_api = @exhibition_piece.piece.page_events.map{|v| v.to_api}
-      - else
-        %p Nothing to see.
-
-  = render 'sidebar'
-  = render 'comments'
+    #content_container
+      %article.exhibition_piece{id: "exhibition_piece_#{@exhibition_piece.id}", class: @exhibition_piece.piece.class.name.underscore}
+        - case @exhibition_piece.piece.class.name
+          - when 'PieceText'
+            = render 'browse/exhibition_pieces/show/piece_text'
+          - when 'PiecePage'
+            = render 'browse/exhibition_pieces/show/piece_page'
+            - events_api = @exhibition_piece.piece.page_events.map{|v| v.to_api}
+          - else
+            %p Nothing to see.
 
 :javascript
   MIHI.Browse.Current.exhibition(#{@exhibition.to_api(pieces: true).to_json.html_safe});

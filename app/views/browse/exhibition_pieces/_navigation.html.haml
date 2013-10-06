@@ -1,0 +1,79 @@
+- skip_prev ||= false
+- skip_next ||= false
+- disable_exhibition ||= false
+
+
+.rel
+  - # --- NAVIGATION BUTTONS ---
+  %nav#exhibition_navigation.c
+    %a#exhibition_navigate_home{href: root_url}= fa_icon('home', title: 'Home')
+    %a#exhibition_navigate_exhibition{href: browse_exhibition_url(@exhibition), class: (disable_exhibition ? 'disabled' : '')}= fa_icon('double-angle-left')
+
+    - unless skip_prev
+      #exhibition_navigate_previous.exhibiton_navigation_button
+        - if @prev_piece.present?
+          %a{href: browse_exhibition_piece_url(@exhibition, @prev_piece), rel: 'previous'}= fa_icon 'angle-left', title: 'Previous'
+        - else
+          %a.disabled{rel: 'previous'}= fa_icon 'angle-left', title: 'Previous'
+
+    - unless skip_next
+      #exhibition_navigate_next
+        - if @next_piece.present?
+          %a{href: browse_exhibition_piece_url(@exhibition, @next_piece), rel: 'next'}= fa_icon 'angle-right', title: 'Next'
+        - else
+          %a.disabled{rel: 'next'}= fa_icon 'angle-right', title: 'Next'
+
+
+  - # -- PAGINATION BAR ---
+  %aside#exhibition_piece_pagination
+    - if @exhibition_piece && @exhibition_piece.piece_type == 'PiecePage'
+      %a#exhibition_piece_play_button{'data-status' => 'stopped', href: 'javascript:;', rel: 'nofollow'}
+        %span.stopped= fa_icon('play', title: 'Play')
+        %span.playing= fa_icon('pause', title: 'Pause')
+    - else
+      %span#exhibition_piece_play_button.disabled
+        = fa_stacked_icon('play', base: 'ban-circle', title: 'Play')
+
+    %ul.pagination
+      - @exhibition.sections.each do |s|
+        %li.section= s.title
+        - s.exhibition_pieces.each do |ep|
+          - p = ep.piece
+          - next if p.blank?
+          - is_page = (@exhibition_piece && @exhibition_piece === ep)
+          %li{class: (is_page ? 'current loading' : '')}
+            %a{href: browse_exhibition_piece_url(@exhibition, ep), 'data-thumbnail' => nil, 'data-exhibition_piece_id' => ep.id, rel: 'follow', 'data-title' => p.title}
+              = fa_icon(is_page ? 'circle' : 'circle-blank')
+
+    #exhibition_pagination_tooltip{style: 'display: none;'}
+      %a{href: 'javascript:;', rel: 'nofollow'}
+        %img
+        %h6
+
+
+  - # --- SIDEBAR CONTENT ---
+  - unless @exhibition.blank?
+    %aside#exhibition_piece_sidebar
+      %h1 Share
+
+      - unless @exhibition_piece.blank?
+        - unless @exhibition_piece.piece.blank?
+          - case @exhibition_piece.piece.class.name
+            - when 'PiecePage'
+              - str = [] << @exhibition_piece.piece.timeline_year << @exhibition_piece.piece.url
+              - str.compact!
+              %h2= @exhibition_piece.piece.title
+              - unless str.blank?
+                %h6= str.compact.join(', ')
+              .description
+                = simple_format(@exhibition_piece.piece.description)
+
+        #exhibition_piece_notes
+
+      - else
+        %p something to go here on the first title slide
+
+
+  - # --- COMMENTS ---
+  %section#exhibition_piece_comments
+    [ COMMENTS GO HERE ]
