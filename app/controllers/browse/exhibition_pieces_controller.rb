@@ -18,6 +18,12 @@ class Browse::ExhibitionPiecesController < ApplicationController
 
     respond_to do |format|
       format.html {
+        @meta_canonical_url = browse_exhibition_piece_url(@exhibition, @exhibition_piece)
+        @meta_title = @exhibition_piece.title
+        @meta_description = @exhibition_piece.piece.excerpt rescue nil
+        @meta_image = nil
+        @meta_short_url = nil
+
         results.call
         render :show
       }

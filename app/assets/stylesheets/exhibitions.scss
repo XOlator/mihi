@@ -130,9 +130,31 @@ body.browse_exhibition {
       }
       #exhibition_piece_sidebar {
         position: fixed; top: 0; right: 0; bottom: 250px; width: 250px; z-index: 3000;
+
+        #exhibiton_piece_share {
+          position: absolute; top: 0; left: 0; right: 0; z-index: 3010; padding: 8px 16px; height: 17px; overflow: hidden; border-bottom: 1px solid rgb(235,235,235);
+          h2 {clear: none; float: left; padding: 0 8px 0 0; margin: 0; font-size: 16px; line-height: 1.0em;}
+          ul {
+            list-style: none; margin: 0; padding: 0;
+            li {
+              clear: none; float: left; margin: 0; padding: 0 3px; font-size: 16px; line-height: 1.0em;
+              a {
+                display: inline-block; text-decoration: none; color: rgb(0,0,0);
+                &:hover {color: rgb(100,100,100);}
+              }
+            }
+          }
+        }
+
+        #exhibition_description {
+          position: absolute; top: 34px; left: 0; right: 0; bottom: 0; z-index: 3010; overflow: scroll;
+          padding: 8px 15px;
+        }
+
       }
       #exhibition_piece_comments {
-        position: fixed; right: 0; bottom: 0; width: 250px; height: 250px; z-index: 3010;
+        position: fixed; right: 0; bottom: 0; width: 250px; height: 250px; z-index: 3010; border-top: 1px solid rgb(235,235,235);
+        .comments_area {padding: 8px 15px;}
       }
     }
   }

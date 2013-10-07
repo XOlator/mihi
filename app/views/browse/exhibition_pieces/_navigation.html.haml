@@ -12,16 +12,16 @@
     - unless skip_prev
       #exhibition_navigate_previous.exhibiton_navigation_button
         - if @prev_piece.present?
-          %a{href: browse_exhibition_piece_url(@exhibition, @prev_piece), rel: 'previous', 'data-exhibition_piece_id' => @prev_piece.id}= fa_icon 'angle-left', title: 'Previous'
+          %a{href: browse_exhibition_piece_url(@exhibition, @prev_piece), rel: 'previous', 'data-exhibition_piece_id' => @prev_piece.id}= fa_icon('angle-left', title: 'Previous')
         - else
-          %a.disabled{rel: 'previous'}= fa_icon 'angle-left', title: 'Previous'
+          %a.disabled{rel: 'previous'}= fa_icon('angle-left', title: 'Previous')
 
     - unless skip_next
       #exhibition_navigate_next
         - if @next_piece.present?
-          %a{href: browse_exhibition_piece_url(@exhibition, @next_piece), rel: 'next', 'data-exhibition_piece_id' => @next_piece.id}= fa_icon 'angle-right', title: 'Next'
+          %a{href: browse_exhibition_piece_url(@exhibition, @next_piece), rel: 'next', 'data-exhibition_piece_id' => @next_piece.id}= fa_icon('angle-right', title: 'Next')
         - else
-          %a.disabled{rel: 'next'}= fa_icon 'angle-right', title: 'Next'
+          %a.disabled{rel: 'next'}= fa_icon('angle-right', title: 'Next')
 
 
   - # -- PAGINATION BAR ---
@@ -53,27 +53,47 @@
 
   - # --- SIDEBAR CONTENT ---
   - unless @exhibition.blank?
-    %aside#exhibition_piece_sidebar
-      %h1 Share
+    %aside#exhibition_piece_sidebar.c
+      #exhibiton_piece_share.c
+        - share_text = []
+        - share_text << @exhibition_piece.title unless @exhibition_piece.blank?
+        - share_text << @exhibition.title
+        - share_url = browse_exhibition_piece_url(@exhibition, @exhibition_piece) unless @exhibition_piece.blank?
+        - share_url ||= browse_exhibition_url(@exhibition)
+        - share_image_url = @meta_image
 
-      - unless @exhibition_piece.blank?
-        - unless @exhibition_piece.piece.blank?
-          - case @exhibition_piece.piece.class.name
-            - when 'PiecePage'
-              - str = [] << @exhibition_piece.piece.timeline_year << @exhibition_piece.piece.url
-              - str.compact!
-              %h2= @exhibition_piece.piece.title
-              - unless str.blank?
-                %h6= str.compact.join(', ')
-              .description
-                = simple_format(@exhibition_piece.piece.description)
+        %h2 Share:
+        %ul
+          %li
+            %a{'data-share_box' => :twitter, href: "https://twitter.com/intent/tweet?related=xolator&text=#{URI::escape(share_text.join(', '))}&url=#{URI::escape(share_url)}", target: '_blank'}= fa_icon('twitter-sign')
+          %li
+            %a{'data-share_box' => :facebook, href: "https://www.facebook.com/sharer/sharer.php?u=#{URI::escape(share_url)}"}= fa_icon('facebook-sign')
+          %li
+            %a{'data-share_box' => :gplus, href: "https://plus.google.com/share?url=#{URI::escape(share_url)}&hl=en"}= fa_icon('google-plus-sign')
+          - unless share_image_url.blank?
+            %li
+              %a{'data-share_box' => :pinterest, href: "https://www.pinterest.com/pin/create/button/?url=#{URI::escape(share_url)}&media=#{URI::escape(share_image_url)}&description=#{URI::escape(share_text.join(', '))}"}= fa_icon('pinterest-sign')
 
-        #exhibition_piece_notes
+      #exhibition_description
+        - unless @exhibition_piece.blank?
+          - unless @exhibition_piece.piece.blank?
+            - case @exhibition_piece.piece.class.name
+              - when 'PiecePage'
+                - str = [] << @exhibition_piece.piece.timeline_year << @exhibition_piece.piece.url
+                - str.compact!
+                %h2= @exhibition_piece.piece.title
+                - unless str.blank?
+                  %h6= str.compact.join(', ')
+                .description
+                  = simple_format(@exhibition_piece.piece.description)
 
-      - else
-        %p something to go here on the first title slide
+          #exhibition_piece_notes
+
+        - else
+          %p something to go here on the first title slide
 
 
   - # --- COMMENTS ---
-  %section#exhibition_piece_comments
-    [ COMMENTS GO HERE ]
+  %section#exhibition_piece_comments.c
+    .comments_area.c
+      [ COMMENTS GO HERE ]

@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 
 
   def app_init
+    @meta_title, @meta_description, @meta_canonical_url, @meta_short_url, @meta_image = 'The MIHI', '', root_url, nil, nil
   end
 
   def layout_setup; 'main'; end
