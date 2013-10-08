@@ -159,6 +159,15 @@ body.browse_exhibition {
     }
   }
 
+  #offsite_frame {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 999990;
+    #offsite_frame_bg {position: fixed;  top: 0; left: 0; right: 0; bottom: 0; z-index: 999991; background: rgb(0,0,0); opacity: .8;}
+    #offsite_frame_container {
+      position: fixed; top: 50px; left: 50px; right: 50px; bottom: 50px; padding: 25px; z-index: 999992; background: rgb(0,0,0);
+      iframe {background: rgb(255,255,255);}
+    }
+  }
+
   #footer {
     position: fixed; bottom: 0; right: 0; opacity: .2; z-index: 2000; width: 250px;
     &:hover {opacity: 1;}

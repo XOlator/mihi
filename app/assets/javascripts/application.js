@@ -15,6 +15,14 @@
 //= require jquery.xpath.min
 //= require_tree .
 
+jQuery.fn.preOn = function (t,d,fn) {
+  return this.each(function () {
+    jQuery(this).on(t,d,fn);
+    var cur = jQuery(this).data('events')[t];
+    if (jQuery.isArray(cur)) cur.unshift(cur.pop());
+  });
+};
+
 var _root = {extend : function() {var src, copyIsArray, copy, name, options, clone, target = arguments[0] || {}, i = 1, length = arguments.length, deep = false;if ( typeof target === "boolean" ) {deep = target;target = arguments[1] || {};i = 2;}if ( typeof target !== "object" && !typeof target !== "function" ) target = {};if ( length === i ) {target = this; --i;}for ( ; i < length; i++ ) {if ( (options = arguments[ i ]) != null ) {for ( name in options ) {src = target[ name ];copy = options[ name ];if ( target === copy ) continue;if ( deep && copy && ( typeof copy === "object" || (copyIsArray = (typeof copy === "array")) ) ) {if ( copyIsArray ) {copyIsArray = false;clone = src && jQuery.isArray(src) ? src : [];} else {clone = src && typeof src === "object" ? src : {};}target[ name ] = MIHI.extend( deep, clone, copy );} else if ( copy !== undefined ) {target[ name ] = copy;}}}}return target;}};
 
 
@@ -60,10 +68,39 @@ MIHI.Frame.Current = MIHI.Frame.prototype = _root;
 MIHI.Frame.Current.extend({
   _container : null,
   _frame : null,
+  _initialized : false,
 
   container : function() {
     if (!this._container) this._container = jQuery('#exhibition_piece_iframe');
     return this._container;
+  },
+
+  offsite : function(url) {
+    var t = this;
+    $('#offsite_frame').remove();
+    // TODO : Add close button
+    $('body').append('<div id="offsite_frame" style=""><div id="offsite_frame_bg"></div><div id="offsite_frame_container"><iframe src="'+ url +'" width="100%" height="100%" framespacing="0" frameborder="0"></iframe></div></div>');
+    $('#offsite_frame_bg, #offsite_frame_container').css({opacity: 0});
+    $('#offsite_frame_bg').on('click', function() {t.close_offsite();})
+    setTimeout(function() {$('#offsite_frame_bg').animate({'opacity':.8}, 500);}, 250);
+    setTimeout(function() {$('#offsite_frame_container').animate({'opacity':1}, 500);}, 750);
+  },
+  
+  close_offsite : function() {
+    $('#offsite_frame').animate({opacity: 0}, {duration: 500, complete : function() {$('#offsite_frame').remove();}});
+  },
+
+  initialize : function() {
+    var t = this;
+    t.frame().find('a[href]').on('click', function(e) {
+      var href = $(this).attr('href');
+      if (href && href != '#' && !href.match(/^javascript\:/i) && href != '') {
+        t.offsite(href);
+        return false;
+      }
+      return true;
+    })
+    return (t._initialized = true);
   },
 
   frame : function(f) {
@@ -270,6 +307,7 @@ MIHI.Browse.Current.extend({
     if ((p = this.piece()) && p) {
       if (MIHI.Frame.Current.container().size() > 0) {
         MIHI.Frame.Current.container().load(function() {
+          MIHI.Frame.Current.initialize();
           t.loaded();
           if (p.piece && p.piece.events && p.piece.events.length > t._event) {
             setTimeout(function() {
