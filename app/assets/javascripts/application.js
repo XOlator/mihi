@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.xpath.min
 //= require_tree .
 
 var _root = {extend : function() {var src, copyIsArray, copy, name, options, clone, target = arguments[0] || {}, i = 1, length = arguments.length, deep = false;if ( typeof target === "boolean" ) {deep = target;target = arguments[1] || {};i = 2;}if ( typeof target !== "object" && !typeof target !== "function" ) target = {};if ( length === i ) {target = this; --i;}for ( ; i < length; i++ ) {if ( (options = arguments[ i ]) != null ) {for ( name in options ) {src = target[ name ];copy = options[ name ];if ( target === copy ) continue;if ( deep && copy && ( typeof copy === "object" || (copyIsArray = (typeof copy === "array")) ) ) {if ( copyIsArray ) {copyIsArray = false;clone = src && jQuery.isArray(src) ? src : [];} else {clone = src && typeof src === "object" ? src : {};}target[ name ] = MIHI.extend( deep, clone, copy );} else if ( copy !== undefined ) {target[ name ] = copy;}}}}return target;}};
@@ -48,7 +49,7 @@ MIHI.Share.prototype = {
     try {this._open.close()} catch(e) {}
   },
   track : function(p,o) {
-    console.log('Share Track:', p,o)
+    // console.log('Share Track:', p,o)
   }
 };
 
@@ -76,31 +77,78 @@ MIHI.Frame.Current.extend({
     if (!this.frame() || !evt || !evt.action) return false;
     try {
       switch(evt.action) {
-        case 'scroll':
-          return this.scroll(evt.array[0]);
+        case 'click':
+          return this.click(evt.array);
           break;
-        case 'scroll_element':
-          return this.scrollToElement(evt.array[0]);
+        case 'popup':
+          return this.popup(evt.array, evt.text);
+          break;
+        case 'scroll':
+          return this.scroll(evt.array);
+          break;
+        case 'scroll_to_element':
+          return this.scrollToElement(evt.array);
           break;
       }
-    } catch(e) {}
+    } catch(e) {
+      // console.error(e)
+    }
+    return false;
+  },
+
+  click : function(p) {
+    var elm = this.find_element(p[0],p[1]);
+    return (elm && elm.size() > 0 && elm.trigger('click'));
+  },
+
+  popup : function(p,t) {
+    if (!p || !p[0]) return false;
+
+    var elm = this.find_element(p[0],p[1]);
+    if (elm && elm.size() > 0) {
+      var o = elm.offset(), ey = o.top, ex = o.left;
+      try {this.frame().find('#mihi_popup').remove();} catch(e) {}
+
+      // TODO : FIXUP STYLE HERE
+      this.frame('body').append('<div id="mihi_popup" style="opacity:0;position:absolute !important;z-index:999999 !important;width:300px !important; height:auto !important;background-color:#000 !important;color:#fff !important;"></div>');
+      var b = this.frame().find('#mihi_popup');
+
+      if (b && b.size() > 0) {
+        b.css({'top' : ey+'px', 'left': (ex-30 > 0 ? (ex-30) : 0)+'px'}).html('<p style="margin:0 !important;padding:12px !important;">'+ t +'</p>');
+        ey = ey-b.height()-10;
+        if (ey < 0) ey = 0;
+        b.css({'top' : ey+'px'}); // reset above
+        // TODO : if at top of page, set below? damn hovers!
+        this.frame(navigator.userAgent.match(/webkit/i) ? 'body' : 'html').animate(
+          {scrollTop : ey, scrollLeft : ex},
+          {duration: 500, complete: function() {b.animate({'opacity': 1}, 500);} }
+        );
+        return true;
+      }
+    }
     return false;
   },
 
   scroll : function(i) {
-    this.frame('body').animate({scrollTop : i}, 500);
-    // this.frame('body').animate({scrollTop : (this.frame('body').scrollTop()+i)}, 500);
+    if (!i || !i[0]) return false;
+    this.frame(navigator.userAgent.match(/webkit/i) ? 'body' : 'html').animate({scrollTop : i[0]}, 500);
     return true;
   },
 
   scrollToElement : function(p) {
-    var elm = this.frame.find(p);
-    if (elm) {
+    if (!p || !p[0]) return false;
+    var elm = this.find_element(p[0],p[1]);
+    if (elm && elm.size()) {
       var o = elm.offset();
-      o.scrollTop(o.top).scrollLeft(o.left);
+      this.frame(navigator.userAgent.match(/webkit/i) ? 'body' : 'html').animate({scrollTop : o.top, scrollLeft : o.left},500);
+      // o.scrollTop(o.top).scrollLeft(o.left);
       return true;
     }
     return false;
+  },
+
+  find_element : function(e,m) {
+    return (m && m == 'xpath' ? this.frame().xpath(e).first() : this.frame().find(e).first());
   }
 })
 

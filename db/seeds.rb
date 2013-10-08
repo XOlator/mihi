@@ -59,7 +59,17 @@ urls = [
       author: words.sample(2).map(&:capitalize).join(' '),
       organization: words.sample(1).map(&:capitalize).join(' ')
     )
-    (1..6).each do |l|
+    (1..2).each do |l|
+      page_event = PiecePageEvent.create(action_type: PiecePageEvent::TYPES.index(:scroll), action_array: [200*l], action_timeout: (1000*2*l))
+      @page_events << page_event
+      piece.page_events << page_event
+    end
+
+    page_event = PiecePageEvent.create(action_type: PiecePageEvent::TYPES.index(:popup), action_array: ['p:eq(0)'], action_text: words.sample(rand(100)+1).join(' '), action_timeout: 10000)
+    @page_events << page_event
+    piece.page_events << page_event
+
+    (3..4).each do |l|
       page_event = PiecePageEvent.create(action_type: PiecePageEvent::TYPES.index(:scroll), action_array: [200*l], action_timeout: (1000*2*l))
       @page_events << page_event
       piece.page_events << page_event
