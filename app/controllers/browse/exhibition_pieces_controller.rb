@@ -3,6 +3,7 @@ class Browse::ExhibitionPiecesController < ApplicationController
   before_filter :get_exhibition, only: [:show, :cache]
   before_filter :get_exhibition_piece, only: [:show, :cache]
   before_filter :ensure_cacheable_piece, only: [:cache]
+  before_filter :get_exhibition_piece_by_uuid, only: [:uuid_lookup]
 
   # page_cache :cache
 
@@ -11,34 +12,7 @@ class Browse::ExhibitionPiecesController < ApplicationController
 
   # View the exhibition piece
   def show
-    results = Proc.new {
-      @prev_piece = @exhibition_piece.prev
-      @next_piece = @exhibition_piece.next
-    }
-
-    respond_to do |format|
-      format.html {
-        @meta_canonical_url = browse_exhibition_piece_url(@exhibition, @exhibition_piece)
-        @meta_title = @exhibition_piece.title
-        @meta_description = @exhibition_piece.piece.excerpt rescue nil
-        @meta_image = nil
-        @meta_short_url = nil
-
-        results.call
-        render :show
-      }
-      format.json {
-        results.call
-        obj = {
-          piece:          @exhibition_piece.to_api,
-          exhibition:     @exhibition.to_api,
-          previous_piece: (!@prev_piece.blank? ? @prev_piece.id : nil),
-          next_piece:     (!@next_piece.blank? ? @next_piece.id : nil)
-        }
-        
-        render json: obj.to_json, callback: params[:callback]
-      }
-    end
+    render_exhibition_page
   end
 
   # View the cached frame version of the exhibition piece.
@@ -53,6 +27,10 @@ class Browse::ExhibitionPiecesController < ApplicationController
     render :cache, layout: nil
   end
 
+  def uuid_lookup
+    redirect_to browse_exhibition_piece_url(@exhibition_piece.exhibition, @exhibition_piece)
+  end
+
 
 protected
 
@@ -64,6 +42,11 @@ protected
   def get_exhibition_piece
     @exhibition_piece = @exhibition.exhibition_pieces.friendly.find(params[:id])
     raise ActiveRecord::RecordNotFound if @exhibition_piece.blank?
+  end
+
+  def get_exhibition_piece_by_uuid
+    @exhibition_piece = ExhibitionPiece.find_by_uuid(params[:id])
+    raise ActiveRecord::RecordNotFound if @exhibition_piece.blank? || @exhibition_piece.exhibition.blank?
   end
 
   def ensure_cacheable_piece

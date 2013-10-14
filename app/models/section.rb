@@ -28,6 +28,10 @@ class Section < ActiveRecord::Base
   default_scope { where(active: true).order('sort_index ASC') }
 
 
+  def to_api
+    {id: id, title: title, subtitle: subtitle, excerpt: excerpt, description: description, exhibition_pieces: self.exhibition_pieces.map(&:id)}
+  end
+
 
 private
 

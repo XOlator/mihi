@@ -1,5 +1,7 @@
 class PiecePage < ActiveRecord::Base
 
+  include Rails.application.routes.url_helpers
+
   include Pieceable
   include Activatable
   extend FriendlyId
@@ -16,7 +18,7 @@ class PiecePage < ActiveRecord::Base
 
   # ---------------------------------------------------------------------------
 
-  belongs_to :exhibition_piece
+  has_one :exhibition_piece, foreign_key: 'piece_id'
   has_one :exhibition, through: :exhibition_piece
   has_one :piece_thumbnail
   has_many :page_events, class_name: 'PiecePageEvent'
@@ -52,11 +54,11 @@ class PiecePage < ActiveRecord::Base
 
   def to_api(*opts)
     opts = opts.extract_options!
-
     o = {
       id: id, 
-      urls: {original: url, cached: cache_page.url}, 
+      urls: {original: url, cached: cache_browse_exhibition_piece_url(self.exhibition, self.exhibition_piece)}, 
       title: title, excerpt: excerpt, description: description, author: author, organization: organization, 
+      year: timeline_year, date: timeline_date,
       options: {
         glass: option_glass, clickable: option_clickable
       },

@@ -117,5 +117,51 @@ protected
   end
 
 
+  def render_exhibition_page
+    # Assume exhibition is loaded
+    results = Proc.new {
+      if @exhibition_piece.present?
+        @prev_piece = @exhibition_piece.prev
+        @next_piece = @exhibition_piece.next
+      end
+
+      @prev_piece ||= nil
+      @next_piece ||= @exhibition.exhibition_pieces.first
+    }
+
+    respond_to do |format|
+      format.html {
+        @exhibition_piece ||= @exhibition.exhibition_pieces.first
+        
+        if @exhibition_piece.present?
+          @meta_canonical_url = browse_exhibition_piece_url(@exhibition, @exhibition_piece)
+          @meta_title = @exhibition_piece.title
+          @meta_description = @exhibition_piece.piece.excerpt rescue nil
+          @meta_short_url ||= exhibition_piece_short_url(@exhibition_piece.uuid)
+          @meta_image ||= nil
+        end
+
+        @meta_canonical_url ||= browse_exhibition_url(@exhibition)
+        @meta_title ||= @exhibition.title
+        @meta_description ||= @exhibition.excerpt
+        @meta_short_url ||= nil
+        @meta_image ||= nil
+
+        results.call
+        render 'browse/exhibition_pieces/show'
+      }
+      format.json {
+        results.call
+        obj = {
+          exhibition:     @exhibition.to_api(pieces: true, sections: true),
+          current_piece:  (@exhibiton_piece.present? ? @exhibition_piece.id : nil),
+          previous_piece: (!@prev_piece.blank? ? @prev_piece.id : nil),
+          next_piece:     (!@next_piece.blank? ? @next_piece.id : nil)
+        }
+
+        render json: obj.to_json, callback: params[:callback]
+      }
+    end
+  end
 
 end

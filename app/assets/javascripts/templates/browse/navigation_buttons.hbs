@@ -1,0 +1,19 @@
+<div id="exhibition_navigate_previous" class="exhibiton_navigation_button">
+  {{#if prev_piece}}
+    {{#prev_piece}}
+      <a href="{{urls.canonical}}" rel="previous" data-exhibition_piece_id="{{id}}"><i class="icon-angle-left" title="Previous"></i></a>
+    {{/prev_piece}}
+  {{else}}
+    <a class="disabled" rel="previous"><i class="icon-angle-left" title="Previous"></i></a>
+  {{/if}}
+</div>
+
+<div id="exhibition_navigate_next">
+  {{#if next_piece}}
+    {{#next_piece}}
+      <a href="{{urls.canonical}}" rel="next" data-exhibition_piece_id="{{id}}"><i class="icon-angle-right" title="Next"></i></a>
+    {{/next_piece}}
+  {{else}}
+    <a class="disabled" rel="next"><i class="icon-angle-right" title="Next"></i></a>
+  {{/if}}
+</div>

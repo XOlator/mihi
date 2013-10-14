@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130924230146) do
+ActiveRecord::Schema.define(version: 20131013044739) do
 
   create_table "exhibition_pieces", force: true do |t|
     t.string   "slug"
@@ -24,9 +24,11 @@ ActiveRecord::Schema.define(version: 20130924230146) do
     t.boolean  "active",             default: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "uuid"
   end
 
   add_index "exhibition_pieces", ["slug", "piece_type", "piece_id"], name: "index_exhibition_pieces_on_slug_and_piece_type_and_piece_id", unique: true
+  add_index "exhibition_pieces", ["uuid"], name: "index_exhibition_pieces_on_uuid", unique: true
 
   create_table "exhibition_users", force: true do |t|
     t.integer  "exhibition_id"

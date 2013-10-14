@@ -1,12 +1,14 @@
 class ExhibitionPiece < ActiveRecord::Base
 
+  include Rails.application.routes.url_helpers
+
   include Activatable
   extend FriendlyId
 
 
   # ---------------------------------------------------------------------------
 
-  friendly_id :title, use: [:slugged]
+  friendly_id :slug_title, use: [:slugged]
 
 
   # ---------------------------------------------------------------------------
@@ -20,6 +22,7 @@ class ExhibitionPiece < ActiveRecord::Base
 
   # ---------------------------------------------------------------------------
 
+  before_create :generate_uuid
   after_save :update_slug
 
 
@@ -32,12 +35,13 @@ class ExhibitionPiece < ActiveRecord::Base
 
   def to_api(*opts)
     opts = opts.extract_options!
-    o = {id: id, slug: slug, type: type}
+    o = {id: id, slug: slug, uuid: uuid, type: type, title: title, urls: {canonical: browse_exhibition_piece_url(exhibition, self), short: exhibition_piece_short_url(uuid)}}
     o.merge!({piece: piece.to_api}) if piece.present? && piece.respond_to?(:to_api)
     o
   end
 
-  def title; piece.slug || piece.title rescue "".random(10); end
+  def title; piece.title || piece.slug; end
+  def slug_title; piece.slug || piece.title rescue "".random(10); end
   def type; piece_type.gsub(/^piece/i, '') rescue nil; end
 
   # "Paginate"
@@ -51,6 +55,15 @@ private
     return if piece_id.blank?
     return if piece.slug == slug
     update_attribute(:slug, piece.slug)
+  end
+
+  def generate_uuid
+    if self.uuid.blank?
+      while true
+        self.uuid = SecureRandom.hex(5)
+        break unless ExhibitionPiece.where(uuid: self.uuid).count > 0
+      end
+    end
   end
 
 end
