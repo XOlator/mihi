@@ -17,7 +17,8 @@ Mihi::Application.routes.draw do
     end
   end
 
-  # Newsletters
+  match "/b/*id" => "browse/exhibition_pieces#uuid_lookup", as: :exhibition_piece_short, via: [:get]
+
   resources :exhibitions, only: [:index]
 
 

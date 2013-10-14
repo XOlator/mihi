@@ -13,7 +13,34 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.xpath.min
+//= require handlebars.runtime
+//= require_tree ./templates
 //= require_tree .
+
+
+Handlebars.registerHelper('downcase', function(str) {return (str && str != '' ? str.toLowerCase() : '');});
+Handlebars.registerHelper('matches', function(a,b) {return (a == b);});
+Handlebars.registerHelper('simple_format', function() {
+  var str = [], html = '', o = Array.prototype.pop.call(arguments);
+
+  if (arguments.length > 0) {
+    for (var i in arguments) {
+      if (typeof(arguments[i]) == 'object') {
+        for (var j in arguments[i]) str.push(o && o.fn ? o.fn(arguments[i][j]) : arguments[i][j]);
+      } else {
+        str.push(o && o.fn ? o.fn(arguments[i]) : arguments[i]);
+      }
+    }
+  } else {
+    str.push(o && o.fn ? o.fn(this) : '')
+  }
+
+  for (var i in str) {
+    html += (str[i] && str[i] != '' ? ('<p>'+ ((str[i] +'').replace(/((\r)?\n){2,}/m, '</p><p>').replace(/(\r)?\n/m, '<br />')) +'</p>') : '');
+  }
+
+  return new Handlebars.SafeString(html);
+});
 
 jQuery.fn.preOn = function (t,d,fn) {
   return this.each(function () {
@@ -64,7 +91,7 @@ MIHI.Share.prototype = {
 
 
 MIHI.Frame = function() {}
-MIHI.Frame.Current = MIHI.Frame.prototype = _root;
+MIHI.Frame.Current = MIHI.Frame.prototype = jQuery.extend(true, {}, _root);
 MIHI.Frame.Current.extend({
   _container : null,
   _frame : null,
@@ -75,10 +102,15 @@ MIHI.Frame.Current.extend({
     return this._container;
   },
 
+  reset : function() {
+    this._container = null;
+    this._frame = null;
+    this._initialized = false;
+  },
+
   offsite : function(url) {
     var t = this;
     $('#offsite_frame').remove();
-    // TODO : Add close button
     $('body').append('<div id="offsite_frame" style=""><div id="offsite_frame_bg"></div><a href="javascript:;" id="offsite_frame_close"><i class="icon-remove"></i></a><div id="offsite_frame_container"><iframe src="'+ url +'" width="100%" height="100%" framespacing="0" frameborder="0"></iframe></div></div>');
     $('#offsite_frame_bg, #offsite_frame_container #offsite_frame_close').css({opacity: 0});
     $('#offsite_frame_bg, #offsite_frame_close').on('click', function() {t.close_offsite();})
@@ -205,11 +237,12 @@ MIHI.Browse = function(piece,events) {
   if (piece) this._piece = piece;
   if (events) this._events = events;
 };
-MIHI.Browse.Current = MIHI.Browse.prototype = _root;
+MIHI.Browse.Current = MIHI.Browse.prototype = jQuery.extend(true, {}, _root);
 MIHI.Browse.Current.extend({
   _exhibition : null,
   _piece : null,
   _events : [],
+  _pages : null,
   _event : null,
   _target : null,
   _position : 0,
@@ -218,19 +251,35 @@ MIHI.Browse.Current.extend({
   _unloadable : true,
 
   target : function(t) {if (t) this._target = t; return this._target;},
-  exhibition : function(e) {if (e) this._exhibition = e; return this._exhibition;},
+  exhibition : function(e) {if (e) {this.reset(); this._exhibition = e;} return $.extend(true, {}, this._exhibition);},
   pieces : function(p) {
     if (p === true || p == 'current') p = this._piece;
     try {
-      return (p && p != '' ? this.exhibition().pieces[p] : this.exhibition().pieces);
+      return $.extend(true, {}, (p && p != '' ? this.exhibition().pieces[p] : this.exhibition().pieces));
     } catch(e) {
       return null;
     }
   },
-  piece : function(p) {if (p) this._piece = p; return this.pieces(this._piece);},
-  events : function(e) {if (e) this._events = e; return this._events;},
+  piece : function(p) {if (p) this._piece = p; return $.extend(true, {}, this.pieces(this._piece));},
+  events : function(e) {if (e) this._events = e; return $.extend(true, {}, this._events);},
+  reset : function() {
+    this._exhibition = null;
+    this._piece = null;
+    this._events = [];
+    this._pages = null;
+    this._event = null;
+    this._target = null;
+    this._position = 0;
+    this._timeout = null;
+    this._event_timeout = null;
+    this._unloadable = true;
+  },
 
   init : function() {
+    
+    // Generate HTML
+    this.load();
+
     // PAGINATION TOOLTIP DISPLAY
     // var pagination_hover_timeout;
     // $('#exhibition_piece_pagination .pagination a').hover(function() {
@@ -253,6 +302,18 @@ MIHI.Browse.Current.extend({
     //   pagination_hover_timeout = setTimeout(function() {$('#exhibition_pagination_tooltip').hide();}, 250);
     // });
 
+    $(window).on('popstate', function(e) {
+      var s = e.originalEvent.state;
+      if (s && s.exhibition && s.piece) {
+        if (MIHI.Browse.Current.exhibition().id != s.exhibition.id) {
+          alert('todo: reload new exhibition')
+        } else if (MIHI.Browse.Current.piece().id != s.piece.id) {
+          MIHI.Browse.Current.piece(s.piece.id);
+          MIHI.Browse.Current.page(s.piece.id);
+        }
+      }
+    });
+    window.history.replaceState({exhibition:this.exhibition(), piece:this.piece()}, "", this.piece().urls.canonical);
 
     // PAGINATION ONCLICK
     $('#exhibition_piece_pagination .pagination a, #exhibition_pagination_tooltip a').on('click', function() {
@@ -265,17 +326,16 @@ MIHI.Browse.Current.extend({
     });
 
     // PLAY BUTTON
-    $('#exhibition_piece_play_button').on('click', function() {
+    $('body').on('click', '#exhibition_piece_play_button', function() {
       if ($(this).attr('data-status') == 'stopped') {
         MIHI.Browse.Current.play();
       } else {
         MIHI.Browse.Current.pause();
       }
       return false;
-    });
 
     // SHARE BOX
-    $('a[data-share_box]').on('click', function() {
+    }).on('click', 'a[data-share_box]', function() {
       var p = $(this).attr('data-share_box'), href = $(this).attr('href');
       if (p && p != '') {
         var s = new MIHI.Share(p,href);
@@ -297,14 +357,92 @@ MIHI.Browse.Current.extend({
 
   page : function(pid) {
     $('#exhibition_pagination_tooltip').hide();
-    $('#exhibition_piece_pagination .pagination li').removeClass('current loading').find('i').addClass('icon-circle-blank').removeClass('icon-circle');
+    $('#exhibition_piece_pagination .pagination li').removeClass('current loading');
     $('#exhibition_piece_pagination .pagination li a[data-exhibition_piece_id="'+ pid +'"]').parent().addClass('current loading');
-    $('#exhibition_piece_pagination .pagination li a[data-exhibition_piece_id="'+ pid +'"]').find('i').addClass('icon-circle').removeClass('icon-circle-blank');
-    return true;
+
+    var t = this, p = t.piece(pid);
+    t.set_piece_url();
+    t.Render.new_piece();
+    t.start();
+
+    return false;
   },
 
-  load : function() {
+  set_piece_url : function(pid) {
+    var p = this.pieces(pid ? pid : true), n = this._unloadable;
+    if (p && p.urls && p.urls.canonical && p.urls.canonical != location.href) {
+      this._unloadable = true;
+      window.history.pushState({exhibition: this.exhibition(), piece: p}, "", p.urls.canonical);
+      this._unloadable = n;
+    }
+  },
+
+  pages : function(flatten) {
+    var t = this;
+
+    if (!t._pages) {
+      t._pages = [];
+
+      $.each(t.exhibition().sections, function(i,s) {
+        var x = {};
+        $.each(s.exhibition_pieces, function(i,p) {
+          x[p] = t.pieces(p);
+          if (t._piece == p) x[p].current = true;
+        });
+        s.exhibition_pieces = x;
+        t._pages.push(s);
+      });
+    }
+
+    if (!!flatten) {
+      var pg = [];
+      $.each(t._pages, function(i,s) {
+        $.each(s.exhibition_pieces, function(i,p) {
+          var x = t.pieces(p.id);
+          if (t._piece == p.id) x.current = true;
+          pg.push(x)
+        });
+      });
     
+      return pg;
+    } else {
+      return t._pages;
+    }
+
+  },
+
+  page_previous : function(pid) {
+    var p = null;
+    if (!pid) pid = this.piece().id;
+    $.each(this.pages(true), function(i,v) {
+      if (v.id == pid) return false;
+      p = v;
+    });
+    return p;
+  },
+
+  page_next : function(pid) {
+    var p = null;
+    if (!pid) pid = this.piece().id;
+    $.each(this.pages(true).reverse(), function(i,v) {
+      if (v.id == pid) return false;
+      p = v;
+    });
+    return p;
+  },
+
+
+  load : function() {
+    // Load framework HTML
+    if ($('#browse_container').size() < 1) {
+      var html = HandlebarsTemplates['exhibition']({});
+      $('#content').html(html);
+    }
+
+    this.Render.parent = this;
+    this.Render.navigation();
+    this.Render.pagination();
+    this.Render.new_piece();
   },
 
   loaded : function() {
@@ -315,6 +453,7 @@ MIHI.Browse.Current.extend({
 
   unload_setup : function() {
     var t = this;
+
     $(window).on('beforeunload', function(e) {
       if (t._unloadable) return null;
       return 'Oh no, this preview page is trying to navigate away from this collection.';
@@ -333,11 +472,12 @@ MIHI.Browse.Current.extend({
 
   start : function() {
     this._event = 0;
-
     this.unload_setup();
 
     var p, t = this;
     if ((p = this.piece()) && p) {
+      MIHI.Frame.Current.reset();
+
       if (MIHI.Frame.Current.container().size() > 0) {
         MIHI.Frame.Current.container().load(function() {
           MIHI.Frame.Current.initialize();
@@ -398,5 +538,92 @@ MIHI.Browse.Current.extend({
     $('#exhibition_piece_play_button').attr('data-status', 'stopped');
     this._event = 0;
     return true;
+  },
+
+
+  Render : {
+    new_piece : function() {
+      this.piece();
+      this.description();
+      this.play_controls();
+      this.share()
+      this.comments();
+      $('#exhibition_navigation_buttons').html(HandlebarsTemplates['browse/navigation_buttons']({prev_piece : this.parent.page_previous(), next_piece : this.parent.page_next()}));
+      return true;
+    },
+    
+    comments : function() {
+      // Comments : TODO REPLACE
+      var html = HandlebarsTemplates['browse/comments'](this.parent.piece().comments);
+      $('#exhibition_piece_comments').html(html);
+    },
+
+    description : function() {
+      var piece = this.parent.piece(), obj = {title: piece.title, subtitle: '', description: (piece.piece ? piece.piece.description : '')};
+
+      switch((piece.type || '').toLowerCase()) {
+        case 'page':
+          if (piece.piece) {
+            if (piece.piece.year) obj.subtitle += piece.piece.year;
+            if (piece.piece.urls && piece.piece.urls.original) obj.subtitle += (obj.subtitle != '' ? ', ' : '') + piece.piece.urls.original;
+          }
+          break;
+        case 'text':
+          break;
+      }
+
+      $('#exhibition_description').html(HandlebarsTemplates['browse/description'](obj));
+    },
+
+    navigation : function() {
+      var html = HandlebarsTemplates['browse/navigation']({
+        exhibition: this.parent.exhibition(), 
+        piece:      this.parent.piece(),
+        prev_piece: null, // TODO
+        next_piece: null  // TODO
+      });
+      $('#exhibition_navigation').html(html);
+    },
+
+    pagination : function() {
+      var html = HandlebarsTemplates['browse/pagination']({pagination: this.parent.pages()});
+      $('#exhibition_pagination').html(html);
+    },
+
+    piece : function() {
+      var obj = {piece : this.parent.piece()};
+      
+      // TODO, better title
+      $('title').text(obj.piece.title);
+
+      obj['piece_'+ (obj.piece.type || '').toLowerCase()] = true;
+      $('#content_container').html(HandlebarsTemplates['browse/piece'](obj));
+    },
+
+    play_controls : function() {
+      var obj = {piece : this.parent.piece()};
+      obj['piece_'+ (obj.piece.type || '').toLowerCase()] = true;
+      $('#exhibition_play_controls').html(HandlebarsTemplates['browse/play_controls'](obj));
+    },
+
+    share : function() {
+      var e = this.parent.exhibition(), p = this.parent.piece(), 
+          obj = {}, text = [], url = null, image = '';
+      if (!p || !e) return;
+
+      if (p.title && p.title != '') text.push(p.title);
+      if (e.title && e.title != '') text.push(e.title);
+      text = encodeURI(text.join(', '));
+
+      if (p.urls) url = encodeURI(p.urls.canonical)
+      if (!url && e.urls) url = encodeURI(e.urls.canonical)
+
+      obj['twitter'] = {url: url, text: text};
+      obj['facebook'] = obj['gplus'] = {url: url}
+      if (image) obj['pinterest'] = {url: url, text: text, image: image};
+
+      $('#exhibiton_piece_share').html(HandlebarsTemplates['browse/share'](obj));
+    }
   }
+
 });

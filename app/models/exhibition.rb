@@ -1,5 +1,7 @@
 class Exhibition < ActiveRecord::Base
 
+  include Rails.application.routes.url_helpers
+
   include Activatable
   extend FriendlyId
 
@@ -44,7 +46,13 @@ class Exhibition < ActiveRecord::Base
   def to_api(*opts)
     opts = opts.extract_options!
 
-    o = {id: id, slug: slug, title: title}
+    o = {id: id, slug: slug, title: title, urls: {canonical: browse_exhibition_url(self)}}
+
+    if opts[:sections]
+      o[:sections] = {}
+      self.sections.each{|s| o[:sections][s.id] = s.to_api}
+    end
+
     if opts[:pieces]
       o[:pieces] = {}
       self.exhibition_pieces.each{|e| o[:pieces][e.id] = e.to_api}

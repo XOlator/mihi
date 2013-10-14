@@ -7,27 +7,42 @@
     = csrf_meta_tags
 
     - if true
+      - unless @meta_title.blank?
+        %meta{name: "title", content: @meta_title}
+        %meta{name: "application-name", content: @meta_title}
+
+      - unless @meta_description.blank?
+        %meta{name: "description", content: @meta_description}
+
+      - unless @meta_canonical_url.blank?
+        %link{rel: "canonical", href: @meta_canonical_url}
+        %meta{name: "application-url", content: @meta_canonical_url}
+
+      - unless @meta_short_url.blank?
+        %link{rel: "shortlink", href: @meta_short_url}
+    
       - # FACEBOOK OPENGRAPH
       - #%meta{:property => "fb:admins", :content => "7002294"}
-      %meta{:property => "og:type", :content => "website"}
-      %meta{:property => "og:url", :content => (@meta_canonical_url || root_url)}
-      %meta{:property => "og:title", :content => @meta_title || ''}
-      %meta{:property => "og:description", :content => (@meta_description || '')}
-      %meta{:property => "og:image", :content => (@meta_image || '')}
+      %meta{property: "og:site_name", content: 'The MIHI'}
+      %meta{property: "og:locale", content: "en_US"}
+      %meta{property: "og:type", content: "website"}
+      %meta{property: "og:url", content: (@meta_canonical_url || root_url)}
+      %meta{property: "og:title", content: @meta_title || ''}
+      %meta{property: "og:description", content: (@meta_description || '')}
+      %meta{property: "og:image", content: (@meta_image || '')}
 
       - # TWITTER CARDS
-      %meta{:name => "twitter:site", :content => "@InteriorDesign"}
-      %meta{:name => "twitter:card", :content => "summary"}
-      %meta{:name => "twitter:url", :content => (@meta_canonical_url || root_url)}
-      %meta{:name => "twitter:title", :content => (@meta_title || '')}
-      %meta{:name => "twitter:description", :content => (@meta_description || '')}
-      %meta{:name => "twitter:image", :content => (@meta_image || '')}
+      %meta{name: "twitter:site", content: "@"}
+      %meta{name: "twitter:card", content: "summary"}
+      %meta{name: "twitter:url", content: (@meta_canonical_url || root_url)}
+      %meta{name: "twitter:title", content: (@meta_title || '')}
+      %meta{name: "twitter:description", content: (@meta_description || '')}
+      %meta{name: "twitter:image", content: (@meta_image || '')}
 
       - # GOOGLE +1
-      %meta{:itemprop => "name", :content => (@meta_title || '')}
-      %meta{:itemprop => "description", :content => (@meta_description || '')}
-      %meta{:itemprop => "image", :content => (@meta_image || '')}
-
+      %meta{itemprop: "name", content: (@meta_title || '')}
+      %meta{itemprop: "description", content: (@meta_description || '')}
+      %meta{itemprop: "image", content: (@meta_image || '')}
 
 
   %body.browse_exhibition
