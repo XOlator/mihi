@@ -12,12 +12,11 @@ gem 'rails',                      '4.0.0'
 gem 'mysql2',                     '0.3.13'
 gem 'multi_json',                 '1.7.9'
 
-gem 'sass-rails',                 '~> 4.0.0'
+gem 'sass-rails',                 '4.0.1'
 gem 'handlebars_assets',          '0.14.1'
-# gem 'uglifier', '>= 1.3.0'
+gem 'uglifier',                   '2.2.1'
 # gem 'coffee-rails', '~> 4.0.0'
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', platforms: :ruby
+gem 'therubyracer',               '0.12.0',   platforms: :ruby
 
 
 # BASICS
