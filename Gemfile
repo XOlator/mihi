@@ -34,9 +34,10 @@ group :development, :staging, :test, :production do
   gem 'paperclip',                  '3.5.1'     # File/Photo handling
   gem 'countries',                  '0.9.2'     # Countries list
   gem 'date_validator',             '0.7.0'     # Nicer date validation
+  gem 'nokogiri',                   '1.5.10'     # HTML parsing
 
   # API Integrations
-  gem 'aws-sdk',                    '1.17.0'
+  gem 'aws-sdk',                    '1.21.0'
 
   # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
   # gem 'turbolinks',                 '1.3.0'
