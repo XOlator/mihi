@@ -23,12 +23,15 @@
 
 
 body.browse_exhibition {
+  margin: 0; padding: 0; height: 100%; width: 100%;
+
   #browse_container {
     position: fixed; top: 0; left: 0; right: 300px; bottom: 0; z-index: 1000; height: 100%;
     #content_container {
-      width: 100%; height: 100%;
+      //width: 100%; height: 100%;
+      .rel {padding-bottom: 25px;}
       article.exhibition_piece, article.exhibition {
-        width: 100%; height: 100%;
+        position: absolute; top: 0; left: 0; right: 0; bottom: 20px;
         &.piece_page {
           .loading_page {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
@@ -43,6 +46,22 @@ body.browse_exhibition {
             @include transition('opacity .5s ease-in-out')
           }
           iframe {width: 100%; height: 100%;}
+        }
+      }
+
+
+      #exhibition_piece_trackbar {
+        position: absolute; left: 0; right: 0; bottom: 0; height: 40px; background: rgba(255,255,255,1); z-index: 3020; -webkit-transition: height .2s .25s ease-in-out; -moz-transition: height .2s .25s ease-in-out; -ms-transition: height .2s .25s ease-in-out; -o-transition: height .2s .25s ease-in-out; transition: height .2s .25s ease-in-out;
+        &:hover {
+          height: 80px;
+          -webkit-transition: height .1s ease-in-out; -moz-transition: height .1s ease-in-out; -ms-transition: height .1s ease-in-out; -o-transition: height .1s ease-in-out; transition: height .1s ease-in-out;
+        }
+
+        #exhibition_piece_trackbar_durationbar {position: absolute; top: 0; left: 0; right: 100%; bottom: 0; background: #f0f; z-index: 3021;}
+        a.trackbar_event {
+          position: absolute; top: -10px; left: 0; width: 10px; bottom: 0; margin-left: -5px; background: #ff0; text-indent: -999px; overflow: hidden; z-index: 3022;
+          &:nth-child(1) {margin-left: 0;}
+          &.completed {background: #0ff;}
         }
       }
     }
@@ -156,6 +175,7 @@ body.browse_exhibition {
         }
 
       }
+
       #exhibition_piece_comments {
         position: fixed; right: 0; bottom: 0; width: 250px; height: 250px; z-index: 3010; border-top: 1px solid rgb(235,235,235);
         .comments_area {padding: 8px 15px;}

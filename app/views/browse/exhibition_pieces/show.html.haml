@@ -1,5 +1,3 @@
-- piece_api, events_api = {}, []
-
 :javascript
   MIHI.Browse.Current.exhibition(#{@exhibition.to_api(pieces: true, sections: true).to_json.html_safe});
   MIHI.Browse.Current.piece(#{@exhibition_piece.id});
