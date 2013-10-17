@@ -2,6 +2,7 @@ class PiecePage < ActiveRecord::Base
 
   include Rails.application.routes.url_helpers
 
+  include Nokogiri
   include Pieceable
   include Activatable
   extend FriendlyId
@@ -68,6 +69,9 @@ class PiecePage < ActiveRecord::Base
     o
   end
 
+  def uri; @uri ||= URI.parse(self.url); @uri; end
+  def host_uri; "#{uri.scheme}://#{uri.host}"; end
+
   def cache_page_content
     begin
       uri = Addressable::URI.parse(self.url)
@@ -97,18 +101,27 @@ class PiecePage < ActiveRecord::Base
   # Should track its own page views.
 
   def read_cache_page
-    return false if self.cache_page_file_size.to_i < 1
+    return false if cache_page_file_size.to_i < 1
 
     begin
       Timeout::timeout(TIMEOUT_LENGTH) do
-        html = open(self.url, read_timeout: TIMEOUT_LENGTH, "User-Agent" => MIHI_USER_AGENT, allow_redirections: :all).read
-        html.gsub!(/(\<\/head\>)/im, "<base href=\"#{self.url}\" />\\1")
+        html = open(url, read_timeout: TIMEOUT_LENGTH, "User-Agent" => MIHI_USER_AGENT, allow_redirections: :all).read
+        html.force_encoding "UTF-8"
+        doc = Nokogiri::HTML.parse(html)
+        %w(href src).each do |k|
+          doc.css("*[#{k}]").each do |a|
+            next if a.attributes[k].value.match(/^[A-Z]+\:/i)
+            a.attributes[k].value = (a.attributes[k].value.match(/^\//) ? host_uri : url) + a.attributes[k].value
+          end
+        end
+        doc.to_s
       end
     rescue OpenURI::HTTPError => err
       false
     rescue Timeout::Error => err
       false
     rescue => err
+      puts "ERR: #{err}"
       false
     end
   end
