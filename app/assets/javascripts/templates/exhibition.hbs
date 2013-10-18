@@ -1,35 +1,43 @@
 <div id="browse_container" class="c">
-  <div id="navigation_container">
-    <div class="rel">
-      {{! --- NAVIGATION BUTTONS --- }}
-      <nav id="exhibition_navigation" class="c"></nav>
+  <div id="content_container">
+    {{! --- PIECE CONTENT ---}}
+    <div id="exhibition_piece_content"></div>
 
+    <div id="navigation_container">
+      <div class="rel">
+        {{! --- NAVIGATION BUTTONS --- }}
+        <nav id="exhibition_navigation" class="c"></nav>
 
-      {{! --- PAGINATION BAR --- }}
-      <aside id="exhibition_piece_pagination">
+        {{! --- PLAY CONTROLS --- }}
         <div id="exhibition_play_controls"></div>
-        <div id="exhibition_pagination"></div>
-      </aside>
 
+        {{! --- TRACKBAR --- }}
+        <section id="exhibition_piece_trackbar"></section>
+      </div>
+    </div>
+  </div>
 
-      {{! --- SIDEBAR CONTENT --- }}
-      <aside id="exhibition_piece_sidebar" class="c">
-        <div id="exhibiton_piece_share" class="c"></div>
-        <div id="exhibition_description"></div>
-      </aside>
+  <aside id="exhibition_piece_sidebar" class="c">
+    <div class="rel">
+      {{! --- SHARE BUTTONS ---}}
+      <div id="exhibiton_piece_share" class="c"></div>
+
+      {{! --- INFORMATION --- }}
+      <div id="exhibition_description"></div>
 
       {{! --- COMMENTS --- }}
       <section id="exhibition_piece_comments" class="c"></section>
     </div>
-  </div>
+  </aside>
 
-  <div id="content_container">
-    <div class="rel">
-      {{! --- PIECE CONTENT ---}}
-      <div id="exhibition_piece_content"></div>
-    
-      {{! --- TRACKBAR --- }}
-      <section id="exhibition_piece_trackbar"></section>
+  {{! XXX--- INFORMATION OVERLAY --- }}
+  <aside id="exhibition_details">
+    <div id="information_container">
+      {{! XXX--- EXHIBITION INFORMATION --- }}
+      <div id="exhibition_information">dd</div>
+
+      {{! XXX--- PAGE LIST --- }}
+      <div id="exhibition_pagination"></div>
     </div>
-  </div>
+  </aside>
 </div>

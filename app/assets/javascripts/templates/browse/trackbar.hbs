@@ -1,11 +1,11 @@
 <div id="exhibition_piece_trackbar_events">
-  <div id="exhibition_piece_trackbar_durationbar"></div>
-
   <div id="exhibition_piece_trackbar_events">
     {{#events}}
       {{#unless hidden}}
-        <a href="javascript:;" data-piece_event_id="{{id}}" data-piece_event_index="{{@index}}" id="exhibition_piece_trackbar_event_{{id}}" class="trackbar_event">{{id}}</a>
+        <a data-piece_event_id="{{id}}" data-piece_event_index="{{@index}}" id="exhibition_piece_trackbar_event_{{id}}" class="trackbar_event">{{id}}</a>
       {{/unless}}
     {{/events}}
   </div>
+
+  <div id="exhibition_piece_trackbar_durationbar"></div>
 </div>
