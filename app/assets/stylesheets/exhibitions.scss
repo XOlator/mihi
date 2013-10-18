@@ -1,6 +1,7 @@
 @mixin transition($str) {-webkit-transition: #{$str};-moz-transition: #{$str};-ms-transition: #{$str};-o-transition: #{$str};transition: #{$str};}
 @mixin animation($str) {-webkit-animation: #{$str};-moz-animation: #{$str};-ms-animation: #{$str};-o-animation: #{$str};animation: #{$str};}
 @mixin transform-origin($str) {-webkit-transform-origin: #{$str};-moz-transform-origin: #{$str};-ms-transform-origin: #{$str};-o-transform-origin: #{$str};transform-origin: #{$str};}
+@mixin clearfix() {content: ""; clear: both; float: none; height: 0; opacity: 0; visibility: hidden;}
 
 @-webkit-keyframes pagination_loading {0% {opacity: 1;} 50% {opacity: .3;} 100% {opacity: 1;}}
 @-moz-keyframes pagination_loading {0% {opacity: 1;} 50% {opacity: .3;} 100% {opacity: 1;}}
@@ -26,12 +27,10 @@ body.browse_exhibition {
   margin: 0; padding: 0; height: 100%; width: 100%;
 
   #browse_container {
-    position: fixed; top: 0; left: 0; right: 300px; bottom: 0; z-index: 1000; height: 100%;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 1000; height: 100%;
     #content_container {
-      //width: 100%; height: 100%;
-      .rel {padding-bottom: 25px;}
       article.exhibition_piece, article.exhibition {
-        position: absolute; top: 0; left: 0; right: 0; bottom: 20px;
+        position: absolute; top: 0; left: 0; right: 50px; bottom: 50px;
         &.piece_page {
           .loading_page {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
@@ -50,137 +49,157 @@ body.browse_exhibition {
       }
 
 
-      #exhibition_piece_trackbar {
-        position: absolute; left: 0; right: 0; bottom: 0; height: 40px; background: rgba(255,255,255,1); z-index: 3020; -webkit-transition: height .2s .25s ease-in-out; -moz-transition: height .2s .25s ease-in-out; -ms-transition: height .2s .25s ease-in-out; -o-transition: height .2s .25s ease-in-out; transition: height .2s .25s ease-in-out;
-        &:hover {
-          height: 80px;
-          -webkit-transition: height .1s ease-in-out; -moz-transition: height .1s ease-in-out; -ms-transition: height .1s ease-in-out; -o-transition: height .1s ease-in-out; transition: height .1s ease-in-out;
+      #navigation_container {
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 3900; padding: 0; height: 50px; background: rgb(0,0,0);
+        #exhibition_navigation {
+          z-index: 3000;
+          * {z-index: 3000;}
+          a, span {
+            display: inline-block; font-size: 20px; width: 35px; height: 35px; overflow: hidden; background: rgb(0,0,0); color: rgb(255,255,255); text-decoration: none; text-align: center; line-height: 35px;
+            i {
+              @include transition('margin .2s ease-in-out')
+            }
+            @include transition('background-color .2s ease-in-out')
+          }
+          #exhibition_navigate_home {position: fixed; bottom: 50%; left: 0; margin: 0 0 74px 0;}
+          #exhibition_navigate_exhibition {
+            position: absolute; top: 10px; right: 175px;
+          }
+          #exhibition_navigation_buttons {
+            position: absolute; bottom: 7px; right: 10px;
+            a, span {font-size: 25px;}
+            #exhibition_navigate_previous {clear: none; float: left; display: inline-block;}
+            #exhibition_navigate_next {clear: none; float: right; display: inline-block;}
+          }
+          span, a.disabled, a:hover {background-color: rgb(100,100,100);}
+          span, a.disabled {
+            opacity: .3;
+            i {margin: 0 !important;}
+          }
         }
 
-        #exhibition_piece_trackbar_durationbar {position: absolute; top: 0; left: 0; right: 100%; bottom: 0; background: #f0f; z-index: 3021;}
-        a.trackbar_event {
-          position: absolute; top: -10px; left: 0; width: 10px; bottom: 0; margin-left: -5px; background: #ff0; text-indent: -999px; overflow: hidden; z-index: 3022;
-          &:nth-child(1) {margin-left: 0;}
-          &.completed {background: #0ff;}
+        #exhibition_piece_trackbar {
+          position: absolute; left: 225px; right: 225px; bottom: 24px; height: 1px; background: rgba(255,255,255,1); z-index: 3020; -webkit-transition: height .2s .25s ease-in-out; -moz-transition: height .2s .25s ease-in-out; -ms-transition: height .2s .25s ease-in-out; -o-transition: height .2s .25s ease-in-out; transition: height .2s .25s ease-in-out;
+          // &:hover {
+          //   height: 20px;
+          //   -webkit-transition: height .1s ease-in-out; -moz-transition: height .1s ease-in-out; -ms-transition: height .1s ease-in-out; -o-transition: height .1s ease-in-out; transition: height .1s ease-in-out;
+          // }
+
+          #exhibition_piece_trackbar_durationbar {position: absolute; top: -2px; left: 0; right: 100%; bottom: -2px; background: rgba(255,255,255,1); z-index: 3021;}
+          #exhibition_piece_trackbar_durationbar:after {content: ""; position: absolute; right: -7px; top: -5px; display: block; width: 9px; height: 9px; border: 3px solid rgb(255,255,255); background: rgb(125,125,125); border-radius: 10px; z-index: 3025;};
+          a.trackbar_event {
+            position: absolute; top: -7px; left: 0; width: 6px; bottom: -7px; margin-left: -3px; background: rgb(255,255,255); opacity: .5; text-indent: -999px; overflow: hidden; z-index: 3022;
+            &:hover {cursor: pointer;}
+            &:nth-child(1) {margin-left: 0;}
+            &.completed {opacity: 1;}
+          }
+        }
+
+        #exhibition_piece_play_button {
+          position: absolute; top: 16px; left: 170px; color: rgb(255,255,255); font-size: 20px;
+          &:hover {opacity: .5;}
+          &.disabled {opacity: .3;}
+          &[data-status='stopped'] .playing {display: none;}
+          &[data-status='playing'] .stopped {display: none;}
+          &[data-status='playing'] {
+            @include animation('play_button_playing 2s infinite')
+          }
+          @include transition('color .2s ease-in-out')
         }
       }
     }
-    #navigation_container {
-      position: fixed; top: 0; right: 0; bottom: 0; z-index: 1000; width: 250px; height: 100%; padding: 0 0 0 50px;
-      #exhibition_navigation {
-        z-index: 3000;
-        * {z-index: 3000;}
-        a, span {
-          display: inline-block; font-size: 25px; width: 35px; height: 35px; overflow: hidden; background: rgb(0,0,0); color: rgb(255,255,255); text-decoration: none; text-align: center; line-height: 35px;
-          i {
-            @include transition('margin .2s ease-in-out')
+
+    #exhibition_piece_sidebar {
+      position: fixed; top: 0; right: 0; bottom: 50px; width: 50px; z-index: 3100; overflow: hidden; background: rgba(255,255,255,.9); border-left: 1px solid rgba(205,205,205,1);
+
+      .open {opacity: 0; max-height: 0; @include transition('max-height .1s .1s ease-in-out, opacity .2s .1s ease-in-out');}
+      .closed {opacity: 1; max-height: 100%; @include transition('max-height .1s .1s ease-in-out, opacity .2s .1s ease-in-out');}
+
+      #exhibiton_piece_share {
+        position: absolute; bottom: 0; left: 0; right: 0; z-index: 3010; padding: 8px 16px; height: 17px; overflow: hidden; border-top: 1px solid rgb(205,205,205);
+        h2 {clear: none; float: left; padding: 0 8px 0 0; margin: 0; font-size: 16px; line-height: 1.0em;}
+        ul {
+          list-style: none; margin: 0; padding: 0;
+          li {
+            clear: none; float: left; margin: 0; padding: 0 3px; font-size: 16px; line-height: 1.0em;
+            a {
+              display: inline-block; text-decoration: none; color: rgb(0,0,0);
+              &:hover {color: rgb(100,100,100);}
+            }
           }
-          @include transition('background-color .2s ease-in-out')
-        }
-        #exhibition_navigate_home {position: fixed; bottom: 50%; left: 0; margin: 0 0 74px 0;}
-        #exhibition_navigate_exhibition {
-          position: fixed; bottom: 50%; left: 0; margin: 0 0 37px 0;
-          &:hover {
-            i {margin-right: 6px;}
-          }
-        }
-        #exhibition_navigate_previous {
-          position: fixed; bottom: 50%; left: 0;
-          &:hover {
-            i {margin-right: 6px;}
-          }
-        }
-        #exhibition_navigate_next {
-          position: absolute; bottom: 50%; left: -35px;
-          &:hover {
-            i {margin-left: 6px;}
-          }
-        }
-        span, a.disabled, a:hover {background-color: rgb(100,100,100);}
-        span, a.disabled {
-          opacity: .3;
-          i {margin: 0 !important;}
         }
       }
 
-      #exhibition_piece_play_button {
-        position: absolute; top: 10px; left: 0; right: 0; text-align: center; color: #000;
-        &:hover, &.disabled {color: #666;}
-        &.disabled {opacity: .3;}
-        &[data-status='stopped'] .playing {display: none;}
-        &[data-status='playing'] .stopped {display: none;}
-        &[data-status='playing'] {
-          @include animation('play_button_playing 2s infinite')
-        }
-        @include transition('color .2s ease-in-out')
+      #exhibition_description {
+        position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 3110; overflow: scroll; padding: 8px 15px;
       }
-      #exhibition_piece_pagination {
-        position: fixed; top: 0; right: 250px; bottom: 0; width: 50px; z-index: 3010; background: #eee;
+
+      #exhibition_piece_comments {
+        position: absolute; bottom: 50px; left: 0; right: 0; z-index: 3010; padding: 8px 16px; height: 27px; overflow: hidden; border-top: 1px solid rgb(205,205,205);
+      }
+
+      &:hover {
+        width: 350px;
+        .open {opacity: 1; max-height: 100%; @include transition('max-height .1s .3s ease-in-out, opacity .2s .3s ease-in-out');}
+        .closed {opacity: 0; max-height: 0; @include transition('max-height .1s .2s ease-in-out, opacity .2s .2s ease-in-out');}
+        @include transition('width .2s .2s ease-in-out')
+      }
+
+      @include transition('width .2s .1s ease-in-out')
+    }
+  }
+
+  #exhibition_details {
+    position: fixed;  top: 0; right: 0; left: 0; bottom: 50px; z-index: 3600; background: rgba(0,0,0,.9); overflow: scroll;
+    background: #fff;
+
+    #information_container {
+      width: 750px; margin: 20px auto;
+      &:after {@include clearfix();}
+
+      #exhibition_information {
+        clear: none; float: left; width: 50%; background: #f0f; margin: 0 0 0 -5px;
+      }
+
+      #exhibition_pagination {
+        clear: none; float: right; width: 50%; background: #ff0; margin: 0 -5px 0 0;
         ul.pagination {
-          position: absolute; top: 100px; left: 0; right: 0; margin: 0; padding: 0; list-style: none;
+          margin: 0; padding: 0; list-style: none;
           li {
             padding: 3px 5px;
             a {
-              display: block; width: 100%; height: 24px; font-size: 16px; line-height: 1.0em; text-align: center; color: rgb(0,0,0); text-decoration: none;
+              display: block; width: 100%; font-size: 16px; line-height: 1.0em; color: rgb(0,0,0); text-decoration: none;
               &:hover {color: rgb(100,100,100);}
               i.icon-circle {display: none;}
               i.icon-circle-blank {display: block;}
               @include transition('color .2s ease-in-out')
             }
-            &.section {display: none; /*tmp*/}
-            &.current {
-              a {color: rgb(255,0,255);
-                i.icon-circle {display: block;}
-                i.icon-circle-blank {display: none;}
-              }
-            }
-            &.loading {
-              a {
-                @include animation('pagination_loading .5s infinite')
-              }
-            }
-          }
-        }
-        #exhibition_pagination_tooltip {
-          position: absolute; top: 0; left: -250px; z-index: 9000; background: #ccc; padding: 10px; width: 200px; overflow: hidden;
-          a {
-            text-decoration: none;
-            img {width: 200px; height: 200px; margin: 0 0 10px 0; border: 1px solid #ccc;}
-            h6 {font-size: 1.6em; font-weight: bold; text-align: center; padding: 0; margin: 0; color: #666;}
-            &:hover { }
+  //          &.section {display: none; /*tmp*/}
+  //          &.current {
+  //            a {color: rgb(255,0,255);
+  //              i.icon-circle {display: block;}
+  //              i.icon-circle-blank {display: none;}
+  //            }
+  //          }
+  //          &.loading {
+  //            a {
+  //              @include animation('pagination_loading .5s infinite')
+  //            }
+  //          }
           }
         }
       }
-      #exhibition_piece_sidebar {
-        position: fixed; top: 0; right: 0; bottom: 250px; width: 250px; z-index: 3000;
-
-        #exhibiton_piece_share {
-          position: absolute; top: 0; left: 0; right: 0; z-index: 3010; padding: 8px 16px; height: 17px; overflow: hidden; border-bottom: 1px solid rgb(235,235,235);
-          h2 {clear: none; float: left; padding: 0 8px 0 0; margin: 0; font-size: 16px; line-height: 1.0em;}
-          ul {
-            list-style: none; margin: 0; padding: 0;
-            li {
-              clear: none; float: left; margin: 0; padding: 0 3px; font-size: 16px; line-height: 1.0em;
-              a {
-                display: inline-block; text-decoration: none; color: rgb(0,0,0);
-                &:hover {color: rgb(100,100,100);}
-              }
-            }
-          }
-        }
-
-        #exhibition_description {
-          position: absolute; top: 34px; left: 0; right: 0; bottom: 0; z-index: 3010; overflow: scroll;
-          padding: 8px 15px;
-        }
-
-      }
-
-      #exhibition_piece_comments {
-        position: fixed; right: 0; bottom: 0; width: 250px; height: 250px; z-index: 3010; border-top: 1px solid rgb(235,235,235);
-        .comments_area {padding: 8px 15px;}
-      }
+//      #exhibition_pagination_tooltip {
+//        position: absolute; top: 0; left: -250px; z-index: 9000; background: #ccc; padding: 10px; width: 200px; overflow: hidden;
+//        a {
+//          text-decoration: none;
+//          img {width: 200px; height: 200px; margin: 0 0 10px 0; border: 1px solid #ccc;}
+//          h6 {font-size: 1.6em; font-weight: bold; text-align: center; padding: 0; margin: 0; color: #666;}
+//          &:hover { }
+//        }
+//      }
     }
+
   }
 
   #offsite_frame {
@@ -197,6 +216,7 @@ body.browse_exhibition {
   }
 
   #footer {
+    display: none;
     position: fixed; bottom: 0; right: 0; opacity: .2; z-index: 2000; width: 250px;
     &:hover {opacity: 1;}
   }

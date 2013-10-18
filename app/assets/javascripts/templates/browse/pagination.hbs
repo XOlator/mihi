@@ -1,9 +1,15 @@
 <ul class="pagination">
   {{#pagination}}
-    <li class="section">{{title}}</li>
+    <li class="section">
+      <h1>{{title}}</h1>
+    </li>
     {{#each exhibition_pieces}}
       <li class="{{#current}}current loading{{/current}}">
         <a href="{{#if urls}}{{urls.canonical}}{{else}}javascript:;{{/if}}" data-thumbnail="" data-exhibition_piece_id="{{id}}" rel="follow" data-title="{{title}}">
+          <h3>{{title}}</h3>
+          {{#piece}}
+            <p>{{excerpt}}</p>
+          {{/piece}}
           <i class="icon-circle"></i>
           <i class="icon-circle-blank"></i>
         </a>
@@ -13,7 +19,7 @@
 </ul>
 
 <div id="exhibition_pagination_tooltip" style="display: none;">
-  <a href="javascript:;" rel="nofollow">
+  <a rel="nofollow">
     <img />
     <h6></h6>
   </a>
