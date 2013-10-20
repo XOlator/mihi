@@ -1,7 +1,7 @@
 @mixin transition($str) {-webkit-transition: #{$str};-moz-transition: #{$str};-ms-transition: #{$str};-o-transition: #{$str};transition: #{$str};}
 @mixin animation($str) {-webkit-animation: #{$str};-moz-animation: #{$str};-ms-animation: #{$str};-o-animation: #{$str};animation: #{$str};}
 @mixin transform-origin($str) {-webkit-transform-origin: #{$str};-moz-transform-origin: #{$str};-ms-transform-origin: #{$str};-o-transform-origin: #{$str};transform-origin: #{$str};}
-@mixin clearfix() {content: ""; clear: both; float: none; height: 0; opacity: 0; visibility: hidden;}
+@mixin clearfix() {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
 
 @-webkit-keyframes pagination_loading {0% {opacity: 1;} 50% {opacity: .3;} 100% {opacity: 1;}}
 @-moz-keyframes pagination_loading {0% {opacity: 1;} 50% {opacity: .3;} 100% {opacity: 1;}}
@@ -131,7 +131,7 @@ body.browse_exhibition {
       }
 
       #exhibition_description {
-        position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 3110; overflow: scroll; padding: 8px 15px;
+        position: absolute; top: 0; left: 0; right: 0; bottom: 93px; padding: 8px 15px; overflow: scroll;
       }
 
       #exhibition_piece_comments {
@@ -150,25 +150,35 @@ body.browse_exhibition {
   }
 
   #exhibition_details {
-    position: fixed;  top: 0; right: 0; left: 0; bottom: 50px; z-index: 3600; background: rgba(0,0,0,.9); overflow: scroll;
-    background: #fff;
+    position: fixed;  top: 100%; opacity: 0; right: 0; left: 0; bottom: 50px; z-index: 3600; background: rgba(0,0,0,.9); overflow: scroll;
+
+    &.open {
+      top: 0; opacity: 1;
+      @include transition('top .3s ease-in-out, opacity .2s .2s ease-in-out');
+    }
+
+    #exhibition_details_close {
+      position: fixed; top: 5px; right: 5px; z-index: 3601; display: block; width: 40px; height: 40px; background: rgba(0,0,0,.5); color: rgba(255,255,255,.7); border-radius: 20px; font-size: 20px; line-height: 40px; text-align: center; text-decoration: none;
+      &:hover {color: rgb(255,255,255); background: rgb(100,100,100);}
+    }
 
     #information_container {
       width: 750px; margin: 20px auto;
       &:after {@include clearfix();}
 
       #exhibition_information {
-        clear: none; float: left; width: 50%; background: #f0f; margin: 0 0 0 -5px;
+        clear: none; float: left; width: 50%; margin: 0 0 0 -5px;
+        h1, h3, p {color: rgb(255,255,255);}
       }
 
       #exhibition_pagination {
-        clear: none; float: right; width: 50%; background: #ff0; margin: 0 -5px 0 0;
+        clear: none; float: right; width: 50%; margin: 0 -5px 0 0;
         ul.pagination {
           margin: 0; padding: 0; list-style: none;
           li {
-            padding: 3px 5px;
+            padding: 3px 5px; color: rgb(255,255,255);
             a {
-              display: block; width: 100%; font-size: 16px; line-height: 1.0em; color: rgb(0,0,0); text-decoration: none;
+              display: block; width: 100%; font-size: 16px; line-height: 1.0em; color: rgb(255,255,255); text-decoration: none;
               &:hover {color: rgb(100,100,100);}
               i.icon-circle {display: none;}
               i.icon-circle-blank {display: block;}
@@ -200,6 +210,7 @@ body.browse_exhibition {
 //      }
     }
 
+    @include transition('top .3s ease-in-out, opacity .2s .2s ease-in-out');
   }
 
   #offsite_frame {

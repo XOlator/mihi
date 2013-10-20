@@ -1,9 +1,14 @@
 <div class="closed">
-  COMMENT
+  <div class="rel">
+    <i class="icon-comment"></i>
+    <span class="number">{{count}}</span>
+  </div>
 </div>
 
 <div class="open">
   <div class="comments_area c">
     [ COMMENTS GO HERE ]
+    {{#comments}}
+    {{/comments}}
   </div>
 </div>

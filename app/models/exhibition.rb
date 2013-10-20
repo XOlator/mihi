@@ -46,7 +46,7 @@ class Exhibition < ActiveRecord::Base
   def to_api(*opts)
     opts = opts.extract_options!
 
-    o = {id: id, slug: slug, title: title, urls: {canonical: browse_exhibition_url(self)}}
+    o = {id: id, slug: slug, title: title, subtitle: subtitle, excerpt: excerpt, description: description, urls: {canonical: browse_exhibition_url(self)}}
 
     if opts[:sections]
       o[:sections] = {}
