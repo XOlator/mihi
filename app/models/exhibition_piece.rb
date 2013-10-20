@@ -40,8 +40,8 @@ class ExhibitionPiece < ActiveRecord::Base
     o
   end
 
-  def title; piece.title || piece.slug; end
-  def slug_title; piece.slug || piece.title rescue "".random(10); end
+  def title; piece ? (piece.title || piece.slug) : ''; end
+  def slug_title; (piece ? (piece.slug || piece.title) : '') rescue "".random(10); end
   def type; piece_type.gsub(/^piece/i, '') rescue nil; end
 
   # "Paginate"

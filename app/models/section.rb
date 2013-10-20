@@ -6,7 +6,7 @@ class Section < ActiveRecord::Base
 
   # ---------------------------------------------------------------------------
 
-  friendly_id :title, use: [:slugged]
+  friendly_id :slug_title, use: [:slugged]
 
 
   # ---------------------------------------------------------------------------
@@ -35,5 +35,10 @@ class Section < ActiveRecord::Base
 
 private
 
+  def slug_title
+    return slug unless slug.blank?
+    s = title.strip
+    s << "-#{SecureRandom.hex(1)}" if s.match(/^[0-9]+$/)
+  end
 
 end
