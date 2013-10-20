@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20131013044739) do
 
   create_table "exhibition_pieces", force: true do |t|
     t.string   "slug"
+    t.string   "uuid"
     t.integer  "exhibition_id"
     t.string   "piece_type"
     t.integer  "piece_id"
@@ -24,11 +25,10 @@ ActiveRecord::Schema.define(version: 20131013044739) do
     t.boolean  "active",             default: true
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "uuid"
   end
 
-  add_index "exhibition_pieces", ["slug", "piece_type", "piece_id"], name: "index_exhibition_pieces_on_slug_and_piece_type_and_piece_id", unique: true
-  add_index "exhibition_pieces", ["uuid"], name: "index_exhibition_pieces_on_uuid", unique: true
+  add_index "exhibition_pieces", ["slug", "piece_type", "piece_id"], name: "index_exhibition_pieces_on_slug_and_piece_type_and_piece_id", unique: true, using: :btree
+  add_index "exhibition_pieces", ["uuid"], name: "index_exhibition_pieces_on_uuid", unique: true, using: :btree
 
   create_table "exhibition_users", force: true do |t|
     t.integer  "exhibition_id"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20131013044739) do
     t.datetime "updated_at"
   end
 
-  add_index "exhibitions", ["slug"], name: "index_exhibitions_on_slug", unique: true
+  add_index "exhibitions", ["slug"], name: "index_exhibitions_on_slug", unique: true, using: :btree
 
   create_table "piece_page_events", force: true do |t|
     t.integer  "piece_page_id"
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 20131013044739) do
     t.datetime "updated_at"
   end
 
-  add_index "piece_page_events", ["piece_page_id"], name: "index_piece_page_events_on_piece_page_id"
+  add_index "piece_page_events", ["piece_page_id"], name: "index_piece_page_events_on_piece_page_id", using: :btree
 
   create_table "piece_pages", force: true do |t|
     t.string   "slug"
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 20131013044739) do
     t.datetime "updated_at"
   end
 
-  add_index "piece_pages", ["slug"], name: "index_piece_pages_on_slug", unique: true
+  add_index "piece_pages", ["slug"], name: "index_piece_pages_on_slug", unique: true, using: :btree
 
   create_table "piece_texts", force: true do |t|
     t.string   "slug"
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(version: 20131013044739) do
     t.datetime "updated_at"
   end
 
-  add_index "piece_texts", ["slug"], name: "index_piece_texts_on_slug", unique: true
+  add_index "piece_texts", ["slug"], name: "index_piece_texts_on_slug", unique: true, using: :btree
 
   create_table "piece_thumbnails", force: true do |t|
     t.integer  "piece_id"
@@ -133,7 +133,7 @@ ActiveRecord::Schema.define(version: 20131013044739) do
     t.datetime "updated_at"
   end
 
-  add_index "sections", ["exhibition_id"], name: "index_sections_on_exhibition_id"
-  add_index "sections", ["slug"], name: "index_sections_on_slug", unique: true
+  add_index "sections", ["exhibition_id"], name: "index_sections_on_exhibition_id", using: :btree
+  add_index "sections", ["slug"], name: "index_sections_on_slug", unique: true, using: :btree
 
 end

@@ -70,13 +70,14 @@ class PiecePage < ActiveRecord::Base
   end
 
   def uri; @uri ||= URI.parse(self.url); @uri; end
-  def host_uri; "#{uri.scheme}://#{uri.host}"; end
+  def uri_host; "#{uri.scheme}://#{uri.host}"; end
+  def uri_host_path; "#{uri.scheme}://" << "#{uri.host}/#{File.dirname(uri.path)}/".gsub(/\/{2,}/m, '/'); end
 
   def cache_page_content
     begin
       uri = Addressable::URI.parse(self.url)
       Timeout::timeout(TIMEOUT_LENGTH) do
-        io = open(self.url, read_timeout: TIMEOUT_LENGTH, "User-Agent" => MIHI_USER_AGENT, allow_redirections: :all)
+        io = open(uri, read_timeout: TIMEOUT_LENGTH, "User-Agent" => MIHI_USER_AGENT, allow_redirections: :all)
         raise "Invalid content-type" unless io.content_type.match(/text\/html/i)
         io.class_eval { attr_accessor :original_filename }
         io.original_filename = [uri.host, File.basename(uri.path), "html"].reject{|v| v.blank? || v == '/'}.join('.').gsub(/\//, '')
@@ -110,8 +111,8 @@ class PiecePage < ActiveRecord::Base
         doc = Nokogiri::HTML.parse(html)
         %w(href src).each do |k|
           doc.css("*[#{k}]").each do |a|
-            next if a.attributes[k].value.match(/^[A-Z]+\:/i)
-            a.attributes[k].value = (a.attributes[k].value.match(/^\//) ? host_uri : url) + a.attributes[k].value
+            next if a.attributes[k].value.match(/^([A-Z]+\:)/i)
+            a.attributes[k].value = (a.attributes[k].value.match(/^\//) ? uri_host : uri_host_path) + a.attributes[k].value
           end
         end
         doc.to_s
