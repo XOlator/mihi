@@ -109,12 +109,15 @@ class PiecePage < ActiveRecord::Base
         html = open(url, read_timeout: TIMEOUT_LENGTH, "User-Agent" => MIHI_USER_AGENT, allow_redirections: :all).read
         html.force_encoding "UTF-8"
         doc = Nokogiri::HTML.parse(html)
+
+        # Links and assets
         %w(href src).each do |k|
           doc.css("*[#{k}]").each do |a|
             next if a.attributes[k].value.match(/^([A-Z]+\:)/i)
             a.attributes[k].value = (a.attributes[k].value.match(/^\//) ? uri_host : uri_host_path) + a.attributes[k].value
           end
         end
+
         doc.to_s
       end
     rescue OpenURI::HTTPError => err

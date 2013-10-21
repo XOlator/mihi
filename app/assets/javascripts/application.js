@@ -157,6 +157,9 @@ MIHI.Frame.Current.extend({
     if (!this.frame() || !evt || !evt.action) return false;
     try {
       switch(evt.action) {
+        case 'clickthrough':
+          return this.clickthrough(evt.array);
+          break;
         case 'click':
           return this.click(evt.array);
           break;
@@ -176,9 +179,23 @@ MIHI.Frame.Current.extend({
     return false;
   },
 
+  clickthrough : function(p) {
+    var elm = this.find_element(p[0],p[1]);
+    if (elm && elm.size() > 0) {
+      MIHI.Browse.Current._unloadable = true;
+      this.frame().get(0).location.href = elm.attr('href');
+      return true;
+    }
+    return true;
+  },
+
   click : function(p) {
     var elm = this.find_element(p[0],p[1]);
-    return (elm && elm.size() > 0 && elm.trigger('click'));
+    if (elm && elm.size() > 0) {
+      MIHI.Browse.Current._unloadable = true;
+      return elm.trigger('click');
+    }
+    return true;
   },
 
   popup : function(p,t) {

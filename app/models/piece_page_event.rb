@@ -3,7 +3,7 @@ class PiecePageEvent < ActiveRecord::Base
   include Activatable
 
 
-  TYPES = [:none, :scroll, :scroll_to_element, :popup, :highlight]
+  TYPES = [:none, :scroll, :scroll_to_element, :popup, :highlight, :click, :clickthrough]
 
   # ---------------------------------------------------------------------------
 
