@@ -138,7 +138,8 @@ body.browse_exhibition {
         position: absolute; bottom: 50px; left: 0; right: 0; z-index: 3010; padding: 8px 16px; height: 27px; overflow: hidden; border-top: 1px solid rgb(205,205,205);
       }
 
-      &:hover {
+      &:hover {width: 55px;}
+      &.open, &.open:hover {
         width: 350px;
         .open {opacity: 1; max-height: 100%; @include transition('max-height .1s .3s ease-in-out, opacity .2s .3s ease-in-out');}
         .closed {opacity: 0; max-height: 0; @include transition('max-height .1s .2s ease-in-out, opacity .2s .2s ease-in-out');}
