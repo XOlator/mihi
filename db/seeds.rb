@@ -16,14 +16,12 @@ end
 
 
 list = {
-  2007 => {
-    title: "2007",
+  evan: {
+    title: "Evan Roth",
     subtitle: words.sample(3).join(' ').capitalize, 
     excerpt: words.sample(20).join(' ').capitalize, 
     description: words.sample(100).join(' ').capitalize,
     pieces: [
-
-      # EVAN
       {
         type:  :text,
         title: 'Evan Roth',
@@ -61,38 +59,234 @@ list = {
   },
 
   # JAMES
+  james: {
+    title: 'James Powderly',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+      # TODO
+    ]
+  },
 
   # JOHN J
+  john: {
+    title: 'Aram Bartholl',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+      # TODO
+    ]
+  },
 
   # JONAH
+  jonah: {
+    title: 'Jonah Peretti',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+      {
+        type:  :text,
+        title: 'Jonah Peretti',
+        content: words.sample(100).join(' ').capitalize,
+      },
+      {
+        type:  :page,
+        title: "Nike Sweatshop Emails",
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://www.shey.net/niked.html',
+        timeline_year: '2001',
+        events: []
+      },
+      {
+        type:  :page,
+        title: "Huffington Post",
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://web.archive.org/web/20050510002539/http://www.huffingtonpost.com/',
+        timeline_year: '2005',
+        events: []
+      },
+    ]
+  },
 
   # JAMIE
+  jamie: {
+    title: 'Jamie Wilkinson',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+      {
+        type:  :text,
+        title: 'Jamie Wilkinson',
+        content: words.sample(100).join(' ').capitalize,
+      },
+      {
+        type:  :page,
+        title: "Music Blackhole",
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://jamiedubs.com/musicblackhole/',
+        timeline_year: '2006',
+        events: []
+      },
+    ]
+  },
 
   # BENNETT
+  bennett: {
+    title: 'Bennett Williamson',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+      # TODO
+    ]
+  },
 
   # STEVE
+  # steve: {
+  #   title: 'Steve Lambert',
+  #   subtitle: words.sample(3).join(' ').capitalize, 
+  #   excerpt: words.sample(20).join(' ').capitalize, 
+  #   description: words.sample(100).join(' ').capitalize,
+  #   pieces: [
+  #     # TODO
+  #   ]
+  # },
 
   # BORNA
+  borna: {
+    title: 'Borna Sammak',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+      # TODO
+    ]
+  },
 
   # TODD P
+  # todd_p: {
+  #   title: 'Todd Polenberg',
+  #   subtitle: words.sample(3).join(' ').capitalize, 
+  #   excerpt: words.sample(20).join(' ').capitalize, 
+  #   description: words.sample(100).join(' ').capitalize,
+  #   pieces: [
+  #     # TODO
+  #   ]
+  # },
 
   # THEO
+  theo: {
+    title: 'Theo Watson',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+      # TODO
+    ]
+  },
 
   # BACA
+  baca: {
+    title: 'Mike Baca',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+      # TODO
+    ]
+  },
 
   # MICHAEL F
+  michael: {
+    title: 'Michael Frumin',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+      # TODO
+    ]
+  },
+
+  # ZACH
+  zach: {
+    title: 'Zach Lieberman',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+      # TODO
+    ]
+  },
 
   # MICHELLE ?
+  # michelle: {
+  #   title: 'Michelle Kempner',
+  #   subtitle: words.sample(3).join(' ').capitalize, 
+  #   excerpt: words.sample(20).join(' ').capitalize, 
+  #   description: words.sample(100).join(' ').capitalize,
+  #   pieces: [
+  #     # TODO
+  #   ]
+  # },
 
   # TOBI ?
+  tobi: {
+    title: 'Tobias Leingruber',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+      # TODO
+    ]
+  },
 
   # GERRY (1/10/08)
+  gerry: {
+    title: 'Geraldine Juárez',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+      # TODO
+    ]
+  },
 
   # BECKY (03/10/08)
+  becky: {
+    title: 'Becky Stern',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+      # TODO
+    ]
+  },
 
   # RANDY (7/20/08)
+  randy: {
+    title: 'Randy Sarafan',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+      # TODO
+    ]
+  },
 
   # ARAM (2/7/09)
+  aram: {
+    title: 'Aram Bartholl',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+      # TODO
+    ]
+  },
 
   # GREG (5/12/09)
   greg: {
@@ -129,16 +323,64 @@ list = {
   },
 
   # MOOT (?/?/09)
+  moot: {
+    title: 'Christopher "Moot" Poole',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+    ]
+  },
 
   # MAGNUS (8/6/09)
+  magnus: {
+    title: 'Magnus Eriksson',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+    ]
+  },
 
   # CHRIS S. (9/28/09)
+  chris_s: {
+    title: 'Chris Sugrue',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+    ]
+  },
 
   # TODD V. (9/28/09)
+  # todd_v: {
+  #   title: 'Todd Vanderlin',
+  #   subtitle: words.sample(3).join(' ').capitalize, 
+  #   excerpt: words.sample(20).join(' ').capitalize, 
+  #   description: words.sample(100).join(' ').capitalize,
+  #   pieces: [
+  #   ]
+  # },
 
   # GOLAN (7/22/10)
+  golan: {
+    title: 'Golan Levin',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+    ]
+  },
 
   # CORY (11/10/10)
+  # cory: {
+  #   title: 'Cory Archangel',
+  #   subtitle: words.sample(3).join(' ').capitalize, 
+  #   excerpt: words.sample(20).join(' ').capitalize, 
+  #   description: words.sample(100).join(' ').capitalize,
+  #   pieces: [
+  #   ]
+  # },
 
   # KYLE (3/27/11)
   kyle: {
@@ -178,9 +420,25 @@ list = {
     ]
   },
 
-  # HENNESEY (6/8/11)
+  # HENNESSY (6/8/11)
+  hennessy: {
+    title: 'Hennessy Youngman',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+    ]
+  },
 
   # KATSU (1/7/12)
+  katsu: {
+    title: 'KATSU',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+    ]
+  },
 
   # ADDIE (4/23/2012)
   addie: {
@@ -210,6 +468,18 @@ list = {
       },
     ]
   },
+
+  # LM4K
+  lm4k: {
+    title: 'LM4K',
+    subtitle: words.sample(3).join(' ').capitalize, 
+    excerpt: words.sample(20).join(' ').capitalize, 
+    description: words.sample(100).join(' ').capitalize,
+    pieces: [
+      # TODO
+    ]
+  },
+
 }
 
 
