@@ -65,13 +65,12 @@ class PiecePage < ActiveRecord::Base
       },
       events: page_events.map{|e| e.to_api}
     }
-
     o
   end
 
   def uri; @uri ||= URI.parse(self.url); @uri; end
-  def uri_host; "#{uri.scheme}://#{uri.host}"; end
-  def uri_host_path; "#{uri.scheme}://" << "#{uri.host}/#{File.dirname(uri.path)}/".gsub(/\/{2,}/m, '/'); end
+  def uri_host; @uri_host ||= "#{uri.scheme}://#{uri.host}"; end
+  def uri_host_path; @uri_host_path ||= "#{uri_host}/#{uri.path.match(/\/$/) ? uri.path : File.dirname(uri.path)}/".gsub(/\/{2,}/m, '/'); end
 
   def cache_page_content
     begin
@@ -106,9 +105,9 @@ class PiecePage < ActiveRecord::Base
 
     begin
       Timeout::timeout(TIMEOUT_LENGTH) do
-        html = open(url, read_timeout: TIMEOUT_LENGTH, "User-Agent" => MIHI_USER_AGENT, allow_redirections: :all).read
-        html.force_encoding "UTF-8"
-        doc = Nokogiri::HTML.parse(html)
+        str = open(url, read_timeout: TIMEOUT_LENGTH, "User-Agent" => MIHI_USER_AGENT, allow_redirections: :all).read
+        str.force_encoding "UTF-8"
+        doc = Nokogiri::HTML.parse(str)
 
         # Links and assets
         %w(href src).each do |k|
@@ -118,7 +117,7 @@ class PiecePage < ActiveRecord::Base
           end
         end
 
-        doc.to_s
+        doc.to_s.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
       end
     rescue OpenURI::HTTPError => err
       false
