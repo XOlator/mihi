@@ -64,6 +64,8 @@ MIHI.Browse.Current.extend({
     });
     window.history.replaceState({exhibition:this.exhibition(), piece:this.piece()}, "", this.piece().urls.canonical);
 
+    var sidebartimeout;
+
     // PAGINATION ONCLICK
     $('body').on('click', '#exhibition_piece_pagination .pagination a, #exhibition_pagination_tooltip a', function() {
       var pid = $(this).attr('data-exhibition_piece_id');
@@ -98,6 +100,15 @@ MIHI.Browse.Current.extend({
         MIHI.Browse.Current.run_event();
         return false;
       }
+
+    // SIDEBAR
+    }).on('click', '#exhibition_piece_sidebar', function(e) {
+      $(this).addClass('open');
+    }).on('mouseleave', '#exhibition_piece_sidebar', function(e) {
+      var t = $(this);
+      sidebartimeout = setTimeout(function() {t.removeClass('open');}, 500);
+    }).on('mouseenter', '#exhibition_piece_sidebar', function(e) {
+      clearTimeout(sidebartimeout)
     });
 
     // START THE SHOW! :D
