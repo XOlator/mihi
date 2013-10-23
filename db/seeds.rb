@@ -3,6 +3,9 @@
 
 words = %w(Neutra chillwave literally photo booth High Life mixtape you probably haven't heard of them before they sold out jean shorts cliche mlkshk Letterpress fap DIY iPhone Terry Richardson Keytar literally sartorial Terry Richardson Portland tofu direct trade retro ethical tumblr plaid typewriter gluten-free Plaid Bushwick try-hard cornhole trust fund helvetica McSweeney's 3 wolf moon meggings blue bottle small batch thundercats mlkshk Single-origin coffee letterpress occupy craft beer Schlitz ennui Tonx hoodie vinyl Portland Bushwick Bushwick you probably haven't heard of them umami 3 wolf moon art party messenger bag seitan shoreditch flannel organic hashtag master cleanse raw denim pour-over Biodiesel mumblecore kogi umami chambray fanny pack semiotics kale chips kitsch hashtag synth keffiyeh you probably haven't heard of them raw denim Hella selvage High Life plaid cliche Williamsburg polaroid Banksy narwhal organic literally Vice Butcher pickled VHS cliche bicycle rights fingerstache Banksy locavore dreamcatcher sriracha raw denim Kogi irony lo-fi bitters pitchfork skateboard gluten-free sustainable hella chillwave ethnic squid post-ironic typewriter Actually letterpress scenester pork belly semiotics pour-over shoreditch food truck art party Terry Richardson tumblr viral Pinterest banh mi cliche mumblecore tofu hoodie Tonx Skateboard gentrify fashion axe you probably haven't heard of them retro food truck banh mi 3 wolf moon gluten-free DIY Brooklyn locavore authentic lomo Pickled next level shoreditch aesthetic you probably haven't heard of them PBR umami small batch Ugh synth chillwave sustainable gastropub Flannel Banksy keffiyeh Wes Anderson ugh High Life put a bird on it hoodie 8-bit whatever tattooed stumptown Schlitz Kogi tote bag pug Cosby sweater forage asymmetrical four loko master cleanse post-ironic bicycle rights narwhal scenester letterpress 3 wolf moon put a bird on it PBR tumblr fanny pack lo-fi Echo Park pork belly actually ethical fixie semiotics pop-up gastropub mlkshk American apparel pitchfork whatever narwhal wayfarers craft beer Portland ennui authentic Terry Richardson tote bag four loko forage Williamsburg helvetica literally Mixtape ethical seitan ennui Try-hard vinyl asymmetrical Wes Anderson 8-bit flexitarian forage twee Neutra Blog craft beer Carles tumblr Flexitarian locavore cred wolf typewriter Lo-fi tousled church-key locavore master cleanse food truck narwhal letterpress authentic gastropub artisan Flannel gastropub vinyl 8-bit raw denim Odd Future gluten-free Schlitz shabby chic kogi small batch sriracha art party sustainable master cleanse Irony pork belly Pinterest single-origin coffee keytar polaroid shabby chic tousled Vice Bushwick cray hoodie fingerstache Etsy Salvia fap Bushwick Wes Anderson)
 
+# puts PiecePage.last.watermark
+# exit
+
 [Exhibition, ExhibitionPiece, PieceText, PiecePage, PiecePageEvent, PieceThumbnail, Section, ExhibitionUser].each do |m|
   m.all.each{|v| v.destroy rescue nil}
 end
@@ -13,7 +16,6 @@ end
   excerpt: words.sample(20).join(' ').capitalize, 
   description: words.sample(100).join(' ').capitalize
 )
-
 
 list = {
   evan: {
@@ -68,7 +70,7 @@ list = {
       # TODO
     ]
   },
-
+  
   # JOHN J
   john: {
     title: 'Aram Bartholl',
@@ -79,7 +81,7 @@ list = {
       # TODO
     ]
   },
-
+  
   # JONAH
   jonah: {
     title: 'Jonah Peretti',
@@ -104,13 +106,14 @@ list = {
         type:  :page,
         title: "Huffington Post",
         content: words.sample(100).join(' ').capitalize,
-        url: 'http://web.archive.org/web/20050510002539/http://www.huffingtonpost.com/',
+        url: 'http://www.huffingtonpost.com/',
+        wayback_url: 'http://web.archive.org/web/20050510002539/http://www.huffingtonpost.com/',
         timeline_year: '2005',
         events: []
       },
     ]
   },
-
+  
   # JAMIE
   jamie: {
     title: 'Jamie Wilkinson',
@@ -133,7 +136,7 @@ list = {
       },
     ]
   },
-
+  
   # BENNETT
   bennett: {
     title: 'Bennett Williamson',
@@ -144,7 +147,7 @@ list = {
       # TODO
     ]
   },
-
+  
   # STEVE
   # steve: {
   #   title: 'Steve Lambert',
@@ -155,7 +158,7 @@ list = {
   #     # TODO
   #   ]
   # },
-
+  
   # BORNA
   borna: {
     title: 'Borna Sammak',
@@ -166,7 +169,7 @@ list = {
       # TODO
     ]
   },
-
+  
   # TODD P
   # todd_p: {
   #   title: 'Todd Polenberg',
@@ -177,7 +180,7 @@ list = {
   #     # TODO
   #   ]
   # },
-
+  
   # THEO
   theo: {
     title: 'Theo Watson',
@@ -188,7 +191,7 @@ list = {
       # TODO
     ]
   },
-
+  
   # BACA
   baca: {
     title: 'Mike Baca',
@@ -199,7 +202,7 @@ list = {
       # TODO
     ]
   },
-
+  
   # MICHAEL F
   michael: {
     title: 'Michael Frumin',
@@ -210,7 +213,7 @@ list = {
       # TODO
     ]
   },
-
+  
   # ZACH
   zach: {
     title: 'Zach Lieberman',
@@ -221,7 +224,7 @@ list = {
       # TODO
     ]
   },
-
+  
   # MICHELLE ?
   # michelle: {
   #   title: 'Michelle Kempner',
@@ -232,7 +235,7 @@ list = {
   #     # TODO
   #   ]
   # },
-
+  
   # TOBI ?
   tobi: {
     title: 'Tobias Leingruber',
@@ -243,18 +246,18 @@ list = {
       # TODO
     ]
   },
-
-  # GERRY (1/10/08)
-  gerry: {
-    title: 'Geraldine Juárez',
-    subtitle: words.sample(3).join(' ').capitalize, 
-    excerpt: words.sample(20).join(' ').capitalize, 
-    description: words.sample(100).join(' ').capitalize,
-    pieces: [
-      # TODO
-    ]
-  },
-
+  # 
+  # # GERRY (1/10/08)
+  # gerry: {
+  #   title: 'Geraldine Juárez',
+  #   subtitle: words.sample(3).join(' ').capitalize, 
+  #   excerpt: words.sample(20).join(' ').capitalize, 
+  #   description: words.sample(100).join(' ').capitalize,
+  #   pieces: [
+  #     # TODO
+  #   ]
+  # },
+  # 
   # BECKY (03/10/08)
   becky: {
     title: 'Becky Stern',
@@ -265,7 +268,7 @@ list = {
       # TODO
     ]
   },
-
+  
   # RANDY (7/20/08)
   randy: {
     title: 'Randy Sarafan',
@@ -276,7 +279,7 @@ list = {
       # TODO
     ]
   },
-
+  
   # ARAM (2/7/09)
   aram: {
     title: 'Aram Bartholl',
@@ -287,7 +290,7 @@ list = {
       # TODO
     ]
   },
-
+  
   # GREG (5/12/09)
   greg: {
     title: 'Greg Leuch',
@@ -321,7 +324,7 @@ list = {
       },
     ]
   },
-
+  
   # MOOT (?/?/09)
   moot: {
     title: 'Christopher "Moot" Poole',
@@ -331,7 +334,7 @@ list = {
     pieces: [
     ]
   },
-
+  
   # MAGNUS (8/6/09)
   magnus: {
     title: 'Magnus Eriksson',
@@ -341,7 +344,7 @@ list = {
     pieces: [
     ]
   },
-
+  
   # CHRIS S. (9/28/09)
   chris_s: {
     title: 'Chris Sugrue',
@@ -351,7 +354,7 @@ list = {
     pieces: [
     ]
   },
-
+  
   # TODD V. (9/28/09)
   # todd_v: {
   #   title: 'Todd Vanderlin',
@@ -361,7 +364,7 @@ list = {
   #   pieces: [
   #   ]
   # },
-
+  
   # GOLAN (7/22/10)
   golan: {
     title: 'Golan Levin',
@@ -371,7 +374,7 @@ list = {
     pieces: [
     ]
   },
-
+  
   # CORY (11/10/10)
   # cory: {
   #   title: 'Cory Archangel',
@@ -381,7 +384,7 @@ list = {
   #   pieces: [
   #   ]
   # },
-
+  
   # KYLE (3/27/11)
   kyle: {
     title: 'Kyle McDonald',
@@ -419,7 +422,7 @@ list = {
       },
     ]
   },
-
+  
   # HENNESSY (6/8/11)
   hennessy: {
     title: 'Hennessy Youngman',
@@ -429,7 +432,7 @@ list = {
     pieces: [
     ]
   },
-
+  
   # KATSU (1/7/12)
   katsu: {
     title: 'KATSU',
@@ -439,7 +442,7 @@ list = {
     pieces: [
     ]
   },
-
+  
   # ADDIE (4/23/2012)
   addie: {
     title: 'Addie Wagenknecht',
@@ -456,19 +459,21 @@ list = {
         type:  :page,
         title: 'Lasursaur',
         content: words.sample(100).join(' ').capitalize,
-        url: 'http://web.archive.org/web/20120209105231/http://placesiveneverbeen.com/index.php?/systems/lasersaur/',
+        url: 'http://placesiveneverbeen.com/index.php?/systems/lasersaur/',
+        wayback_url: 'http://web.archive.org/web/20120209105231/http://placesiveneverbeen.com/index.php?/systems/lasersaur/',
         timeline_year: '2011'
       },
       {
         type:  :page,
         title: 'Undisclosed Publicity',
         content: words.sample(100).join(' ').capitalize,
-        url: 'http://web.archive.org/web/20120215104816/http://placesiveneverbeen.com/index.php?/architectural/undisclosed-publicity/',
+        url: 'http://placesiveneverbeen.com/index.php?/architectural/undisclosed-publicity/',
+        wayback_url: 'http://web.archive.org/web/20120215104816/http://placesiveneverbeen.com/index.php?/architectural/undisclosed-publicity/',
         timeline_year: '2011'
       },
     ]
   },
-
+  
   # LM4K
   lm4k: {
     title: 'LM4K',
@@ -503,13 +508,17 @@ list.each do |k,v|
         ep.piece = PiecePage.create(
           title: (p[:title] || words.sample(10).each(&:capitalize).join(' ')),
           url: p[:url],
+          wayback_url: p[:wayback_url],
           timeline_date: p[:date],
-          timeline_year: p[:date_year],
+          timeline_year: p[:timeline_year],
           excerpt: (p[:excerpt] || words.sample(20).join(' ').capitalize), 
           description: (p[:description] || words.sample(100).join(' ').capitalize),
           author: (p[:author] || words.sample(2).map(&:capitalize).join(' ')),
           organization: (p[:organization] || words.sample(1).map(&:capitalize).join(' '))
         )
+
+        # `open http://lh.dev:3000/#{ep.piece.cache_page.url}`
+
         (p[:events] || []).each do |e|
           pe = PiecePageEvent.create(action_type: PiecePageEvent::TYPES.index(e[:type]), action_array: (e[:array] || []), action_timeout: e[:timeout], action_text: e[:text])
           ep.piece.page_events << pe

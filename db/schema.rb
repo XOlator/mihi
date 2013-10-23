@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131013044739) do
+ActiveRecord::Schema.define(version: 20131023015347) do
 
   create_table "exhibition_pieces", force: true do |t|
     t.string   "slug"
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 20131013044739) do
   create_table "piece_pages", force: true do |t|
     t.string   "slug"
     t.text     "url"
+    t.string   "wayback_url"
+    t.datetime "wayback_date"
     t.string   "cache_page_file_name"
     t.integer  "cache_page_file_size"
     t.string   "cache_page_content_type"

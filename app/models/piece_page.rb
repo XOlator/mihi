@@ -57,7 +57,7 @@ class PiecePage < ActiveRecord::Base
     opts = opts.extract_options!
     o = {
       id: id, 
-      urls: {original: url, cached: cache_browse_exhibition_piece_url(self.exhibition, self.exhibition_piece)}, 
+      urls: {original: url, wayback: wayback_url, cached: cache_browse_exhibition_piece_url(self.exhibition, self.exhibition_piece)}, 
       title: title, excerpt: excerpt, description: description, author: author, organization: organization, 
       year: timeline_year, date: timeline_date,
       options: {
@@ -68,26 +68,51 @@ class PiecePage < ActiveRecord::Base
     o
   end
 
-  def uri; @uri ||= URI.parse(self.url); @uri; end
+  def has_wayback_url?; !self.wayback_url.blank?; end
+  def uri; @uri ||= URI.parse(self.url); end
   def uri_host; @uri_host ||= "#{uri.scheme}://#{uri.host}"; end
   def uri_host_path; @uri_host_path ||= (uri_host + "/#{uri.path.match(/\/$/) ? uri.path : File.dirname(uri.path)}/".gsub(/\/{2,}/m, '/')); end
+  def wayback_uri; @wayback_uri ||= URI.parse(self.wayback_url); end
+  def wayback_uri_host; @wayback_uri_host ||= "#{wayback_uri.scheme}://#{wayback_uri.host}"; end
+  def wayback_uri_host_path; @wayback_uri_host_path ||= (wayback_uri_host + "/#{wayback_uri.path.match(/\/$/) ? wayback_uri.path : File.dirname(wayback_uri.path)}/".gsub(/\/{2,}/m, '/')); end
+
 
   def cache_page_content
+    u = (has_wayback_url? ? wayback_uri : uri)
+    uh = (has_wayback_url? ? wayback_uri_host : uri_host)
+    up = (has_wayback_url? ? wayback_uri_host_path : uri_host_path)
+
     begin
-      uri = Addressable::URI.parse(self.url)
       Timeout::timeout(TIMEOUT_LENGTH) do
-        io = open(uri, read_timeout: TIMEOUT_LENGTH, "User-Agent" => MIHI_USER_AGENT, allow_redirections: :all)
+        io = open(u, read_timeout: TIMEOUT_LENGTH, "User-Agent" => MIHI_USER_AGENT, allow_redirections: :all)
         raise "Invalid content-type" unless io.content_type.match(/text\/html/i)
-        io.class_eval { attr_accessor :original_filename }
-        io.original_filename = [uri.host, File.basename(uri.path), "html"].reject{|v| v.blank? || v == '/'}.join('.').gsub(/\//, '')
-        self.cache_page = io
+
+        doc = Nokogiri::HTML.parse(io.read, u.to_s)
+
+        # MIHI Dated Watermark
+        doc.css("head").before(self.watermark)
+
+        # Absoluteize links and assets
+        %w(href src).each do |k|
+          doc.css("*[#{k}]").each do |a|
+            next if a.attributes[k].value.match(/^([A-Z]+\:)/i)
+            a.attributes[k].value = (a.attributes[k].value.match(/^\//) ? uh : up) + a.attributes[k].value
+          end
+        end
+
+        tempfile = Tempfile.new(u.host)
+        tempfile.write(doc.to_html(:encoding => 'UTF-8'))
+        tempfile.class_eval { attr_accessor :original_filename }
+        tempfile.original_filename = [uri.host, File.basename(uri.path), "html"].reject{|v| v.blank? || v == '/'}.join('.').gsub(/\//, '')
+
+        self.cache_page = tempfile
       end
     rescue OpenURI::HTTPError => err
-      puts "Fetch Page Error (OpenURI): #{err}"
+      puts "Fetch Page Error (OpenURI): #{err}: #{u.to_s}"
     rescue Timeout::Error => err
-      puts "Fetch Page Error (Timeout): #{err}"
+      puts "Fetch Page Error (Timeout): #{err}: #{u.to_s}"
     rescue => err
-      puts "Fetch Page Error (Error): #{err}"
+      puts "Fetch Page Error (Error): #{err}: #{u.to_s}"
     end
   end
   # TODO : MAKE delayed_queue
@@ -105,20 +130,7 @@ class PiecePage < ActiveRecord::Base
 
     begin
       Timeout::timeout(TIMEOUT_LENGTH) do
-        str = open(url, read_timeout: TIMEOUT_LENGTH, "User-Agent" => MIHI_USER_AGENT, allow_redirections: :all).read
-        str.force_encoding "UTF-8"
-        doc = Nokogiri::HTML.parse(str)
-
-        # Links and assets
-        %w(href src).each do |k|
-          doc.css("*[#{k}]").each do |a|
-            puts "#{a.attributes[k].value} :: #{(a.attributes[k].value.match(/^\//) ? uri_host : uri_host_path)}"
-            next if a.attributes[k].value.match(/^([A-Z]+\:)/i)
-            a.attributes[k].value = (a.attributes[k].value.match(/^\//) ? uri_host : uri_host_path) + a.attributes[k].value
-          end
-        end
-
-        doc.to_s.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+        open((cache_page.url.match(/^http/i) ? cache_page.url : cache_page.path), read_timeout: TIMEOUT_LENGTH, "User-Agent" => MIHI_USER_AGENT, allow_redirections: :all).read
       end
     rescue OpenURI::HTTPError => err
       false
@@ -131,7 +143,44 @@ class PiecePage < ActiveRecord::Base
   end
 
 
-private
+# protected
 
+  def watermark
+    n = 80
+
+    info = [] << self.title << self.url.truncate(n, omission: '')
+
+    etc = [] << ([] << self.author << self.organization).join(', ') << (self.timeline_date || self.timeline_year)
+    etc << " " << "Accessed from Archive.org" << self.wayback_url.truncate(n, omission: '') if self.has_wayback_url?
+
+    bottom = [] << "Archived by The MIHI crawler at #{Time.now.to_s(:db)}" << 'http://www.themihi.net :: info@themihi.net'
+
+
+    str = <<-eos
+
+<!--
+
+
+   #{' ____ ____ ____ _________ ____ ____ ____ ____ '.center(n)}
+   #{'||T |||H |||E |||       |||M |||I |||H |||I ||'.center(n)}
+   #{'||__|||__|||__|||_______|||__|||__|||__|||__||'.center(n)}
+   #{'|/__\|/__\|/__\|/_______\|/__\|/__\|/__\|/__\|'.center(n)}
+
+   #{'A r c h i v e d  W e b  P a g e'.upcase.center(n)}
+
+   #{'_'*n}
+
+   #{info.compact.map{|v| v.to_s.center(n)}.join("\n   ")}
+
+   #{etc.compact.map{|v| v.to_s.center(n)}.join("\n   ")}
+   #{'_'*n}
+
+   #{bottom.compact.map{|v| v.to_s.center(n)}.join("\n   ")}
+
+
+-->
+
+    eos
+  end
 
 end
