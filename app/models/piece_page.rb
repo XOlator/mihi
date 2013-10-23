@@ -70,7 +70,7 @@ class PiecePage < ActiveRecord::Base
 
   def uri; @uri ||= URI.parse(self.url); @uri; end
   def uri_host; @uri_host ||= "#{uri.scheme}://#{uri.host}"; end
-  def uri_host_path; @uri_host_path ||= "#{uri_host}/#{uri.path.match(/\/$/) ? uri.path : File.dirname(uri.path)}/".gsub(/\/{2,}/m, '/'); end
+  def uri_host_path; @uri_host_path ||= (uri_host + "/#{uri.path.match(/\/$/) ? uri.path : File.dirname(uri.path)}/".gsub(/\/{2,}/m, '/')); end
 
   def cache_page_content
     begin
@@ -112,6 +112,7 @@ class PiecePage < ActiveRecord::Base
         # Links and assets
         %w(href src).each do |k|
           doc.css("*[#{k}]").each do |a|
+            puts "#{a.attributes[k].value} :: #{(a.attributes[k].value.match(/^\//) ? uri_host : uri_host_path)}"
             next if a.attributes[k].value.match(/^([A-Z]+\:)/i)
             a.attributes[k].value = (a.attributes[k].value.match(/^\//) ? uri_host : uri_host_path) + a.attributes[k].value
           end

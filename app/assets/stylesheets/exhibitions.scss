@@ -138,9 +138,9 @@ body.browse_exhibition {
         position: absolute; bottom: 50px; left: 0; right: 0; z-index: 3010; padding: 8px 16px; height: 27px; overflow: hidden; border-top: 1px solid rgb(205,205,205);
       }
 
-      &:hover {width: 55px;}
+      &:hover {width: 55px; cursor: pointer;}
       &.open, &.open:hover {
-        width: 350px;
+        width: 350px; cursor: auto;
         .open {opacity: 1; max-height: 100%; @include transition('max-height .1s .3s ease-in-out, opacity .2s .3s ease-in-out');}
         .closed {opacity: 0; max-height: 0; @include transition('max-height .1s .2s ease-in-out, opacity .2s .2s ease-in-out');}
         @include transition('width .2s .2s ease-in-out')
@@ -152,7 +152,7 @@ body.browse_exhibition {
 
   #exhibition_details {
     position: fixed;  top: 100%; opacity: 0; right: 0; left: 0; bottom: 50px; z-index: 3600; background: rgba(0,0,0,.9); overflow: scroll;
-
+    .rel {position: relative;}
     &.open {
       top: 0; opacity: 1;
       @include transition('top .3s ease-in-out, opacity .2s .2s ease-in-out');

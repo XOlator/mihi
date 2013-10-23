@@ -63,6 +63,7 @@ MIHI.Frame.Current.extend({
 
   process : function(evt) {
     if (!this.frame() || !evt || !evt.action) return false;
+    try {this.frame().find('.mihi_popup').animate({opacity: 0}, {duration: (evt.action.match(/^click/i) ? 1 : 150), complete: function() {$(this).remove();}});} catch(e) {}
     try {
       switch(evt.action) {
         case 'clickthrough':
@@ -111,12 +112,11 @@ MIHI.Frame.Current.extend({
 
     var elm = this.find_element(p[0],p[1]);
     if (elm && elm.size() > 0) {
-      var o = elm.offset(), ey = o.top, ex = o.left;
-      try {this.frame().find('#mihi_popup').remove();} catch(e) {}
+      var o = elm.offset(), ey = o.top, ex = o.left, n = Math.floor(Math.random()*10000);
 
       // TODO : FIXUP STYLE HERE
-      this.frame('body').append('<div id="mihi_popup" style="opacity:0;position:absolute !important;z-index:999999 !important;width:300px !important; height:auto !important;background-color:#000 !important;color:#fff !important;"></div>');
-      var b = this.frame().find('#mihi_popup');
+      this.frame('body').append('<div class="mihi_popup" data-popup="'+ n +'" style="opacity:0;position:absolute !important;z-index:999999 !important;width:300px !important; height:auto !important;background-color:#000 !important;color:#fff !important;"></div>');
+      var b = this.frame().find('.mihi_popup[data-popup="'+ n +'"]');
 
       if (b && b.size() > 0) {
         b.css({'top' : ey+'px', 'left': (ex-30 > 0 ? (ex-30) : 0)+'px'}).html('<p style="margin:0 !important;padding:12px !important;">'+ t +'</p>');
