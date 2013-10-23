@@ -88,6 +88,7 @@ class PiecePage < ActiveRecord::Base
         raise "Invalid content-type" unless io.content_type.match(/text\/html/i)
 
         doc = Nokogiri::HTML.parse(io.read, u.to_s)
+        doc.encoding = 'utf-8'
 
         # MIHI Dated Watermark
         doc.css("head").before(self.watermark)
