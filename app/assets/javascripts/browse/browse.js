@@ -18,7 +18,7 @@ MIHI.Browse.Current.extend({
   _unloadable : true,
   _playing : false,
   defaults : {
-    event : [{action:'scroll',array:[0],timeout:2000}]
+    event : [{action:'scroll',array:[0],timeout:10000}]
   },
 
   target : function(t) {if (t) this._target = t; return this._target;},
@@ -97,18 +97,19 @@ MIHI.Browse.Current.extend({
       var p = $(this).attr('data-piece_event_index');
       if (p && p != '') {
         MIHI.Browse.Current._event = parseInt(p);
-        MIHI.Browse.Current.run_event();
+        MIHI.Browse.Current.run();
         return false;
       }
 
     // SIDEBAR
     }).on('click', '#exhibition_piece_sidebar', function(e) {
       $(this).addClass('open');
+      MIHI.Browse.Current.pause();
     }).on('mouseleave', '#exhibition_piece_sidebar', function(e) {
       var t = $(this);
       sidebartimeout = setTimeout(function() {t.removeClass('open');}, 500);
     }).on('mouseenter', '#exhibition_piece_sidebar', function(e) {
-      clearTimeout(sidebartimeout)
+      clearTimeout(sidebartimeout);
     });
 
     // START THE SHOW! :D
@@ -418,15 +419,22 @@ MIHI.Browse.Current.extend({
     },
 
     navigation : function() {
-      var t = this, html = HandlebarsTemplates['browse/navigation']({
+      var t = this, p = t.parent.piece(), html = HandlebarsTemplates['browse/navigation']({
         exhibition: t.parent.exhibition(), 
-        piece:      t.parent.piece(),
+        piece:      p,
         prev_piece: null, // TODO
         next_piece: null  // TODO
       });
       $('#exhibition_navigation').html(html);
+
       $('#exhibition_navigate_exhibition').on('click', function(e) {
         $('#exhibition_details').toggleClass('open');
+
+        if ($('#exhibition_details').hasClass('open') && p) {
+          var n = $('#exhibition_details').find('a[data-exhibition_piece_id="'+ p.id +'"]');
+          if (n) $('#exhibition_details').scrollTop(n.position().top);
+        }
+
         t.parent.pause();
         return false;
       });

@@ -512,7 +512,6 @@ list.each do |k,v|
         )
         (p[:events] || []).each do |e|
           pe = PiecePageEvent.create(action_type: PiecePageEvent::TYPES.index(e[:type]), action_array: (e[:array] || []), action_timeout: e[:timeout], action_text: e[:text])
-          puts pe.inspect
           ep.piece.page_events << pe
         end
 
