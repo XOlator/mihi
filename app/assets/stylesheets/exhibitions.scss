@@ -181,34 +181,11 @@ body.browse_exhibition {
             a {
               display: block; width: 100%; font-size: 16px; line-height: 1.0em; color: rgb(255,255,255); text-decoration: none;
               &:hover {color: rgb(100,100,100);}
-              i.icon-circle {display: none;}
-              i.icon-circle-blank {display: block;}
               @include transition('color .2s ease-in-out')
             }
-  //          &.section {display: none; /*tmp*/}
-  //          &.current {
-  //            a {color: rgb(255,0,255);
-  //              i.icon-circle {display: block;}
-  //              i.icon-circle-blank {display: none;}
-  //            }
-  //          }
-  //          &.loading {
-  //            a {
-  //              @include animation('pagination_loading .5s infinite')
-  //            }
-  //          }
           }
         }
       }
-//      #exhibition_pagination_tooltip {
-//        position: absolute; top: 0; left: -250px; z-index: 9000; background: #ccc; padding: 10px; width: 200px; overflow: hidden;
-//        a {
-//          text-decoration: none;
-//          img {width: 200px; height: 200px; margin: 0 0 10px 0; border: 1px solid #ccc;}
-//          h6 {font-size: 1.6em; font-weight: bold; text-align: center; padding: 0; margin: 0; color: #666;}
-//          &:hover { }
-//        }
-//      }
     }
 
     @include transition('top .3s ease-in-out, opacity .2s .2s ease-in-out');
