@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 # Start with creating a fake exhibition we can control
 # Creation and management section to come later
 
@@ -73,7 +75,7 @@ list = {
   
   # JOHN J
   john: {
-    title: 'Aram Bartholl',
+    title: 'John J. Johnson',
     subtitle: words.sample(3).join(' ').capitalize, 
     excerpt: words.sample(20).join(' ').capitalize, 
     description: words.sample(100).join(' ').capitalize,
@@ -144,7 +146,19 @@ list = {
     excerpt: words.sample(20).join(' ').capitalize, 
     description: words.sample(100).join(' ').capitalize,
     pieces: [
-      # TODO
+      {
+        type:  :text,
+        title: 'Bennett Williamson',
+        content: words.sample(100).join(' ').capitalize,
+      },
+      {
+        type:  :page,
+        title: "the great inter.net /sleepover",
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://thegreatinter.net/sleepover/',
+        timeline_year: '2007',
+        events: []
+      },
     ]
   },
   
@@ -188,18 +202,50 @@ list = {
     excerpt: words.sample(20).join(' ').capitalize, 
     description: words.sample(100).join(' ').capitalize,
     pieces: [
-      # TODO
+      {
+        type:  :text,
+        title: 'Theo Watson',
+        content: words.sample(100).join(' ').capitalize,
+      },
+      {
+        type:  :page,
+        title: "Audio Space",
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://www.theowatson.com/site_docs/work.php?id=15',
+        timeline_year: '2005',
+        events: []
+      },
+      {
+        type:  :page,
+        title: "Vinyl Workout",
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://www.theowatson.com/site_docs/work.php?id=39',
+        timeline_year: '2006',
+        events: []
+      },
     ]
   },
   
   # BACA
   baca: {
-    title: 'Mike Baca',
+    title: 'Mike Baca (2ESAE)',
     subtitle: words.sample(3).join(' ').capitalize, 
     excerpt: words.sample(20).join(' ').capitalize, 
     description: words.sample(100).join(' ').capitalize,
     pieces: [
-      # TODO
+      {
+        type:  :text,
+        title: 'Mike Baca (2ESAE)',
+        content: words.sample(100).join(' ').capitalize,
+      },
+      {
+        type:  :page,
+        title: "Announcement of Indictment Against 2EASE",
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://www.nydailynews.com/news/crime/vandals-charged-brooklyn-subway-graffiti-bust-prosecutors-article-1.211374',
+        timeline_year: '2007',
+        events: []
+      },
     ]
   },
   
@@ -210,7 +256,7 @@ list = {
     excerpt: words.sample(20).join(' ').capitalize, 
     description: words.sample(100).join(' ').capitalize,
     pieces: [
-      # TODO
+      # http://frumin.net/ation/2007/06/le_triboro_rx.html
     ]
   },
   
@@ -222,6 +268,7 @@ list = {
     description: words.sample(100).join(' ').capitalize,
     pieces: [
       # TODO
+      # https://web.archive.org/web/20050507151842/http://www.tmema.org/mis/index.html
     ]
   },
   
@@ -265,7 +312,35 @@ list = {
     excerpt: words.sample(20).join(' ').capitalize, 
     description: words.sample(100).join(' ').capitalize,
     pieces: [
-      # TODO
+      {
+        type:  :text,
+        title: 'Becky Stern',
+        content: words.sample(100).join(' ').capitalize,
+      },
+      {
+        type:  :page,
+        title: "MySpace",
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://www.sternlab.org/Projects/MySpace/',
+        timeline_year: '2007',
+        events: []
+      },
+      {
+        type:  :page,
+        title: "Scarf RLY",
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://sternlab.org/2007/12/scarf-rly/',
+        timeline_year: '2007',
+        events: []
+      },
+      {
+        type:  :page,
+        title: "MySpace",
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://sternlab.org/2008/07/captcha-paintings/',
+        timeline_year: '2008',
+        events: []
+      },
     ]
   },
   
@@ -276,7 +351,21 @@ list = {
     excerpt: words.sample(20).join(' ').capitalize, 
     description: words.sample(100).join(' ').capitalize,
     pieces: [
-      # TODO
+      {
+        type:  :text,
+        title: 'Randy Sarafan',
+        content: words.sample(100).join(' ').capitalize,
+      },
+      {
+        type:  :page,
+        title: "Economy of Scale, Day 24",
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://www.thing-a-day.com/2008/02/24/economy-of-scale-day-24-ahhhhh/',
+        wayback_url: 'http://web.archive.org/web/20081205064233/http://www.thing-a-day.com/2008/02/24/economy-of-scale-day-24-ahhhhh/',
+        timeline_year: '2008',
+        events: []
+      },
+
     ]
   },
   
@@ -287,7 +376,35 @@ list = {
     excerpt: words.sample(20).join(' ').capitalize, 
     description: words.sample(100).join(' ').capitalize,
     pieces: [
-      # TODO
+      {
+        type:  :text,
+        title: 'Aram Bartholl',
+        content: words.sample(100).join(' ').capitalize,
+      },
+      {
+        type:  :page,
+        title: "Random Screen",
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://datenform.de/rscreen.html',
+        timeline_year: '2005',
+        events: []
+      },
+      {
+        type:  :page,
+        title: "Speed",
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://datenform.de/speed.html',
+        timeline_year: '2006',
+        events: []
+      },
+      {
+        type:  :page,
+        title: "1H",
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://datenform.de/1h.html',
+        timeline_year: '2008',
+        events: []
+      },
     ]
   },
   
@@ -332,6 +449,19 @@ list = {
     excerpt: words.sample(20).join(' ').capitalize, 
     description: words.sample(100).join(' ').capitalize,
     pieces: [
+      {
+        type:  :text,
+        title: 'Christoper "Moot" Poole',
+        content: words.sample(100).join(' ').capitalize,
+      },
+      {
+        type:  :page,
+        title: "4Chan",
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://www.4chan.org',
+        timeline_year: '2003',
+        events: []
+      },
     ]
   },
   
@@ -342,6 +472,28 @@ list = {
     excerpt: words.sample(20).join(' ').capitalize, 
     description: words.sample(100).join(' ').capitalize,
     pieces: [
+      {
+        type:  :text,
+        title: 'Magnus Eriksson',
+        content: words.sample(100).join(' ').capitalize,
+      },
+      {
+        type:  :page,
+        title: "Telecomix",
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://telecomix.org',
+        timeline_year: '2009',
+        events: []
+      },
+      {
+        type:  :page,
+        title: "Piratbyrån",
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://piratbyran.org',
+        wayback_url: 'https://web.archive.org/web/20100619213849/http://piratbyran.org/',
+        timeline_year: '2010',
+        events: []
+      },
     ]
   },
   
@@ -352,6 +504,7 @@ list = {
     excerpt: words.sample(20).join(' ').capitalize, 
     description: words.sample(100).join(' ').capitalize,
     pieces: [
+      # TODO
     ]
   },
   
@@ -372,6 +525,22 @@ list = {
     excerpt: words.sample(20).join(' ').capitalize, 
     description: words.sample(100).join(' ').capitalize,
     pieces: [
+      {
+        type:  :text,
+        title: 'Golan Levin',
+        content: words.sample(100).join(' ').capitalize,
+      },
+      {
+        type:  :page,
+        title: 'Manual Input Sessions',
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://www.tmema.org/mis/index.html',
+        timeline_year: '2004',
+        events: [
+
+        ]
+      },
+      # TODO, ANOTHER
     ]
   },
   
@@ -430,6 +599,40 @@ list = {
     excerpt: words.sample(20).join(' ').capitalize, 
     description: words.sample(100).join(' ').capitalize,
     pieces: [
+      {
+        type:  :text,
+        title: 'Hennessy Youngman',
+        content: words.sample(100).join(' ').capitalize,
+      },
+      {
+        type:  :page,
+        title: 'ART THOUGHTZ: How To Be A Successful Artist',
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://www.youtube.com/watch?v=hNXL0SYJ2eU',
+        timeline_year: '2010',
+        events: [
+          
+        ]
+      },
+      # {
+      #   type:  :page,
+      #   title: 'ART THOUGHTZ: Beuys-Z',
+      #   content: words.sample(100).join(' ').capitalize,
+      #   url: 'http://www.youtube.com/watch?v=Wcu60--J99w',
+      #   timeline_year: '2010',
+      #   events: [
+      #     
+      #   ]
+      # },
+      {
+        type:  :page,
+        title: 'COOGI KING',
+        content: words.sample(100).join(' ').capitalize,
+        # PERETTI COMMISSIONED A PIECE FROM HIM BASED ON THE VIDEO
+        url: 'http://www.youtube.com/watch?v=X43aXXOXrhA',
+        timeline_year: '2011',
+        events: []
+      },
     ]
   },
   
@@ -440,6 +643,19 @@ list = {
     excerpt: words.sample(20).join(' ').capitalize, 
     description: words.sample(100).join(' ').capitalize,
     pieces: [
+      {
+        type:  :text,
+        title: 'KATSU',
+        content: words.sample(100).join(' ').capitalize,
+      },
+      {
+        type:  :page,
+        title: 'MOCA Graffiti Bombing',
+        content: words.sample(100).join(' ').capitalize,
+        url: 'http://senseslost.com/2011/04/11/katsu-graffiti-on-moca-in-la/',
+        timeline_year: '2011',
+        events: []
+      },
     ]
   },
   

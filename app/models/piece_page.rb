@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 class PiecePage < ActiveRecord::Base
 
   include Rails.application.routes.url_helpers
