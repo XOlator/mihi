@@ -1,0 +1,23 @@
+- show ||= false
+- edit ||= false
+- delete ||= false
+
+.c
+  %ul#breadcrumbs.l
+    %li Manage
+
+    - unless @exhibition.blank?
+      - unless @exhibition.new_record?
+        %li
+          %a{href: manage_exhibition_url(@exhibition, @section, @piece)}= @exhibition.title.truncate(30)
+      - else
+        %li New Exhibition
+
+  .r
+    - unless @exhibition.blank?
+      - if show
+        %a.button{href: manage_exhibition_url(@exhibition)} Show
+      - if edit
+        %a.button{href: edit_manage_exhibition_url(@exhibition)} Edit
+      - if delete
+        %a.button{href: manage_exhibition_url(@exhibition), 'data-method' => :delete, 'data-confirm' => 'Are you sure you want to delete?'} Delete

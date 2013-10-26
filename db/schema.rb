@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131023015347) do
+ActiveRecord::Schema.define(version: 20131024171620) do
 
   create_table "exhibition_pieces", force: true do |t|
     t.string   "slug"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20131023015347) do
     t.boolean  "option_playable",        default: true
     t.boolean  "option_wifi_restricted", default: false
     t.boolean  "active",                 default: true
+    t.boolean  "locked",                 default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

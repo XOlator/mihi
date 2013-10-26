@@ -23,7 +23,7 @@ class PieceText < ActiveRecord::Base
 
   validates :title,         presence: true, length: 2..255
   validates :content,       presence: true, length: 2..5000
-  validates :theme,         inclusion: {in: THEMES}
+  validates :theme,         inclusion: {in: THEMES.map(&:to_s)}
 
 
   # ---------------------------------------------------------------------------

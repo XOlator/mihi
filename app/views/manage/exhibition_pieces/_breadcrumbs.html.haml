@@ -1,0 +1,13 @@
+%ul#breadcrumbs
+  %li Manage
+  %li
+    %a{href: manage_exhibition_url(@exhibition)}= @exhibition.title.truncate(30)
+  %li
+    %a{href: manage_exhibition_section_url(@exhibition, @section)}= @section.title.truncate(30)
+
+  - unless @exhibition_piece.new_record?
+    %li
+      %a{href: manage_exhibition_section_piece_url(@exhibition, @section, @exhibition_piece)}= @exhibition_piece.title.truncate(30)
+  - else
+    %li New Piece
+    

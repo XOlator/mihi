@@ -37,7 +37,7 @@ private
 
   def slug_title
     return slug unless slug.blank?
-    s = title.strip
+    s = title.strip rescue SecureRandom.hex(4)
     s << "-#{SecureRandom.hex(1)}" if s.match(/^[0-9]+$/)
   end
 

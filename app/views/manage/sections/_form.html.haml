@@ -1,0 +1,22 @@
+- f ||= nil
+
+- unless f.blank?
+  .row
+    = f.label :title
+    = f.text_field :title
+  .row
+    = f.label :subtitle
+    = f.text_field :subtitle
+  .row
+    = f.label :excerpt
+    = f.text_area :excerpt
+  .row
+    = f.label :description
+    = f.text_area :description
+
+  .buttons
+    - if f.object.new_record?
+      = f.button "Create"
+    - else
+      = f.button "Update"
+  

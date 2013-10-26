@@ -1,0 +1,6 @@
+= render 'breadcrumbs'
+
+%h1 Edit Section
+
+= form_for @section, url: manage_exhibition_section_url(@exhibition, @section), method: :put do |f|
+  = render 'form', f: f

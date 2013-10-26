@@ -17,6 +17,19 @@ Mihi::Application.routes.draw do
     end
   end
 
+  namespace :manage do
+    resources :exhibitions, path: '/exhibitions', only: [:index]
+
+    resources :exhibitions, path: '/exhibition', only: [:show, :new, :create, :edit, :update, :destroy] do
+      resources :sections, path: '/section', only: [:show, :new, :create, :edit, :update, :destroy] do
+        resources :exhibition_pieces, path: '/piece', as: :piece, only: [:show, :new, :create, :edit, :update, :destroy] do
+        end
+      end
+    end
+
+    root to: "exhibitions#new"
+  end
+
   match "/b/*id" => "browse/exhibition_pieces#uuid_lookup", as: :exhibition_piece_short, via: [:get]
 
   resources :exhibitions, only: [:index]

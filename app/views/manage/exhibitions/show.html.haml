@@ -1,0 +1,25 @@
+= render 'breadcrumbs', edit: true, delete: true
+
+%h1 Exhibition
+%h3= @exhibition.title
+%h6= @exhibition.subtitle
+
+
+%h2 Sections
+%ul
+  - @exhibition.sections.each do |s|
+    %li
+      %h4= s.title
+      %a.button{href: edit_manage_exhibition_section_url(@exhibition, s)} Edit
+      %a.button{href: manage_exhibition_section_url(@exhibition, s), 'data-method' => :delete, 'data-confirm' => 'Are you sure?'} Delete
+
+      %ul
+        - s.exhibition_pieces.each do |p|
+          %li
+            %h6= p.title
+            %a.button{href: edit_manage_exhibition_section_piece_url(@exhibition, s, p)} Edit
+            %a.button{href: manage_exhibition_section_piece_url(@exhibition, s, p), 'data-method' => :delete, 'data-confirm' => 'Are you sure?'} Delete
+        %li.new
+          %a.button{href: new_manage_exhibition_section_piece_url(@exhibition, s)} Add a Piece
+  %li.new
+    %a.button{href: new_manage_exhibition_section_url(@exhibition)} Add a Section

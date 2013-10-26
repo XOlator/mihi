@@ -5,6 +5,8 @@ class ExhibitionPiece < ActiveRecord::Base
   include Activatable
   extend FriendlyId
 
+  TYPES = [:text, :page]
+
 
   # ---------------------------------------------------------------------------
 
@@ -18,6 +20,8 @@ class ExhibitionPiece < ActiveRecord::Base
   belongs_to :piece, polymorphic: true
   # belongs_to :piece_text, class_name: 'PieceText', foreign_key: :piece_id
   # belongs_to :piece_page, class_name: 'PiecePage', foreign_key: :piece_id
+
+  accepts_nested_attributes_for :piece
 
 
   # ---------------------------------------------------------------------------

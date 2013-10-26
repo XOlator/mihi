@@ -1,0 +1,14 @@
+= render 'breadcrumbs', edit: true, delete: true
+
+%a{href: manage_exhibition_url(@exhibition)} All Sections
+
+%h1 Section
+%h3= @section.title
+
+
+%ul
+  - @section.exhibition_pieces.each do |p|
+    %li
+      %h6= p.title
+  %li.new
+    %a.button{href: new_manage_exhibition_section_piece_url(@exhibition, @section)} Add a Piece

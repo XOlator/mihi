@@ -1,0 +1,35 @@
+- f ||= nil
+
+- unless f.blank?
+  - if f.object.piece.blank?
+    - ExhibitionPiece::TYPES.each do |v|
+      %a{href: new_manage_exhibition_section_piece_url(@exhibition, @section, type: v)}= v.to_s.capitalize
+
+  - else
+    - if f.object.new_record?
+      %input{type: 'hidden', name: 'type', value: params[:type]}
+
+    = f.fields_for :piece_attributes, f.object.piece do |p|
+      - case f.object.piece.class.to_s
+        - when 'PieceText'
+          .row
+            = p.label :theme
+            = p.select :theme, PieceText::THEMES.map{|v| [v.to_s.capitalize,v]}
+          .row
+            = p.label :title
+            = p.text_field :title
+          .row
+            = p.label :content
+            = p.text_area :content
+
+        - when 'PiecePage'
+          .row
+            = p.label :title
+            = p.text_field :title
+
+    .buttons
+      - if f.object.new_record?
+        = f.button "Create"
+      - else
+        = f.button "Update"
+  

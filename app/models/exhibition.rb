@@ -33,7 +33,7 @@ class Exhibition < ActiveRecord::Base
   validates :subtitle,      presence: true,  length: 2..255
   validates :description,   presence: true,  length: 2..2000
   validates :excerpt,       presence: true,  length: 2..255
-  validates :theme,         inclusion: {in: THEMES}
+  validates :theme,         inclusion: {in: THEMES.map(&:to_s)}
 
 
   # ---------------------------------------------------------------------------
