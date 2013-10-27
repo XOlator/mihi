@@ -93,7 +93,7 @@ class PiecePage < ActiveRecord::Base
         doc.encoding = 'utf-8'
 
         # MIHI Dated Watermark
-        doc.css("head").before(self.watermark)
+        doc.css("head").before(self.watermark) rescue nil
 
         # Absoluteize links and assets
         %w(href src).each do |k|

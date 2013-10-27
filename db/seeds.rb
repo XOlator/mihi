@@ -16,7 +16,8 @@ end
   title: "Before They Were FAT", 
   subtitle: words.sample(3).join(' ').capitalize, 
   excerpt: words.sample(20).join(' ').capitalize, 
-  description: words.sample(100).join(' ').capitalize
+  description: words.sample(100).join(' ').capitalize,
+  theme: Exhibition::THEMES.first.to_s
 )
 
 list = {
@@ -718,7 +719,7 @@ list.each do |k,v|
         ep.piece = PieceText.create(
           title: (p[:title] || words.sample(10).each(&:capitalize).join(' ')),
           content: (p[:content] || words.sample(500).join(' ').capitalize),
-          theme: (p[:theme] || PieceText::THEMES.first)
+          theme: (p[:theme] || PieceText::THEMES.first.to_s)
         )
       when :page
         ep.piece = PiecePage.create(
