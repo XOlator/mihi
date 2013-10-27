@@ -60,6 +60,39 @@ class Manage::ExhibitionPiecesController < ApplicationController
     redirect_to manage_exhibition_url(@exhibition)
   end
 
+  def sort_order
+    json_results = Proc.new {
+      @exhibition_pieces, error = [], false
+
+      params[:exhibition_pieces] = params[:exhibition_pieces].to_a.map{|v| v[1]} if params[:exhibition_pieces].is_a?(Hash)
+
+      # Use Rollback, so in case of any problems with this (other than missing records), we won't save all of the sort order.
+      ExhibitionPiece.transaction do
+        params[:exhibition_pieces].each do |p|
+          exhibition_piece = @section.exhibition_pieces.find(p[:id]) rescue nil
+          next if exhibition_piece.blank?
+
+          if exhibition_piece.update_attributes(sort_index: p[:sort_index])
+            # @exhibition_pieces << exhibition_piece.to_api(:admin => true)
+          else
+            error = true
+            raise ActiveRecord::Rollback
+          end
+        end
+      end
+
+      !error ? [200, {success: true}] : [200, {error: true}]
+    }
+
+    respond_to do |format|
+      format.json {
+        status, msg = json_results.call
+        render status: status, json: msg.to_json, callback: params[:callback]
+      }
+    end
+  end
+
+
 
 protected
 

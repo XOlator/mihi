@@ -22,7 +22,10 @@ Mihi::Application.routes.draw do
 
     resources :exhibitions, path: '/exhibition', only: [:show, :new, :create, :edit, :update, :destroy] do
       resources :sections, path: '/section', only: [:show, :new, :create, :edit, :update, :destroy] do
+        put 'sort_order', :on => :collection
+
         resources :exhibition_pieces, path: '/piece', as: :piece, only: [:show, :new, :create, :edit, :update, :destroy] do
+          put 'sort_order', :on => :collection
         end
       end
     end

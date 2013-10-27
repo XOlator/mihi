@@ -2,12 +2,13 @@
 %html
   %head
     %title MIHI
-    = stylesheet_link_tag    "application", media: "all"#, "data-turbolinks-track" => true
+    = stylesheet_link_tag    "application", "main", media: "all"#, "data-turbolinks-track" => true
     = javascript_include_tag "application"#, "data-turbolinks-track" => true
     = csrf_meta_tags
   %body
-    = yield
+    #content
+      = yield
     
-    %footer
+    %footer#footer
       %p
         %small &copy; #{Date.today.year} X&O Accelerator Company LLC. Support by Eyebeam.

@@ -4,11 +4,12 @@
 %h3= @exhibition.title
 %h6= @exhibition.subtitle
 
+%hr
 
 %h2 Sections
-%ul.list.sections
+%ul.list.sections.sortable{'data-sortable_url' => sort_order_manage_exhibition_sections_url(@exhibition), 'data-sortable_name' => 'sections'}
   - @exhibition.sections.each do |s|
-    %li
+    %li{'data-sortable_id' => s.id}
       .drag
       .tbl
         %h4.tbc= s.title
@@ -16,9 +17,9 @@
           %a.button{href: edit_manage_exhibition_section_url(@exhibition, s)} Edit
           %a.button{href: manage_exhibition_section_url(@exhibition, s), 'data-method' => :delete, 'data-confirm' => 'Are you sure?'} Delete
 
-      %ul.list.pieces.alternate.hoverable
+      %ul.list.pieces.alternate.hoverable.sortable{'data-sortable_url' => sort_order_manage_exhibition_section_piece_index_url(@exhibition, s), 'data-sortable_name' => 'exhibition_pieces'}
         - s.exhibition_pieces.each do |p|
-          %li
+          %li{'data-sortable_id' => p.id}
             .drag
             .tbl
               %h6.tbc= p.title
@@ -27,5 +28,5 @@
                 %a.button{href: manage_exhibition_section_piece_url(@exhibition, s, p), 'data-method' => :delete, 'data-confirm' => 'Are you sure?'} Delete
         %li.new
           %a.button{href: new_manage_exhibition_section_piece_url(@exhibition, s)} Add a Piece
-  %li.setion.new
+  %li.new
     %a.button{href: new_manage_exhibition_section_url(@exhibition)} Add a Section

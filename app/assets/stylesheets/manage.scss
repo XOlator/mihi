@@ -27,7 +27,7 @@ ul.list {
     position: relative; padding: 5px 0; margin: 0; border-top: 1px solid #ddd;
     &:first-child {border-top: none;}
 
-    .drag {position: absolute; top: 0; left: 0; width: 0; height: 10px; opacity: 0; empty-cells: visible; z-index: 20; background: #f0f;
+    .drag {position: absolute; top: 5px; left: 0; width: 0; height: 20px; opacity: 0; empty-cells: visible; z-index: 20; background: #f0f;
       @include transition('left .1s ease-in-out, width .1s ease-in-out')
     }
     &:hover > .drag, &.hover > .drag {opacity: 1; width: 20px; left: -20px;}
@@ -36,9 +36,17 @@ ul.list {
     .buttons.tbc {width: 40%; text-align: right;}
 
     ul {margin: 10px 0 10px 20px;}
+    
+    &.new {
+      a {
+        font-weight: bold; color: #000;
+        &:before {content: "+ ";}
+      }
+    }
+    
   }
 
   &.alternate li:nth-child(2n+1) {background-color: #f3f3f3;}
-  &.hoverable li:hover {background-color: #d9d9d9;}
+  &.hoverable li:hover {background-color: #dddddd;}
   
 }

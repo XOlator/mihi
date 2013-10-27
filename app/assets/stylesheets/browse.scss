@@ -51,6 +51,8 @@ body.browse_exhibition {
 
       #navigation_container {
         position: fixed; left: 0; right: 0; bottom: 0; z-index: 3900; padding: 0; height: 50px; background: rgb(0,0,0);
+        & > .rel {height: 100%;}
+
         #exhibition_navigation {
           z-index: 3000;
           * {z-index: 3000;}
@@ -110,18 +112,19 @@ body.browse_exhibition {
     }
 
     #exhibition_piece_sidebar {
-      position: fixed; top: 0; right: 0; bottom: 50px; width: 50px; z-index: 3100; overflow: hidden; background: rgba(255,255,255,.9); border-left: 1px solid rgba(205,205,205,1);
+      position: fixed; top: 0; right: 0; bottom: 50px; width: 50px; z-index: 3100; overflow: hidden; background: rgba(255,255,255,.9); border-left: 1px solid rgba(205,205,205,1); font-size: 1.6em;
 
+      & > .rel {height: 100%;}
       .open {opacity: 0; max-height: 0; @include transition('max-height .1s .1s ease-in-out, opacity .2s .1s ease-in-out');}
       .closed {opacity: 1; max-height: 100%; @include transition('max-height .1s .1s ease-in-out, opacity .2s .1s ease-in-out');}
 
       #exhibiton_piece_share {
         position: absolute; bottom: 0; left: 0; right: 0; z-index: 3010; padding: 8px 16px; height: 17px; overflow: hidden; border-top: 1px solid rgb(205,205,205);
-        h2 {clear: none; float: left; padding: 0 8px 0 0; margin: 0; font-size: 16px; line-height: 1.0em;}
+        h2 {clear: none; float: left; padding: 0 8px 0 0; margin: 0; font-size: 1.0em; line-height: 1.0em;}
         ul {
           list-style: none; margin: 0; padding: 0;
           li {
-            clear: none; float: left; margin: 0; padding: 0 3px; font-size: 16px; line-height: 1.0em;
+            clear: none; float: left; margin: 0; padding: 0 3px; font-size: 1.0em; line-height: 1.0em;
             a {
               display: inline-block; text-decoration: none; color: rgb(0,0,0);
               &:hover {color: rgb(100,100,100);}
@@ -132,6 +135,7 @@ body.browse_exhibition {
 
       #exhibition_description {
         position: absolute; top: 0; left: 0; right: 0; bottom: 93px; padding: 8px 15px; overflow: scroll;
+        h2, h6, p {font-size: 1.0em;}
       }
 
       #exhibition_piece_comments {

@@ -20,7 +20,7 @@ class StaticPagesController < ApplicationController
   # --- Page-specific Methods ---
 
   def home
-    @exhibitions = Exhibition.limit(3).order('created_at desc')
+    @exhibitions = Exhibition.limit(3).order('created_at DESC')
   end
 
 

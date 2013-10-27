@@ -32,7 +32,7 @@ class ExhibitionPiece < ActiveRecord::Base
 
   # ---------------------------------------------------------------------------
 
-  default_scope { where(active: true) }
+  default_scope { where(active: true).order('sort_index ASC, id ASC') }
 
 
   # ---------------------------------------------------------------------------
