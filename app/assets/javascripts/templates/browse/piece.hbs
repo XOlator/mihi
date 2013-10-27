@@ -1,8 +1,10 @@
 {{#piece}}
   <article class="exhibition_piece piece_{{downcase type}}" id="exhibition_piece_{{id}}">
     {{# if ../piece_text}}
-      <h1>{{piece.title}}</h1>
-      {{simple_format piece.content}}
+      <div class="piece_text_content">
+       <h1>{{piece.title}}</h1>
+       {{simple_format piece.content}}
+      </div>
     {{/if}}
 
     {{#if ../piece_page}}

@@ -31,6 +31,14 @@ body.browse_exhibition {
     #content_container {
       article.exhibition_piece, article.exhibition {
         position: absolute; top: 0; left: 0; right: 50px; bottom: 50px;
+        &.piece_text {
+          background-color: rgba(130,130,130,1); overflow: scroll; padding: 60px 0 0 60px;
+          .piece_text_content {
+            padding: 0 30px; margin: 0 auto 0 0; min-height: 100%; max-width: 650px; background: rgba(255,255,255,.82); overflow: visible;
+            h1 {font-size: 3.6em; padding: 30px 0 4px 0; margin: 0 0 25px 0; line-height: 1.5em; border-bottom: 4px solid rgba(130,130,130,1);}
+            p {font-size: 1.9em; padding: 0 0 12px 0; line-height: 1.72em;}
+          }
+        }
         &.piece_page {
           .loading_page {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
@@ -50,25 +58,23 @@ body.browse_exhibition {
 
 
       #navigation_container {
-        position: fixed; left: 0; right: 0; bottom: 0; z-index: 3900; padding: 0; height: 50px; background: rgb(0,0,0);
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 3900; padding: 0; height: 50px; background: rgb(30,30,30);
         & > .rel {height: 100%;}
 
         #exhibition_navigation {
           z-index: 3000;
           * {z-index: 3000;}
           a, span {
-            display: inline-block; font-size: 20px; width: 35px; height: 35px; overflow: hidden; background: rgb(0,0,0); color: rgb(255,255,255); text-decoration: none; text-align: center; line-height: 35px;
+            display: inline-block; font-size: 20px; width: 35px; height: 35px; overflow: hidden; color: rgb(255,255,255); text-decoration: none; text-align: center; line-height: 35px;
             i {
               @include transition('margin .2s ease-in-out')
             }
             @include transition('background-color .2s ease-in-out')
           }
-          #exhibition_navigate_home {position: fixed; bottom: 50%; left: 0; margin: 0 0 74px 0;}
-          #exhibition_navigate_exhibition {
-            position: absolute; top: 10px; right: 175px;
-          }
+          #exhibition_navigate_home {position: absolute; top: 9px; left: 10px;}
+          #exhibition_navigate_exhibition {position: absolute; top: 9px; right: 175px;}
           #exhibition_navigation_buttons {
-            position: absolute; bottom: 7px; right: 10px;
+            position: absolute; top: 9px; right: 10px;
             a, span {font-size: 25px;}
             #exhibition_navigate_previous {clear: none; float: left; display: inline-block;}
             #exhibition_navigate_next {clear: none; float: right; display: inline-block;}
@@ -81,20 +87,22 @@ body.browse_exhibition {
         }
 
         #exhibition_piece_trackbar {
-          position: absolute; left: 225px; right: 225px; bottom: 24px; height: 1px; background: rgba(255,255,255,1); z-index: 3020; -webkit-transition: height .2s .25s ease-in-out; -moz-transition: height .2s .25s ease-in-out; -ms-transition: height .2s .25s ease-in-out; -o-transition: height .2s .25s ease-in-out; transition: height .2s .25s ease-in-out;
+          position: absolute; left: 225px; right: 225px; bottom: 24px; height: 1px; background: rgba(255,255,255,1); z-index: 3020; 
           // &:hover {
           //   height: 20px;
-          //   -webkit-transition: height .1s ease-in-out; -moz-transition: height .1s ease-in-out; -ms-transition: height .1s ease-in-out; -o-transition: height .1s ease-in-out; transition: height .1s ease-in-out;
+          //   @include transition('height .1s ease-in-out');
           // }
 
-          #exhibition_piece_trackbar_durationbar {position: absolute; top: -2px; left: 0; right: 100%; bottom: -2px; background: rgba(255,255,255,1); z-index: 3021;}
-          #exhibition_piece_trackbar_durationbar:after {content: ""; position: absolute; right: -7px; top: -5px; display: block; width: 9px; height: 9px; border: 3px solid rgb(255,255,255); background: rgb(125,125,125); border-radius: 10px; z-index: 3025;};
+          #exhibition_piece_trackbar_durationbar {position: absolute; top: -4px; left: 0; right: 100%; bottom: -4px; background: rgba(255,0,0,1); z-index: 3021;}
+          // #exhibition_piece_trackbar_durationbar:after {content: ""; position: absolute; right: -7px; top: -5px; display: block; width: 9px; height: 9px; border: 3px solid rgb(255,255,255); background: rgb(125,125,125); border-radius: 10px; z-index: 3025;};
           a.trackbar_event {
             position: absolute; top: -7px; left: 0; width: 6px; bottom: -7px; margin-left: -3px; background: rgb(255,255,255); opacity: .5; text-indent: -999px; overflow: hidden; z-index: 3022;
             &:hover {cursor: pointer;}
             &:nth-child(1) {margin-left: 0;}
             &.completed {opacity: 1;}
           }
+          
+          @include transition('height .2s .25s ease-in-out');
         }
 
         #exhibition_piece_play_button {
@@ -112,14 +120,14 @@ body.browse_exhibition {
     }
 
     #exhibition_piece_sidebar {
-      position: fixed; top: 0; right: 0; bottom: 50px; width: 50px; z-index: 3100; overflow: hidden; background: rgba(255,255,255,.9); border-left: 1px solid rgba(205,205,205,1); font-size: 1.6em;
+      position: fixed; top: 0; right: 0; bottom: 50px; width: 50px; z-index: 3100; overflow: hidden; background: rgba(255,255,255,1); border-left: 1px solid rgba(205,205,205,1); font-size: 1.6em; opacity: .5;
 
       & > .rel {height: 100%;}
       .open {opacity: 0; max-height: 0; @include transition('max-height .1s .1s ease-in-out, opacity .2s .1s ease-in-out');}
       .closed {opacity: 1; max-height: 100%; @include transition('max-height .1s .1s ease-in-out, opacity .2s .1s ease-in-out');}
 
       #exhibiton_piece_share {
-        position: absolute; bottom: 0; left: 0; right: 0; z-index: 3010; padding: 8px 16px; height: 17px; overflow: hidden; border-top: 1px solid rgb(205,205,205);
+        position: absolute; bottom: 0; left: 0; right: 0; z-index: 3010; padding: 8px 16px; height: 17px; overflow: hidden; border-top: 1px solid rgb(205,205,205); cursor: pointer;
         h2 {clear: none; float: left; padding: 0 8px 0 0; margin: 0; font-size: 1.0em; line-height: 1.0em;}
         ul {
           list-style: none; margin: 0; padding: 0;
@@ -139,18 +147,18 @@ body.browse_exhibition {
       }
 
       #exhibition_piece_comments {
-        position: absolute; bottom: 50px; left: 0; right: 0; z-index: 3010; padding: 8px 16px; height: 27px; overflow: hidden; border-top: 1px solid rgb(205,205,205);
+        position: absolute; bottom: 50px; left: 0; right: 0; z-index: 3010; padding: 8px 16px; height: 27px; overflow: hidden; border-top: 1px solid rgb(205,205,205); cursor: pointer;
       }
 
-      &:hover {width: 55px; cursor: pointer;}
+      &:hover {width: 55px; cursor: w-resize; opacity: 1;}
       &.open, &.open:hover {
-        width: 350px; cursor: auto;
+        width: 350px; cursor: auto; opacity: 1;
         .open {opacity: 1; max-height: 100%; @include transition('max-height .1s .3s ease-in-out, opacity .2s .3s ease-in-out');}
         .closed {opacity: 0; max-height: 0; @include transition('max-height .1s .2s ease-in-out, opacity .2s .2s ease-in-out');}
-        @include transition('width .2s .2s ease-in-out')
+        @include transition('width .2s .2s ease-in-out, opacity .2s ease-in-out')
       }
 
-      @include transition('width .2s .1s ease-in-out')
+      @include transition('width .2s .1s ease-in-out, opacity .2s .1s ease-in-out')
     }
   }
 

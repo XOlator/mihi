@@ -107,9 +107,12 @@ MIHI.Browse.Current.extend({
       MIHI.Browse.Current.pause();
     }).on('mouseleave', '#exhibition_piece_sidebar', function(e) {
       var t = $(this);
+      clearTimeout(sidebartimeout);
       sidebartimeout = setTimeout(function() {t.removeClass('open');}, 500);
     }).on('mouseenter', '#exhibition_piece_sidebar', function(e) {
+      var t = $(this);
       clearTimeout(sidebartimeout);
+      sidebartimeout = setTimeout(function() {t.addClass('open');}, 500);
     });
 
     // START THE SHOW! :D
@@ -399,7 +402,8 @@ MIHI.Browse.Current.extend({
         case 'page':
           if (piece.piece) {
             if (piece.piece.year) obj.subtitle += piece.piece.year;
-            if (piece.piece.urls && piece.piece.urls.original) obj.subtitle += (obj.subtitle != '' ? ', ' : '') + piece.piece.urls.original;
+            if (piece.piece.urls && piece.piece.urls.original) obj.subtitle += (obj.subtitle != '' ? ', ' : '') +'<a href="'+ piece.piece.urls.original +'" target="_blank" title="'+ piece.piece.urls.original +'" class="to nw">'+ piece.piece.urls.original +'</a>';
+            obj.subtitle = new Handlebars.SafeString(obj.subtitle);
           }
           break;
         case 'text':
