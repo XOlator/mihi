@@ -2,6 +2,9 @@
 
 - unless f.blank?
   .row
+    = f.label :theme
+    = f.select :theme, Exhibition::THEMES.map{|v| [v.to_s.capitalize,v]}
+  .row
     = f.label :title
     = f.text_field :title
   .row
@@ -13,9 +16,6 @@
   .row
     = f.label :description
     = f.text_area :description
-  .row
-    = f.label :theme
-    = f.select :theme, Exhibition::THEMES.map{|v| [v.to_s.capitalize,v]}
 
 
 

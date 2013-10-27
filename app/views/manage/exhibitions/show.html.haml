@@ -10,19 +10,21 @@
 %ul.list.sections.sortable{'data-sortable_url' => sort_order_manage_exhibition_sections_url(@exhibition), 'data-sortable_name' => 'sections'}
   - @exhibition.sections.each do |s|
     %li{'data-sortable_id' => s.id}
-      .drag
+      .drag= fa_icon 'resize-vertical'
       .tbl
         %h4.tbc= s.title
         .tbc.buttons
           %a.button{href: edit_manage_exhibition_section_url(@exhibition, s)} Edit
           %a.button{href: manage_exhibition_section_url(@exhibition, s), 'data-method' => :delete, 'data-confirm' => 'Are you sure?'} Delete
 
-      %ul.list.pieces.alternate.hoverable.sortable{'data-sortable_url' => sort_order_manage_exhibition_section_piece_index_url(@exhibition, s), 'data-sortable_name' => 'exhibition_pieces'}
+      %ul.list.pieces.hoverable.sortable{'data-sortable_url' => sort_order_manage_exhibition_section_piece_index_url(@exhibition, s), 'data-sortable_name' => 'exhibition_pieces'}
         - s.exhibition_pieces.each do |p|
           %li{'data-sortable_id' => p.id}
-            .drag
+            .drag= fa_icon 'resize-vertical'
             .tbl
-              %h6.tbc= p.title
+              %h6.tbc
+                = p.title
+                %abbr= p.type_name
               .tbc.buttons
                 %a.button{href: edit_manage_exhibition_section_piece_url(@exhibition, s, p)} Edit
                 %a.button{href: manage_exhibition_section_piece_url(@exhibition, s, p), 'data-method' => :delete, 'data-confirm' => 'Are you sure?'} Delete

@@ -27,17 +27,28 @@ ul.list {
     position: relative; padding: 5px 0; margin: 0; border-top: 1px solid #ddd;
     &:first-child {border-top: none;}
 
-    .drag {position: absolute; top: 5px; left: 0; width: 0; height: 20px; opacity: 0; empty-cells: visible; z-index: 20; background: #f0f;
+    .drag {position: absolute; top: 0; left: 0; bottom: 0; width: 0; padding: 18px 0 0 0; opacity: 0; empty-cells: visible; z-index: 20; text-align: center; font-size: 1.3em; color: #ccc;
       @include transition('left .1s ease-in-out, width .1s ease-in-out')
     }
-    &:hover > .drag, &.hover > .drag {opacity: 1; width: 20px; left: -20px;}
+    &.ui-sortable-helper > .drag, .drag:hover {color: #666; cursor: -webkit-grab; cursor: grab;}
+    &.ui-sortable-helper {cursor: -webkit-grabbing; cursor: grabbing;}
+    &:hover > .drag, &.hover > .drag, &.ui-sortable-helper > .drag {opacity: 1; width: 32px; left: -32px;}
+    &.ui-sortable-helper {border-top: none;}
 
     h4.tbc, h6.tbc {width: 60%;}
-    .buttons.tbc {width: 40%; text-align: right;}
+    .buttons.tbc {width: 40%; text-align: right; font-size: 1.0em;}
+    &.hoverable li:hover {background-color: #dddddd;}
+    &.ui-state-highlight {empty-cells: visible; min-height: 44px; background-color: #f3f3f3;}
+
+    h4, h6 {
+      abbr {font-weight: normal; font-size: .55em; color: #999;}
+    }
 
     ul {margin: 10px 0 10px 20px;}
     
     &.new {
+      background: none;
+      &:hover {background: none;}
       a {
         font-weight: bold; color: #000;
         &:before {content: "+ ";}
@@ -45,8 +56,4 @@ ul.list {
     }
     
   }
-
-  &.alternate li:nth-child(2n+1) {background-color: #f3f3f3;}
-  &.hoverable li:hover {background-color: #dddddd;}
-  
 }

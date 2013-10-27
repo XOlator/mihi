@@ -2,8 +2,10 @@
 
 - unless f.blank?
   - if f.object.piece.blank?
-    - ExhibitionPiece::TYPES.each do |v|
-      %a{href: new_manage_exhibition_section_piece_url(@exhibition, @section, type: v)}= v.to_s.capitalize
+    %p Choose one of the page types below:
+    .buttons
+      - ExhibitionPiece::TYPES.each do |v|
+        %a.button{href: new_manage_exhibition_section_piece_url(@exhibition, @section, type: v)}= v.to_s.capitalize
 
   - else
     - if f.object.new_record?

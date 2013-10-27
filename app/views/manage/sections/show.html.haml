@@ -6,12 +6,14 @@
 %h3= @section.title
 
 
-%ul.list.pieces.alternate.hoverable.sortable{'data-sortable_url' => sort_order_manage_exhibition_section_piece_index_url(@exhibition, @section), 'data-sortable_name' => 'exhibition_pieces'}
+%ul.list.pieces.hoverable.sortable{'data-sortable_url' => sort_order_manage_exhibition_section_piece_index_url(@exhibition, @section), 'data-sortable_name' => 'exhibition_pieces'}
   - @section.exhibition_pieces.each do |p|
     %li{'data-sortable_id' => p.id}
       .drag
       .tbl.c
-        %h6.tbc= p.title
+        %h6.tbc
+          = p.title
+          %abbr= p.type_name
         .tbc.buttons
           %a.button{href: edit_manage_exhibition_section_piece_url(@exhibition, @section, p)} Edit
           %a.button{href: manage_exhibition_section_piece_url(@exhibition, @section, p), 'data-method' => :delete, 'data-confirm' => 'Are you sure?'} Delete

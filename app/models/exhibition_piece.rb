@@ -47,6 +47,14 @@ class ExhibitionPiece < ActiveRecord::Base
   def title; piece ? (piece.title || piece.slug) : ''; end
   def slug_title; (piece ? (piece.slug || piece.title) : '') rescue "".random(10); end
   def type; piece_type.gsub(/^piece/i, '') rescue nil; end
+  def type_name
+    case piece_type.to_s
+      when 'PiecePage'; 'Web Page'
+      when 'PieceText'; 'Text'
+      else; 'Unknown'
+    end
+  end
+
 
   # "Paginate"
   def next; self.class.where('exhibition_id = ? AND section_sort_index >= ? AND sort_index >= ? AND id > ?', exhibition_id, section_sort_index, sort_index, id).first; end
