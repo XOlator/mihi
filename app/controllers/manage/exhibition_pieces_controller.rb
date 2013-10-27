@@ -4,6 +4,8 @@ class Manage::ExhibitionPiecesController < ApplicationController
   before_filter :prevent_if_locked
   before_filter :get_exhibition_piece, only: [:show, :edit, :update, :destroy]
 
+  layout 'manage'
+
 
   def show
     render :show

@@ -4,6 +4,8 @@ class Manage::SectionsController < ApplicationController
   before_filter :prevent_if_locked
   before_filter :get_section, only: [:show, :edit, :update, :destroy]
 
+  layout 'manage'
+
 
   def show
     render :show

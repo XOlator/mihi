@@ -38,6 +38,7 @@ group :development, :staging, :test, :production do
 
   # API Integrations
   gem 'aws-sdk',                    '1.21.0'
+  gem 'wayback',                    '0.2.1'
 
   # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
   # gem 'turbolinks',                 '1.3.0'

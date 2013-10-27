@@ -24,8 +24,32 @@
 
         - when 'PiecePage'
           .row
+            = p.label :url
+            = p.text_field :url
+          .row
+            = p.label :wayback_url
+            = p.text_field :wayback_url
+          .row
+            = p.label :url
+            = p.text_field :url
+          .row
+            = p.label :timeline_year
+            = p.select :timeline_year, (1980..(Date.today + 1.year).year).map{|v| [v,v]}.reverse, include_blank: true
+          .row
             = p.label :title
             = p.text_field :title
+          .row
+            = p.label :excerpt
+            = p.text_field :excerpt
+          .row
+            = p.label :description
+            = p.text_field :description
+          .row
+            = p.label :author
+            = p.text_field :author
+          .row
+            = p.label :organization
+            = p.text_field :organization
 
     .buttons
       - if f.object.new_record?

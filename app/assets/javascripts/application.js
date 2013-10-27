@@ -16,5 +16,3 @@
 //= require handlebars.runtime
 //= require_tree ./templates
 //= require initialize
-//= require_tree ./browse
-//= require_tree .

@@ -1,0 +1,44 @@
+@mixin transition($str) {-webkit-transition: #{$str};-moz-transition: #{$str};-ms-transition: #{$str};-o-transition: #{$str};transition: #{$str};}
+@mixin animation($str) {-webkit-animation: #{$str};-moz-animation: #{$str};-ms-animation: #{$str};-o-animation: #{$str};animation: #{$str};}
+@mixin transform-origin($str) {-webkit-transform-origin: #{$str};-moz-transform-origin: #{$str};-ms-transform-origin: #{$str};-o-transform-origin: #{$str};transform-origin: #{$str};}
+@mixin clearfix() {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+
+
+#content {max-width: 1200px; margin: 0 auto; padding: 20px;}
+
+#breadcrumbs {
+  margin: 5px 10px 30px 10px; padding: 0 0 5px 0; border-bottom: 1px solid #ddd; font-size: 1.3em;
+  ul {
+    list-style: none; margin: 0; padding: 0;
+    li {
+      display: inline-block;
+      font-size: 1.0em;
+      &:before {content: "\00BB"; padding: 0 3px;}
+      &:first-child:before {display: none;}
+      a {}
+    }
+  }
+}
+
+ul.list {
+  list-style: none; margin: 0; padding: 0;
+  
+  li {
+    position: relative; padding: 5px 0; margin: 0; border-top: 1px solid #ddd;
+    &:first-child {border-top: none;}
+
+    .drag {position: absolute; top: 0; left: 0; width: 0; height: 10px; opacity: 0; empty-cells: visible; z-index: 20; background: #f0f;
+      @include transition('left .1s ease-in-out, width .1s ease-in-out')
+    }
+    &:hover > .drag, &.hover > .drag {opacity: 1; width: 20px; left: -20px;}
+
+    h4.tbc, h6.tbc {width: 60%;}
+    .buttons.tbc {width: 40%; text-align: right;}
+
+    ul {margin: 10px 0 10px 20px;}
+  }
+
+  &.alternate li:nth-child(2n+1) {background-color: #f3f3f3;}
+  &.hoverable li:hover {background-color: #d9d9d9;}
+  
+}

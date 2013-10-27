@@ -1,9 +1,14 @@
-:javascript
-  MIHI.Browse.Current.exhibition(#{@exhibition.to_api(pieces: true, sections: true).to_json.html_safe});
-  MIHI.Browse.Current.piece(#{@exhibition_piece.id});
+- if @exhibition_piece.blank?
+  .error
+    %p Sorry, this exhibition is currently being installed. Try again later.
 
-  (function($) {
-    $(document).ready(function() {
-      MIHI.Browse.Current.init();
-    });
-  })(jQuery);
+- else
+  :javascript
+    MIHI.Browse.Current.exhibition(#{@exhibition.to_api(pieces: true, sections: true).to_json.html_safe});
+    MIHI.Browse.Current.piece(#{@exhibition_piece.id});
+
+    (function($) {
+      $(document).ready(function() {
+        MIHI.Browse.Current.init();
+      });
+    })(jQuery);

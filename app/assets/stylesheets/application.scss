@@ -21,5 +21,10 @@
 */
 
 
+@mixin transition($str) {-webkit-transition: #{$str};-moz-transition: #{$str};-ms-transition: #{$str};-o-transition: #{$str};transition: #{$str};}
+@mixin animation($str) {-webkit-animation: #{$str};-moz-animation: #{$str};-ms-animation: #{$str};-o-animation: #{$str};animation: #{$str};}
+@mixin transform-origin($str) {-webkit-transform-origin: #{$str};-moz-transform-origin: #{$str};-ms-transform-origin: #{$str};-o-transform-origin: #{$str};transform-origin: #{$str};}
+@mixin clearfix() {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+
 
 .c:after {content: ""; clear: both; float: none; display: block; height: 0; font-size: 0; visibility: hidden; opacity: 0;};

@@ -73,6 +73,8 @@ protected
     case exception
       when ActiveRecord::RecordNotFound
         render_not_found
+      when Mihi::NotYetAvailable
+        render_not_available
       when Mihi::Unauthorized
         render_unauthorized
       when Mihi::ExpiredListing
@@ -87,6 +89,12 @@ protected
   def render_not_found
     raise ActiveRecord::RecordNotFound if test? # TRACK AS RAISED ERROR
     render_error(status: 404, message: t('errors.not_found'))
+  end
+
+  # Render a 404 Not Found
+  def render_not_available
+    raise Mihi::NotYetAvailable if test? # TRACK AS RAISED ERROR
+    render_error(status: 404, message: t('errors.not_available'), file: 'not_yet_available')
   end
 
   # Render a 410 Expired Page
@@ -132,20 +140,13 @@ protected
     respond_to do |format|
       format.html {
         @exhibition_piece ||= @exhibition.exhibition_pieces.first
-        
-        if @exhibition_piece.present?
-          @meta_canonical_url = browse_exhibition_piece_url(@exhibition, @exhibition_piece)
-          @meta_title = @exhibition_piece.title
-          @meta_description = @exhibition_piece.piece.excerpt rescue nil
-          @meta_short_url ||= exhibition_piece_short_url(@exhibition_piece.uuid)
-          @meta_image ||= nil
-        end
+        raise Mihi::NotYetAvailable if @exhibition_piece.blank?
 
-        @meta_canonical_url ||= browse_exhibition_url(@exhibition)
-        @meta_title ||= @exhibition.title
+        @meta_canonical_url = browse_exhibition_piece_url(@exhibition, @exhibition_piece)
+        @meta_title = @exhibition_piece.title
+        @meta_description = @exhibition_piece.piece.excerpt rescue nil
         @meta_description ||= @exhibition.excerpt
-        @meta_short_url ||= nil
-        @meta_image ||= nil
+        @meta_short_url ||= exhibition_piece_short_url(@exhibition_piece.uuid)
 
         results.call
         render 'browse/exhibition_pieces/show'

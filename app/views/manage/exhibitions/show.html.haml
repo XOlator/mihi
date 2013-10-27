@@ -6,20 +6,26 @@
 
 
 %h2 Sections
-%ul
+%ul.list.sections
   - @exhibition.sections.each do |s|
     %li
-      %h4= s.title
-      %a.button{href: edit_manage_exhibition_section_url(@exhibition, s)} Edit
-      %a.button{href: manage_exhibition_section_url(@exhibition, s), 'data-method' => :delete, 'data-confirm' => 'Are you sure?'} Delete
+      .drag
+      .tbl
+        %h4.tbc= s.title
+        .tbc.buttons
+          %a.button{href: edit_manage_exhibition_section_url(@exhibition, s)} Edit
+          %a.button{href: manage_exhibition_section_url(@exhibition, s), 'data-method' => :delete, 'data-confirm' => 'Are you sure?'} Delete
 
-      %ul
+      %ul.list.pieces.alternate.hoverable
         - s.exhibition_pieces.each do |p|
           %li
-            %h6= p.title
-            %a.button{href: edit_manage_exhibition_section_piece_url(@exhibition, s, p)} Edit
-            %a.button{href: manage_exhibition_section_piece_url(@exhibition, s, p), 'data-method' => :delete, 'data-confirm' => 'Are you sure?'} Delete
+            .drag
+            .tbl
+              %h6.tbc= p.title
+              .tbc.buttons
+                %a.button{href: edit_manage_exhibition_section_piece_url(@exhibition, s, p)} Edit
+                %a.button{href: manage_exhibition_section_piece_url(@exhibition, s, p), 'data-method' => :delete, 'data-confirm' => 'Are you sure?'} Delete
         %li.new
           %a.button{href: new_manage_exhibition_section_piece_url(@exhibition, s)} Add a Piece
-  %li.new
+  %li.setion.new
     %a.button{href: new_manage_exhibition_section_url(@exhibition)} Add a Section
