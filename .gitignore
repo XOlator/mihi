@@ -12,3 +12,6 @@ coverage/
 
 public/storage
 public/system
+
+config/deploy/
+config.ru
