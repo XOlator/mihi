@@ -73,7 +73,7 @@ class Manage::ExhibitionPiecesController < ApplicationController
           next if exhibition_piece.blank?
 
           if exhibition_piece.update_attributes(sort_index: p[:sort_index])
-            # @exhibition_pieces << exhibition_piece.to_api(:admin => true)
+            # @exhibition_pieces << exhibition_piece.to_api(admin: true)
           else
             error = true
             raise ActiveRecord::Rollback

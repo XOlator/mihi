@@ -64,7 +64,7 @@ class Manage::SectionsController < ApplicationController
           next if section.blank?
 
           if section.update_attributes(sort_index: p[:sort_index])
-            # @sections << section.to_api(:admin => true)
+            # @sections << section.to_api(admin: true)
           else
             error = true
             raise ActiveRecord::Rollback

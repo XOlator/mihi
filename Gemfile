@@ -47,7 +47,7 @@ group :development, :staging, :test, :production do
   # gem 'jbuilder', '~> 1.2'
 
   # DISPLAY
-  gem 'font-awesome-rails',           '3.2.1.3'
+  gem 'font-awesome-rails',           '4.0.0.0'
 
   # JOBS QUEUE
   # gem 'daemons',                    '1.1.9'     # Ruby script wrapper for delayed_job

@@ -152,7 +152,7 @@ MIHI.Browse.Current.extend({
           x[p] = t.pieces(p);
           if (t._piece == p) x[p].current = true;
         });
-        s.exhibition_pieces = x;
+        if (s.exhibition_pieces.length > 0) s.exhibition_pieces = x;
         t._pages.push(s);
       });
     }

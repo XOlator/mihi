@@ -44,9 +44,7 @@ body.browse_exhibition {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(225,225,225,.9);
             .loading_icon {
-              position: absolute; top: 50%; font-size: 100px; width: 86px; height: 86px; overflow: hidden; left: 0; right: 0; margin: -90px auto 0 auto; text-align: center; line-height: 1.0em;
-              @include transform-origin('center center');
-              @include animation('rotate 1.5s infinite linear');
+              position: absolute; top: 50%; font-size: 92px; overflow: hidden; left: 0; right: 0; margin: -90px auto 0 auto; text-align: center;
             }
             h3 {position: absolute; margin: 30px auto 0 auto; width: 250px; left: 0; right: 0; top: 50%; font-size: 16px; text-align: center; }
             &.hide {opacity: 0;}
@@ -79,7 +77,8 @@ body.browse_exhibition {
             #exhibition_navigate_previous {clear: none; float: left; display: inline-block;}
             #exhibition_navigate_next {clear: none; float: right; display: inline-block;}
           }
-          span, a.disabled, a:hover {background-color: rgb(100,100,100);}
+          span, a:hover {background-color: rgb(100,100,100);}
+          a.disabled:hover {background-color: transparent;}
           span, a.disabled {
             opacity: .3;
             i {margin: 0 !important;}
@@ -164,6 +163,7 @@ body.browse_exhibition {
 
   #exhibition_details {
     position: fixed;  top: 100%; opacity: 0; right: 0; left: 0; bottom: 50px; z-index: 3600; background: rgba(0,0,0,.9); overflow: scroll;
+
     .rel {position: relative;}
     &.open {
       top: 0; opacity: 1;
@@ -176,26 +176,38 @@ body.browse_exhibition {
     }
 
     #information_container {
-      width: 750px; margin: 20px auto;
+      max-width: 1100px; margin: 60px auto; padding: 0 30px;
       &:after {@include clearfix();}
 
       #exhibition_information {
-        clear: none; float: left; width: 50%; margin: 0 0 0 -5px;
+        clear: none; float: left; width: 49%; margin: 0 0 0 -10px;
         h1, h3, p {color: rgb(255,255,255);}
+        h1 {font-size: 3.6em; line-height: 1.2em;}
+        h3 {font-size: 2.8em; line-height: 1.2em;}
+        p {font-size: 1.7em; line-height: 1.67em;}
       }
 
       #exhibition_pagination {
-        clear: none; float: right; width: 50%; margin: 0 -5px 0 0;
+        clear: none; float: right; width: 49%; margin: 0 -10px 0 0;
         ul.pagination {
           margin: 0; padding: 0; list-style: none;
           li {
-            padding: 3px 5px; color: rgb(255,255,255);
+            margin: 8px 0 5px 0; padding: 0 0 0 20px; color: rgb(255,255,255); font-size: 1.0em;
+
+            &.section {border-top: 1px solid rgba(255,255,255,1); margin: 30px 0 0 0; padding: 10px 0 0 0; border-left: none;}
+            &.section:first-child {bborder-top: none; margin-top: 20px;};
+
+            h2, h3, p {font-size: 1.2em; padding: 0 0 5px 0; margin: 0; color: rgb(255,255,255);}
+            h2 {font-size: 2.2em;}
+            h3 {font-size: 1.6em;}
+
             a {
-              display: block; width: 100%; font-size: 16px; line-height: 1.0em; color: rgb(255,255,255); text-decoration: none;
-              &:hover {color: rgb(100,100,100);}
-              @include transition('color .2s ease-in-out')
+              display: block; width: 100%; line-height: 1.0em; color: rgb(255,255,255); text-decoration: none;
+              &:hover {opacity: .5;}
+              @include transition('opacity .2s ease-in-out')
             }
           }
+          li > a > *:last-child {padding-bottom: 0;}
         }
       }
     }

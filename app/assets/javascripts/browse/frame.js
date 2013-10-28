@@ -19,7 +19,7 @@ MIHI.Frame.Current.extend({
   offsite : function(url) {
     var t = this;
     $('#offsite_frame').remove();
-    $('body').append('<div id="offsite_frame" style=""><div id="offsite_frame_bg"></div><a href="javascript:;" id="offsite_frame_close"><i class="icon-remove"></i></a><div id="offsite_frame_container"><iframe src="'+ url +'" width="100%" height="100%" framespacing="0" frameborder="0"></iframe></div></div>');
+    $('body').append('<div id="offsite_frame" style=""><div id="offsite_frame_bg"></div><a href="javascript:;" id="offsite_frame_close"><i class="fa fa-remove"></i></a><div id="offsite_frame_container"><iframe src="'+ url +'" width="100%" height="100%" framespacing="0" frameborder="0"></iframe></div></div>');
     $('#offsite_frame_bg, #offsite_frame_container #offsite_frame_close').css({opacity: 0});
     $('#offsite_frame_bg, #offsite_frame_close').on('click', function() {t.close_offsite();})
     setTimeout(function() {$('#offsite_frame_bg').animate({'opacity':.8}, 500);}, 250);
