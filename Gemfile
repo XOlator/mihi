@@ -21,8 +21,8 @@ gem 'therubyracer',               '0.12.0',   platforms: :ruby
 
 # BASICS
 group :development, :staging, :test, :production do
+
   # Core compontents
-  gem 'mysql2',                     '0.3.13'    # MySQL adapter
   gem 'authlogic',                  '3.3.0'     # Userauth
   gem 'addressable',                '2.3.5'     # Better URI parsing
   gem 'haml',                       '4.0.3'     # Templating
@@ -83,7 +83,6 @@ group :development, :test do
   gem 'rspec-rails',                '2.14.0'
   gem 'factory_girl_rails',         '4.2.1'
   gem 'newrelic_rpm',               '3.6.6.147'
-  gem 'sqlite3',                    '1.3.8'
 end
 
 
@@ -96,6 +95,7 @@ group :test do
   gem 'simplecov',                  '0.7.1',    require: false
   gem 'timecop',                    '0.6.3'
   gem 'webmock',                    '1.13.0'
+  gem 'sqlite3',                    '1.3.8'
 end
 
 
