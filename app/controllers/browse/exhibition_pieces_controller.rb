@@ -23,8 +23,9 @@ class Browse::ExhibitionPiecesController < ApplicationController
       when 'PiecePage'
         @content = @exhibition_piece.piece.read_cache_page
         @content ||= "<html>\n<head>\n<title>test</title>\n</head>\n<body>\n\n<h1>Offline: #{@exhibition_piece.piece.url}</h1>\n" << (0..100).map{|i| "<p>#{i}</p>"}.join("\n") << "\n\n</body>\n</html>\n"
-        @content.encode!('UTF-8', 'UTF-8', invalid: :replace)
-        redirect_to @exhibition_piece.piece.url and return if @content.blank?
+        @content = @content.force_encoding('UTF-8')
+        @content.encode!('UTF-8', 'UTF-8', invalid: :replace, undef: :replace, replace: '')
+        redirect_to @exhibition_piece.piece.url and return if (!@content || @content.blank?)
     end
 
     render :cache, layout: nil

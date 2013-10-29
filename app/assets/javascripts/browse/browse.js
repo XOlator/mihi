@@ -18,7 +18,7 @@ MIHI.Browse.Current.extend({
   _unloadable : true,
   _playing : false,
   defaults : {
-    event : [{action:'scroll',array:[0],timeout:10000}]
+    event : [{action:'scroll',array:[0],timeout:5000}]
   },
 
   target : function(t) {if (t) this._target = t; return this._target;},
@@ -46,10 +46,10 @@ MIHI.Browse.Current.extend({
     this._unloadable = true;
   },
 
-  init : function() {
+  init : function(opts) {
     
     // Generate HTML
-    this.load();
+    this.load(opts);
 
     $(window).on('popstate', function(e) {
       var s = e.originalEvent.state;
@@ -195,17 +195,19 @@ MIHI.Browse.Current.extend({
   },
 
 
-  load : function() {
+  load : function(opts) {
+    if (!opts) opts = {}
     // Load framework HTML
+    console.log(opts)
     if ($('#browse_container').size() < 1) {
-      var html = HandlebarsTemplates['exhibition']({});
+      var html = HandlebarsTemplates['exhibition']({show_details : opts.info});
       $('#content').html(html);
     }
 
     this.Render.parent = this;
     this.Render.navigation();
     this.Render.pagination();
-    this.Render.information();
+    this.Render.information(opts.info);
     this.Render.new_piece();
   },
 

@@ -6,6 +6,7 @@ class Browse::ExhibitionsController < ApplicationController
 
 
   def show
+    @info_page = true
     render_exhibition_page
   end
 

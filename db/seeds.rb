@@ -428,7 +428,7 @@ list = {
         url: 'http://gleu.ch/projects/ctrl-f-d',
         timeline_year: '2009',
         events: [
-          {type: :scroll, array: [0], timeout: 6000},
+          {type: :scroll, array: [0], timeout: 3000},
           {type: :popup, array: ['section.statement a.button'], timeout: 3000, text: "See Ctrl+F'd in action by clicking the button."},
           {type: :clickthrough, array: ['section.statement a.button'], timeout: 3000}
         ]
@@ -584,9 +584,8 @@ list = {
         url: 'https://twitter.com/keytweeter',
         timeline_year: '2009',
         events: [
-          {type: :scroll, array: [0], timeout: 4000},
+          {type: :scroll, array: [0], timeout: 3000},
           {type: :scroll, array: [2000], timeout: 3000},
-          {type: :scroll, array: [4000], timeout: 3000},
           {type: :scroll, array: [6000], timeout: 3000}
         ]
       },

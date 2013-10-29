@@ -9,6 +9,8 @@
 
     (function($) {
       $(document).ready(function() {
-        MIHI.Browse.Current.init();
+        MIHI.Browse.Current.init({
+          #{"info : true," if @info_page}
+        });
       });
     })(jQuery);

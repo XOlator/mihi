@@ -89,7 +89,7 @@ class PiecePage < ActiveRecord::Base
         io = open(u, read_timeout: TIMEOUT_LENGTH, "User-Agent" => MIHI_USER_AGENT, allow_redirections: :all)
         raise "Invalid content-type" unless io.content_type.match(/text\/html/i)
 
-        doc = Nokogiri::HTML.parse(io.read, u.to_s)
+        doc = Nokogiri::HTML.parse(io.read.to_s.force_encoding("ISO-8859-1").encode("utf-8", replace: nil), u.to_s)
         doc.encoding = 'utf-8'
 
         # MIHI Dated Watermark
@@ -103,8 +103,8 @@ class PiecePage < ActiveRecord::Base
           end
         end
 
-        tempfile = Tempfile.new(u.host)
-        tempfile.write(doc.to_html(:encoding => 'UTF-8'))
+        tempfile = Tempfile.new(u.host, nil, encoding: 'UTF-8')
+        tempfile.write(doc.to_html(encoding: 'UTF-8'))
         tempfile.class_eval { attr_accessor :original_filename }
         tempfile.original_filename = [uri.host, File.basename(uri.path), "html"].reject{|v| v.blank? || v == '/'}.join('.').gsub(/\//, '')
 
@@ -136,8 +136,10 @@ class PiecePage < ActiveRecord::Base
         open((cache_page.url.match(/^http/i) ? cache_page.url : cache_page.path), read_timeout: TIMEOUT_LENGTH, "User-Agent" => MIHI_USER_AGENT, allow_redirections: :all).read
       end
     rescue OpenURI::HTTPError => err
+      puts "ERR 1!: #{err}"
       false
     rescue Timeout::Error => err
+      puts "ERR 2!: #{err}"
       false
     rescue => err
       puts "ERR: #{err}"
