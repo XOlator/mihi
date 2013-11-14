@@ -13,10 +13,21 @@ words = %w(Neutra chillwave literally photo booth High Life mixtape you probably
 end
 
 @exhibition = Exhibition.create(
-  title: "Before They Were FAT", 
-  subtitle: words.sample(3).join(' ').capitalize, 
-  excerpt: words.sample(20).join(' ').capitalize, 
-  description: words.sample(100).join(' ').capitalize,
+  # title: "Before They Were FAT", 
+  # subtitle: words.sample(3).join(' ').capitalize, 
+  # excerpt: words.sample(20).join(' ').capitalize, 
+  # description: words.sample(100).join(' ').capitalize,
+
+  # title: "Archive Workshop", 
+  # subtitle: "Archive Workshop", 
+  # excerpt: "Archive Workshop", 
+  # description: "Archive Workshop",
+
+  title: "Browser Extension Workshop", 
+  subtitle: "Browser Extension Workshop", 
+  excerpt: "Browser Extension Workshop", 
+  description: "Browser Extension Workshop",
+
   theme: Exhibition::THEMES.first.to_s
 )
 
@@ -702,16 +713,182 @@ end
 #   },
 # 
 # }
-
-
-@exhibition = Exhibition.last
+# 
+# 
+# @exhibition = Exhibition.last
+# 
+# list = {
+#   blog: {
+#     title: "Blog",
+#     subtitle: "Blog",
+#     excerpt: "Blog", 
+#     description: "Blog",
+#     pieces: [
+#       {
+#         type:  :text,
+#         title: 'Blog',
+#         content: "---",
+#       },
+#       {
+#         type:  :page,
+#         title: 'Hypergeography',
+#         content: 'Hypergeography',
+#         url: 'http://hypergeography.tumblr.com/',
+#       },
+#       {
+#         type:  :page,
+#         title: 'Free Art & Technology Lab',
+#         content: 'FAT Lab',
+#         url: 'http://fffff.at',
+#       },
+#     ]
+#   },
+# 
+#   social: {
+#     title: "Social Media",
+#     subtitle: "Social Media",
+#     excerpt: "Social Media", 
+#     description: "Social Media",
+#     pieces: [
+#       {
+#         type:  :text,
+#         title: 'Social Media',
+#         content: "---",
+#       },
+#       {
+#         type:  :page,
+#         title: 'Choose Your Own Adventure',
+#         content: 'Jonah Peretti (@peretti)',
+#         url: 'https://twitter.com/peretti/status/10731245477',
+#       },
+#       {
+#         type:  :page,
+#         title: 'Keytweeter',
+#         content: 'Kyle McDonald (@keytweeter)',
+#         url: 'https://twitter.com/keytweeter',
+#       },
+#     ]
+#   },
+# 
+#   press: {
+#     title: "Press",
+#     subtitle: "Press",
+#     excerpt: "Press", 
+#     description: "Press",
+#     pieces: [
+#       {
+#         type:  :text,
+#         title: 'Press',
+#         content: "---",
+#       },
+#       {
+#         type:  :page,
+#         title: 'Gizmodo',
+#         content: 'Gizmodo',
+#         url: 'http://gawker.com/crashing-through-manhattan-in-the-fake-google-driverles-478133301',
+#       },
+#     ]
+#   },
+# 
+#   wom: {
+#     title: "Word of Mouth / Remix",
+#     subtitle: "Word of Mouth / Remix",
+#     excerpt: "Word of Mouth / Remix", 
+#     description: "Word of Mouth / Remix",
+#     pieces: [
+#       {
+#         type:  :text,
+#         title: 'Word of Mouth / Remix',
+#         content: "---",
+#       },
+#       {
+#         type:  :page,
+#         title: 'LED Throwies',
+#         content: 'LED Throwies',
+#         url: 'http://www.graffitiresearchlab.com/blog/projects/make-throwies-not-bombs/',
+#       },
+#     ]
+#   },
+# 
+#   video: {
+#     title: "Video",
+#     subtitle: "Video",
+#     excerpt: "Video", 
+#     description: "Video",
+#     pieces: [
+#       {
+#         type:  :text,
+#         title: 'Video',
+#         content: "---",
+#       },
+#       {
+#         type:  :page,
+#         title: 'HOW-TO Vacuum Form',
+#         content: 'HOW-TO Vacuum Form',
+#         url: 'http://www.youtube.com/watch?v=eE26y-r63vY',
+#       },
+#     ]
+#   },
+# 
+# 
+#   deddoc: {
+#     title: "Dedicated Documentation",
+#     subtitle: "Dedicated Documentation",
+#     excerpt: "Dedicated Documentation", 
+#     description: "Dedicated Documentation",
+#     pieces: [
+#       {
+#         type:  :text,
+#         title: 'Video',
+#         content: "---",
+#       },
+#       {
+#         type:  :page,
+#         title: 'White Glove Tracking',
+#         content: 'White Glove Tracking',
+#         url: 'http://whiteglovetracking.com/',
+#       },
+#     ]
+#   },
+# 
+# 
+#   doc: {
+#     title: "Impact and 3rd Party Documentation",
+#     subtitle: "Impact and 3rd Party Documentation",
+#     excerpt: "Impact and 3rd Party Documentation", 
+#     description: "Impact and 3rd Party Documentation",
+#     pieces: [
+#       {
+#         type:  :text,
+#         title: 'Impact and 3rd Party Documentation',
+#         content: "---",
+#       },
+#       {
+#         type:  :page,
+#         title: 'Know Your Meme',
+#         content: 'Know Your Meme',
+#         url: 'http://knowyourmeme.com',
+#       },
+#       {
+#         type:  :page,
+#         title: 'Net Art Net',
+#         content: 'Net Art Net',
+#         url: 'http://netartnet.net',
+#       },
+#     ]
+#   },
+# 
+# }
+# 
+# 
+# @exhibition = Exhibition.last
 
 list = {
-  blog: {
-    title: "Blog",
-    subtitle: "Blog",
-    excerpt: "Blog", 
-    description: "Blog",
+  fat: {
+    title: "FAT Lab",
+    subtitle: "FAT Lab",
+    excerpt: "FAT Lab", 
+    description: "FAT Lab",
     pieces: [
       {
         type:  :text,
@@ -720,155 +897,94 @@ list = {
       },
       {
         type:  :page,
-        title: 'Hypergeography',
-        content: 'Hypergeography',
-        url: 'http://hypergeography.tumblr.com/',
-      },
-      {
-        type:  :page,
-        title: 'Free Art & Technology Lab',
+        title: 'FAT Lab',
         content: 'FAT Lab',
-        url: 'http://fffff.at',
+        url: 'http://fffff.at/',
+      },
+      {
+        type:  :page,
+        title: 'About FAT Lab',
+        content: 'About FAT Lab',
+        url: 'http://fffff.at/about',
       },
     ]
   },
 
-  social: {
-    title: "Social Media",
-    subtitle: "Social Media",
-    excerpt: "Social Media", 
-    description: "Social Media",
+  whatcolor: {
+    title: "WhatColor.IsTheInter.net/?",
+    subtitle: "WhatColor.IsTheInter.net/?",
+    excerpt: "WhatColor.IsTheInter.net/?",
+    description: "WhatColor.IsTheInter.net/?",
     pieces: [
       {
         type:  :text,
-        title: 'Social Media',
+        title: 'WhatColor.IsTheInter.net/?',
         content: "---",
       },
       {
         type:  :page,
-        title: 'Choose Your Own Adventure',
-        content: 'Jonah Peretti (@peretti)',
-        url: 'https://twitter.com/peretti/status/10731245477',
-      },
-      {
-        type:  :page,
-        title: 'Keytweeter',
-        content: 'Kyle McDonald (@keytweeter)',
-        url: 'https://twitter.com/keytweeter',
+        title: 'WhatColor.IsTheInter.net/? Site',
+        content: 'Greg Leuch & Jiashan Wu',
+        url: 'http://whatcolor.istheinter.net/',
       },
     ]
   },
 
-  press: {
-    title: "Press",
-    subtitle: "Press",
-    excerpt: "Press", 
-    description: "Press",
+  extensions: {
+    title: "Browser Extensions",
+    subtitle: "Browser Extensions",
+    excerpt: "Browser Extensions",
+    description: "Browser Extensions",
     pieces: [
       {
         type:  :text,
-        title: 'Press',
+        title: "Browser Extensions",
         content: "---",
       },
       {
         type:  :page,
-        title: 'Gizmodo',
-        content: 'Gizmodo',
-        url: 'http://gawker.com/crashing-through-manhattan-in-the-fake-google-driverles-478133301',
+        title: 'Add-Art',
+        content: 'Add-Art',
+        url: 'http://add-art.org/',
+      },
+      {
+        type:  :page,
+        title: 'Google Alarm',
+        content: 'Google Alarm',
+        url: 'http://jamiedubs.com/googlealarm/',
+      },
+      {
+        type:  :page,
+        title: 'China Channel',
+        content: 'China Channel',
+        url: 'http://chinachannel.fffff.at/',
+      },
+      {
+        type:  :page,
+        title: 'Shaved Bieber',
+        content: 'Shaved Bieber',
+        url: 'http://fffff.at/shaved-bieber',
       },
     ]
   },
 
-  wom: {
-    title: "Word of Mouth / Remix",
-    subtitle: "Word of Mouth / Remix",
-    excerpt: "Word of Mouth / Remix", 
-    description: "Word of Mouth / Remix",
+  thanks: {
+    title: "Thanks!",
+    subtitle: "Thanks!",
+    excerpt: "Thanks!",
+    description: "Thanks!",
     pieces: [
       {
         type:  :text,
-        title: 'Word of Mouth / Remix',
-        content: "---",
+        title: "Thanks!",
+        content: "Thanks for attending.<br><br><br>Greg Leuch<br>@gleuch<br>hi@gleu.ch<br><br>Jiashan Wu<br>@ohjia<br>hello@fromjia.com",
       },
-      {
-        type:  :page,
-        title: 'LED Throwies',
-        content: 'LED Throwies',
-        url: 'http://www.graffitiresearchlab.com/blog/projects/make-throwies-not-bombs/',
-      },
+
     ]
   },
-
-  video: {
-    title: "Video",
-    subtitle: "Video",
-    excerpt: "Video", 
-    description: "Video",
-    pieces: [
-      {
-        type:  :text,
-        title: 'Video',
-        content: "---",
-      },
-      {
-        type:  :page,
-        title: 'HOW-TO Vacuum Form',
-        content: 'HOW-TO Vacuum Form',
-        url: 'http://www.youtube.com/watch?v=eE26y-r63vY',
-      },
-    ]
-  },
-
-
-  deddoc: {
-    title: "Dedicated Documentation",
-    subtitle: "Dedicated Documentation",
-    excerpt: "Dedicated Documentation", 
-    description: "Dedicated Documentation",
-    pieces: [
-      {
-        type:  :text,
-        title: 'Video',
-        content: "---",
-      },
-      {
-        type:  :page,
-        title: 'White Glove Tracking',
-        content: 'White Glove Tracking',
-        url: 'http://whiteglovetracking.com/',
-      },
-    ]
-  },
-
-
-  doc: {
-    title: "Impact and 3rd Party Documentation",
-    subtitle: "Impact and 3rd Party Documentation",
-    excerpt: "Impact and 3rd Party Documentation", 
-    description: "Impact and 3rd Party Documentation",
-    pieces: [
-      {
-        type:  :text,
-        title: 'Impact and 3rd Party Documentation',
-        content: "---",
-      },
-      {
-        type:  :page,
-        title: 'Know Your Meme',
-        content: 'Know Your Meme',
-        url: 'http://knowyourmeme.com',
-      },
-      {
-        type:  :page,
-        title: 'Net Art Net',
-        content: 'Net Art Net',
-        url: 'http://netartnet.net',
-      },
-    ]
-  },
+    
 
 }
-
 
 
 
@@ -892,8 +1008,8 @@ list.each do |k,v|
           wayback_url: p[:wayback_url],
           timeline_date: p[:date],
           timeline_year: p[:timeline_year],
-          excerpt: (p[:excerpt] || words.sample(20).join(' ').capitalize), 
-          description: (p[:description] || words.sample(100).join(' ').capitalize),
+          excerpt: (p[:excerpt] || p[:title] || words.sample(20).join(' ').capitalize), 
+          description: (p[:description] || p[:title] || words.sample(100).join(' ').capitalize),
           author: (p[:author] || words.sample(2).map(&:capitalize).join(' ')),
           organization: (p[:organization] || words.sample(1).map(&:capitalize).join(' '))
         )

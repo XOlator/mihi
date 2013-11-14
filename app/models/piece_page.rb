@@ -12,7 +12,7 @@ class PiecePage < ActiveRecord::Base
 
   # ---------------------------------------------------------------------------
 
-  TIMEOUT_LENGTH = 10
+  TIMEOUT_LENGTH = 30
 
   has_attached_file :cache_page
 
@@ -105,9 +105,9 @@ class PiecePage < ActiveRecord::Base
 
         tempfile = Tempfile.new(u.host, nil, encoding: 'UTF-8')
         tempfile.write(doc.to_html(encoding: 'UTF-8'))
-        tempfile.class_eval { attr_accessor :original_filename }
+        tempfile.class_eval { attr_accessor :content_type, :original_filename }
+        tempfile.content_type = 'text/html'
         tempfile.original_filename = [uri.host, File.basename(uri.path), "html"].reject{|v| v.blank? || v == '/'}.join('.').gsub(/\//, '')
-
         self.cache_page = tempfile
       end
     rescue OpenURI::HTTPError => err
