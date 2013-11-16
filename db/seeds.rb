@@ -18,15 +18,15 @@ end
   # excerpt: words.sample(20).join(' ').capitalize, 
   # description: words.sample(100).join(' ').capitalize,
 
-  # title: "Archive Workshop", 
-  # subtitle: "Archive Workshop", 
-  # excerpt: "Archive Workshop", 
-  # description: "Archive Workshop",
+  title: "Archive Workshop", 
+  subtitle: "Archive Workshop", 
+  excerpt: "Archive Workshop", 
+  description: "Archive Workshop",
 
-  title: "Browser Extension Workshop", 
-  subtitle: "Browser Extension Workshop", 
-  excerpt: "Browser Extension Workshop", 
-  description: "Browser Extension Workshop",
+  # title: "Browser Extension Workshop", 
+  # subtitle: "Browser Extension Workshop", 
+  # excerpt: "Browser Extension Workshop", 
+  # description: "Browser Extension Workshop",
 
   theme: Exhibition::THEMES.first.to_s
 )
