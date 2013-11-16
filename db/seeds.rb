@@ -714,181 +714,13 @@ end
 # 
 # }
 # 
-# 
-# @exhibition = Exhibition.last
-# 
-# list = {
-#   blog: {
-#     title: "Blog",
-#     subtitle: "Blog",
-#     excerpt: "Blog", 
-#     description: "Blog",
-#     pieces: [
-#       {
-#         type:  :text,
-#         title: 'Blog',
-#         content: "---",
-#       },
-#       {
-#         type:  :page,
-#         title: 'Hypergeography',
-#         content: 'Hypergeography',
-#         url: 'http://hypergeography.tumblr.com/',
-#       },
-#       {
-#         type:  :page,
-#         title: 'Free Art & Technology Lab',
-#         content: 'FAT Lab',
-#         url: 'http://fffff.at',
-#       },
-#     ]
-#   },
-# 
-#   social: {
-#     title: "Social Media",
-#     subtitle: "Social Media",
-#     excerpt: "Social Media", 
-#     description: "Social Media",
-#     pieces: [
-#       {
-#         type:  :text,
-#         title: 'Social Media',
-#         content: "---",
-#       },
-#       {
-#         type:  :page,
-#         title: 'Choose Your Own Adventure',
-#         content: 'Jonah Peretti (@peretti)',
-#         url: 'https://twitter.com/peretti/status/10731245477',
-#       },
-#       {
-#         type:  :page,
-#         title: 'Keytweeter',
-#         content: 'Kyle McDonald (@keytweeter)',
-#         url: 'https://twitter.com/keytweeter',
-#       },
-#     ]
-#   },
-# 
-#   press: {
-#     title: "Press",
-#     subtitle: "Press",
-#     excerpt: "Press", 
-#     description: "Press",
-#     pieces: [
-#       {
-#         type:  :text,
-#         title: 'Press',
-#         content: "---",
-#       },
-#       {
-#         type:  :page,
-#         title: 'Gizmodo',
-#         content: 'Gizmodo',
-#         url: 'http://gawker.com/crashing-through-manhattan-in-the-fake-google-driverles-478133301',
-#       },
-#     ]
-#   },
-# 
-#   wom: {
-#     title: "Word of Mouth / Remix",
-#     subtitle: "Word of Mouth / Remix",
-#     excerpt: "Word of Mouth / Remix", 
-#     description: "Word of Mouth / Remix",
-#     pieces: [
-#       {
-#         type:  :text,
-#         title: 'Word of Mouth / Remix',
-#         content: "---",
-#       },
-#       {
-#         type:  :page,
-#         title: 'LED Throwies',
-#         content: 'LED Throwies',
-#         url: 'http://www.graffitiresearchlab.com/blog/projects/make-throwies-not-bombs/',
-#       },
-#     ]
-#   },
-# 
-#   video: {
-#     title: "Video",
-#     subtitle: "Video",
-#     excerpt: "Video", 
-#     description: "Video",
-#     pieces: [
-#       {
-#         type:  :text,
-#         title: 'Video',
-#         content: "---",
-#       },
-#       {
-#         type:  :page,
-#         title: 'HOW-TO Vacuum Form',
-#         content: 'HOW-TO Vacuum Form',
-#         url: 'http://www.youtube.com/watch?v=eE26y-r63vY',
-#       },
-#     ]
-#   },
-# 
-# 
-#   deddoc: {
-#     title: "Dedicated Documentation",
-#     subtitle: "Dedicated Documentation",
-#     excerpt: "Dedicated Documentation", 
-#     description: "Dedicated Documentation",
-#     pieces: [
-#       {
-#         type:  :text,
-#         title: 'Video',
-#         content: "---",
-#       },
-#       {
-#         type:  :page,
-#         title: 'White Glove Tracking',
-#         content: 'White Glove Tracking',
-#         url: 'http://whiteglovetracking.com/',
-#       },
-#     ]
-#   },
-# 
-# 
-#   doc: {
-#     title: "Impact and 3rd Party Documentation",
-#     subtitle: "Impact and 3rd Party Documentation",
-#     excerpt: "Impact and 3rd Party Documentation", 
-#     description: "Impact and 3rd Party Documentation",
-#     pieces: [
-#       {
-#         type:  :text,
-#         title: 'Impact and 3rd Party Documentation',
-#         content: "---",
-#       },
-#       {
-#         type:  :page,
-#         title: 'Know Your Meme',
-#         content: 'Know Your Meme',
-#         url: 'http://knowyourmeme.com',
-#       },
-#       {
-#         type:  :page,
-#         title: 'Net Art Net',
-#         content: 'Net Art Net',
-#         url: 'http://netartnet.net',
-#       },
-#     ]
-#   },
-# 
-# }
-# 
-# 
-# @exhibition = Exhibition.last
 
 list = {
-  fat: {
-    title: "FAT Lab",
-    subtitle: "FAT Lab",
-    excerpt: "FAT Lab", 
-    description: "FAT Lab",
+  blog: {
+    title: "Blog",
+    subtitle: "Blog",
+    excerpt: "Blog", 
+    description: "Blog",
     pieces: [
       {
         type:  :text,
@@ -897,94 +729,255 @@ list = {
       },
       {
         type:  :page,
-        title: 'FAT Lab',
+        title: 'Hypergeography',
+        content: 'Hypergeography',
+        url: 'http://hypergeography.tumblr.com/',
+      },
+      {
+        type:  :page,
+        title: 'Free Art & Technology Lab',
         content: 'FAT Lab',
-        url: 'http://fffff.at/',
-      },
-      {
-        type:  :page,
-        title: 'About FAT Lab',
-        content: 'About FAT Lab',
-        url: 'http://fffff.at/about',
+        url: 'http://fffff.at',
       },
     ]
   },
 
-  whatcolor: {
-    title: "WhatColor.IsTheInter.net/?",
-    subtitle: "WhatColor.IsTheInter.net/?",
-    excerpt: "WhatColor.IsTheInter.net/?",
-    description: "WhatColor.IsTheInter.net/?",
+  social: {
+    title: "Social Media",
+    subtitle: "Social Media",
+    excerpt: "Social Media", 
+    description: "Social Media",
     pieces: [
       {
         type:  :text,
-        title: 'WhatColor.IsTheInter.net/?',
+        title: 'Social Media',
         content: "---",
       },
       {
         type:  :page,
-        title: 'WhatColor.IsTheInter.net/? Site',
-        content: 'Greg Leuch & Jiashan Wu',
-        url: 'http://whatcolor.istheinter.net/',
+        title: 'Choose Your Own Adventure',
+        content: 'Jonah Peretti (@peretti)',
+        url: 'https://twitter.com/peretti/status/10731245477',
+      },
+      {
+        type:  :page,
+        title: 'Keytweeter',
+        content: 'Kyle McDonald (@keytweeter)',
+        url: 'https://twitter.com/keytweeter',
       },
     ]
   },
 
-  extensions: {
-    title: "Browser Extensions",
-    subtitle: "Browser Extensions",
-    excerpt: "Browser Extensions",
-    description: "Browser Extensions",
+  press: {
+    title: "Press",
+    subtitle: "Press",
+    excerpt: "Press", 
+    description: "Press",
     pieces: [
       {
         type:  :text,
-        title: "Browser Extensions",
+        title: 'Press',
         content: "---",
       },
       {
         type:  :page,
-        title: 'Add-Art',
-        content: 'Add-Art',
-        url: 'http://add-art.org/',
-      },
-      {
-        type:  :page,
-        title: 'Google Alarm',
-        content: 'Google Alarm',
-        url: 'http://jamiedubs.com/googlealarm/',
-      },
-      {
-        type:  :page,
-        title: 'China Channel',
-        content: 'China Channel',
-        url: 'http://chinachannel.fffff.at/',
-      },
-      {
-        type:  :page,
-        title: 'Shaved Bieber',
-        content: 'Shaved Bieber',
-        url: 'http://fffff.at/shaved-bieber',
+        title: 'Gizmodo',
+        content: 'Gizmodo',
+        url: 'http://gawker.com/crashing-through-manhattan-in-the-fake-google-driverles-478133301',
       },
     ]
   },
 
-  thanks: {
-    title: "Thanks!",
-    subtitle: "Thanks!",
-    excerpt: "Thanks!",
-    description: "Thanks!",
+  wom: {
+    title: "Word of Mouth / Remix",
+    subtitle: "Word of Mouth / Remix",
+    excerpt: "Word of Mouth / Remix", 
+    description: "Word of Mouth / Remix",
     pieces: [
       {
         type:  :text,
-        title: "Thanks!",
-        content: "Thanks for attending.<br><br><br>Greg Leuch<br>@gleuch<br>hi@gleu.ch<br><br>Jiashan Wu<br>@ohjia<br>hello@fromjia.com",
+        title: 'Word of Mouth / Remix',
+        content: "---",
       },
-
+      {
+        type:  :page,
+        title: 'LED Throwies',
+        content: 'LED Throwies',
+        url: 'http://www.graffitiresearchlab.com/blog/projects/make-throwies-not-bombs/',
+      },
     ]
   },
-    
+
+  video: {
+    title: "Video",
+    subtitle: "Video",
+    excerpt: "Video", 
+    description: "Video",
+    pieces: [
+      {
+        type:  :text,
+        title: 'Video',
+        content: "---",
+      },
+      {
+        type:  :page,
+        title: 'HOW-TO Vacuum Form',
+        content: 'HOW-TO Vacuum Form',
+        url: 'http://www.youtube.com/watch?v=eE26y-r63vY',
+      },
+    ]
+  },
+
+
+  deddoc: {
+    title: "Dedicated Documentation",
+    subtitle: "Dedicated Documentation",
+    excerpt: "Dedicated Documentation", 
+    description: "Dedicated Documentation",
+    pieces: [
+      {
+        type:  :text,
+        title: 'Video',
+        content: "---",
+      },
+      {
+        type:  :page,
+        title: 'White Glove Tracking',
+        content: 'White Glove Tracking',
+        url: 'http://whiteglovetracking.com/',
+      },
+    ]
+  },
+
+
+  doc: {
+    title: "Impact and 3rd Party Documentation",
+    subtitle: "Impact and 3rd Party Documentation",
+    excerpt: "Impact and 3rd Party Documentation", 
+    description: "Impact and 3rd Party Documentation",
+    pieces: [
+      {
+        type:  :text,
+        title: 'Impact and 3rd Party Documentation',
+        content: "---",
+      },
+      {
+        type:  :page,
+        title: 'Know Your Meme',
+        content: 'Know Your Meme',
+        url: 'http://knowyourmeme.com',
+      },
+      {
+        type:  :page,
+        title: 'Net Art Net',
+        content: 'Net Art Net',
+        url: 'http://netartnet.net',
+      },
+    ]
+  },
 
 }
+
+# list = {
+#   fat: {
+#     title: "FAT Lab",
+#     subtitle: "FAT Lab",
+#     excerpt: "FAT Lab", 
+#     description: "FAT Lab",
+#     pieces: [
+#       {
+#         type:  :text,
+#         title: 'Blog',
+#         content: "---",
+#       },
+#       {
+#         type:  :page,
+#         title: 'FAT Lab',
+#         content: 'FAT Lab',
+#         url: 'http://fffff.at/',
+#       },
+#       {
+#         type:  :page,
+#         title: 'About FAT Lab',
+#         content: 'About FAT Lab',
+#         url: 'http://fffff.at/about',
+#       },
+#     ]
+#   },
+# 
+#   whatcolor: {
+#     title: "WhatColor.IsTheInter.net/?",
+#     subtitle: "WhatColor.IsTheInter.net/?",
+#     excerpt: "WhatColor.IsTheInter.net/?",
+#     description: "WhatColor.IsTheInter.net/?",
+#     pieces: [
+#       {
+#         type:  :text,
+#         title: 'WhatColor.IsTheInter.net/?',
+#         content: "---",
+#       },
+#       {
+#         type:  :page,
+#         title: 'WhatColor.IsTheInter.net/? Site',
+#         content: 'Greg Leuch & Jiashan Wu',
+#         url: 'http://whatcolor.istheinter.net/',
+#       },
+#     ]
+#   },
+# 
+#   extensions: {
+#     title: "Browser Extensions",
+#     subtitle: "Browser Extensions",
+#     excerpt: "Browser Extensions",
+#     description: "Browser Extensions",
+#     pieces: [
+#       {
+#         type:  :text,
+#         title: "Browser Extensions",
+#         content: "---",
+#       },
+#       {
+#         type:  :page,
+#         title: 'Add-Art',
+#         content: 'Add-Art',
+#         url: 'http://add-art.org/',
+#       },
+#       {
+#         type:  :page,
+#         title: 'Google Alarm',
+#         content: 'Google Alarm',
+#         url: 'http://jamiedubs.com/googlealarm/',
+#       },
+#       {
+#         type:  :page,
+#         title: 'China Channel',
+#         content: 'China Channel',
+#         url: 'http://chinachannel.fffff.at/',
+#       },
+#       {
+#         type:  :page,
+#         title: 'Shaved Bieber',
+#         content: 'Shaved Bieber',
+#         url: 'http://fffff.at/shaved-bieber',
+#       },
+#     ]
+#   },
+# 
+#   thanks: {
+#     title: "Thanks!",
+#     subtitle: "Thanks!",
+#     excerpt: "Thanks!",
+#     description: "Thanks!",
+#     pieces: [
+#       {
+#         type:  :text,
+#         title: "Thanks!",
+#         content: "Thanks for attending.<br><br><br>Greg Leuch<br>@gleuch<br>hi@gleu.ch<br><br>Jiashan Wu<br>@ohjia<br>hello@fromjia.com",
+#       },
+# 
+#     ]
+#   },
+# }
 
 
 
